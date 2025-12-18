@@ -108,7 +108,7 @@ const RegisterPage = () => {
           <div className="max-w-md mx-auto w-full space-y-8">
             <div className="flex flex-col items-center md:items-start space-y-4 animate-in fade-in slide-in-from-top-4 duration-700">
               <div className="md:hidden w-16 h-16 bg-blue-600 rounded-2xl flex items-center justify-center shadow-xl shadow-blue-500/20 mb-2">
-                {/* <LayoutDashboard className="text-white w-8 h-8" /> */}
+                <LayoutDashboard className="text-white w-8 h-8" />
               </div>
               <h1 className="text-4xl font-black text-gray-900 dark:text-white tracking-tight">
                 ລົງທະບຽນໃໝ່
