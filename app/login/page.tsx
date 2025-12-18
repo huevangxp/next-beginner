@@ -12,6 +12,7 @@ import {
   ArrowRight,
 } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 const LoginPage = () => {
   const [username, setUsername] = useState("");
@@ -59,9 +60,11 @@ const LoginPage = () => {
       <div className="w-full max-w-6xl bg-white dark:bg-gray-900 rounded-none md:rounded-[40px] shadow-2xl border border-gray-100 dark:border-gray-800 overflow-hidden flex flex-col md:flex-row min-h-[700px] relative z-10">
         {/* Left Side: Illustration */}
         <div className="hidden md:flex md:w-1/2 relative items-center justify-center overflow-hidden border-r border-gray-50 dark:border-gray-800">
-          <img
+          <Image
             src="/images/auth.png"
             alt="Auth Illustration"
+            width={500}
+            height={500}
             className="absolute inset-0 w-full h-full object-cover opacity-90"
           />
           <div className="absolute inset-0 bg-gradient-to-br from-teal-600/20 to-blue-600/20 backdrop-blur-[2px]"></div>
