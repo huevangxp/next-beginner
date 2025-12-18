@@ -1,0 +1,81 @@
+{
+  "Dashboard": {
+    "title": "System Overview",
+    "welcome": "Welcome, Admin!",
+    "description": "Here is what's happening today.",
+    "lastUpdated": "Last updated",
+    "minutesAgo": "minutes ago",
+    "downloadReport": "Download Report",
+    "stats": {
+      "totalRevenue": "Total Revenue",
+      "activeUsers": "Active Users",
+      "newOrders": "New Orders",
+      "growthRate": "Growth Rate"
+    },
+    "recentActivity": {
+      "title": "Recent Activity",
+      "viewAll": "View All",
+      "user": "User",
+      "activity": "Activity",
+      "time": "Time",
+      "amount": "Amount"
+    },
+    "quickActions": {
+      "title": "Quick Actions",
+      "addProduct": "Add Product",
+      "addUser": "Add User"
+    },
+    "upgrade": {
+      "title": "Upgrade to Pro Plan",
+      "description": "Access advanced analytics and unlimited products.",
+      "button": "Upgrade Now"
+    }
+  },
+  "Navigation": {
+    "home": "Home",
+    "products": "Products",
+    "profile": "Profile",
+    "settings": "Settings",
+    "logout": "Logout",
+    "systemStatus": "System Status",
+    "online": "Online"
+  },
+  "Settings": {
+    "title": "System Settings",
+    "description": "Manage general settings and system security.",
+    "saveAll": "Save All",
+    "appearance": {
+      "title": "Appearance",
+      "light": "Light Mode",
+      "dark": "Dark Mode",
+      "system": "System"
+    },
+    "language": {
+      "title": "Language & Region",
+      "systemLanguage": "System Language",
+      "selectLanguage": "Select the language you want to use in the system"
+    },
+    "about": {
+      "title": "About System",
+      "version": "Version",
+      "buildDate": "Build Date",
+      "developer": "Developer"
+    }
+  },
+  "Products": {
+    "title": "Products",
+    "description": "Manage your inventory and product listings",
+    "addProduct": "Add Product",
+    "search": "Search products...",
+    "filter": "Filter",
+    "allCategories": "All Categories",
+    "categories": {
+      "electronics": "Electronics",
+      "wearables": "Wearables",
+      "accessories": "Accessories"
+    },
+    "stock": "In Stock",
+    "items": "items",
+    "edit": "Edit Product"
+  }
+}
