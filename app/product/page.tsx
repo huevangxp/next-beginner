@@ -40,6 +40,18 @@ const ProductPage = () => {
       ລາຄາ: p.price,
       ໝວດໝູ່: p.category,
       ຈຳນວນໃນສາງ: p.stock,
+      ໂປຣໂມຊັ່ນ: p.promotion || "-",
+    }));
+    exportToExcel(exportData, "Product_Report");
+  };
+
+  const handleDownloadPDF = () => {
+    exportElementToPDF("product-table", "Product_Report");
+  };
+
+  const products = [
+    {
+      id: 1,
       name: "ຫູຟັງໄຮ້ສາຍ",
       price: 59.99,
       category: "ເຄື່ອງເອເລັກໂຕຣນິກ",
@@ -143,7 +155,10 @@ const ProductPage = () => {
       </div>
 
       {/* Products Table */}
-      <div id="product-table" className="bg-white dark:bg-gray-900 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm overflow-hidden">
+      <div
+        id="product-table"
+        className="bg-white dark:bg-gray-900 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm overflow-hidden"
+      >
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
