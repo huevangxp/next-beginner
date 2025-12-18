@@ -17,7 +17,7 @@ import {
   FileText as FilePdf,
 } from "lucide-react";
 import Link from "next/link";
-import { exportToExcel, exportToPDF } from "../utils/exportUtils";
+import { exportToExcel, exportElementToPDF } from "../utils/exportUtils";
 
 const CustomersPage = () => {
   const [mounted, setMounted] = useState(false);
@@ -39,16 +39,7 @@ const CustomersPage = () => {
   };
 
   const handleDownloadPDF = () => {
-    const headers = ["ID", "ຊື່ລູກຄ້າ", "ອີເມວ", "ເບີໂທ", "ປະເພດ", "ສະຖານະ"];
-    const data = customers.map((c) => [
-      c.id,
-      c.name,
-      c.email,
-      c.phone,
-      c.role,
-      c.status,
-    ]);
-    exportToPDF(headers, data, "Customer_Report", "ລາຍງານລາຍຊື່ລູກຄ້າທັງໝົດ");
+    exportElementToPDF("customer-table", "Customer_Report");
   };
 
   const customers = [
@@ -156,7 +147,10 @@ const CustomersPage = () => {
       </div>
 
       {/* Customers Table */}
-      <div className="bg-white dark:bg-gray-900 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm overflow-hidden">
+      <div
+        id="customer-table"
+        className="bg-white dark:bg-gray-900 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm overflow-hidden"
+      >
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
