@@ -64,10 +64,10 @@ const RegisterPage = () => {
         <div className="hidden md:flex md:w-1/2 relative items-center justify-center overflow-hidden border-l border-gray-50 dark:border-gray-800">
           <Image
             src="/assets/images/auth.png"
-            width={500}
-            height={500}
             alt="Auth Illustration"
-            className="absolute inset-0 object-cover opacity-90 scale-x-[-1]"
+            fill
+            priority
+            className="object-cover opacity-90 scale-x-[-1]"
           />
           <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 to-teal-600/20 backdrop-blur-[2px]"></div>
 
