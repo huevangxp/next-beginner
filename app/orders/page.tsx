@@ -3,11 +3,8 @@
 import React, { useState, useEffect } from "react";
 import {
   ShoppingCart,
-  Plus,
   Search,
   Filter,
-  Edit2,
-  Trash2,
   User,
   Calendar,
   Package,
@@ -15,43 +12,61 @@ import {
   Clock,
   XCircle,
   ChevronRight,
+  X,
+  Phone,
+  MapPin,
+  CreditCard,
 } from "lucide-react";
-import Link from "next/link";
 
 const OrdersPage = () => {
   const [mounted, setMounted] = useState(false);
+  const [activeTab, setActiveTab] = useState("all");
+  const [selectedOrder, setSelectedOrder] = useState<any>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const [orderList, setOrderList] = useState([
     {
       id: "ORD-001",
       customer: "ສົມພອນ ໄຊຍະວົງ",
+      phone: "020 5555 6666",
+      address: "ບ້ານ ໂພນສະຫວ່າງ, ເມືອງ ຈັນທະບູລີ, ນະຄອນຫຼວງວຽງຈັນ",
       date: "2024-12-18",
       total: 2500000,
       status: "completed",
-      items: 3,
+      items: [
+        { name: "iPhone 15 Pro", quantity: 1, price: 15000000 },
+        { name: "AirPods Pro 2", quantity: 1, price: 2500000 },
+      ],
     },
     {
       id: "ORD-002",
       customer: "ແກ້ວມະນີ ຈັນທະວົງ",
+      phone: "020 7777 8888",
+      address: "ບ້ານ ສີຫອມ, ເມືອງ ສີໂຄດຕະບອງ, ນະຄອນຫຼວງວຽງຈັນ",
       date: "2024-12-18",
       total: 1200000,
       status: "pending",
-      items: 1,
+      items: [{ name: "Samsung Galaxy S23", quantity: 1, price: 12000000 }],
     },
     {
       id: "ORD-003",
       customer: "ບຸນມີ ພົມມະຈັນ",
+      phone: "020 9999 0000",
+      address: "ບ້ານ ທາດຫຼວງ, ເມືອງ ໄຊເສດຖາ, ນະຄອນຫຼວງວຽງຈັນ",
       date: "2024-12-17",
       total: 450000,
       status: "processing",
-      items: 2,
+      items: [{ name: "Case iPhone 15", quantity: 2, price: 225000 }],
     },
     {
       id: "ORD-004",
       customer: "ວິໄລພອນ ສຸດທິວົງ",
+      phone: "020 2222 3333",
+      address: "ບ້ານ ໜອງບອນ, ເມືອງ ໄຊເສດຖາ, ນະຄອນຫຼວງວຽງຈັນ",
       date: "2024-12-17",
       total: 890000,
       status: "cancelled",
-      items: 1,
+      items: [{ name: "Power Bank 20000mAh", quantity: 1, price: 890000 }],
     },
   ]);
 
@@ -65,7 +80,42 @@ const OrdersPage = () => {
         order.id === id ? { ...order, status: newStatus } : order
       )
     );
+    setIsModalOpen(false);
   };
+
+  const openOrderDetails = (order: any) => {
+    setSelectedOrder(order);
+    setIsModalOpen(true);
+  };
+
+  const filteredOrders = orderList.filter((order) => {
+    if (activeTab === "all") return true;
+    return order.status === activeTab;
+  });
+
+  const tabs = [
+    { id: "all", name: "ທັງໝົດ", count: orderList.length },
+    {
+      id: "pending",
+      name: "ລໍຖ້າຢືນຢັນ",
+      count: orderList.filter((o) => o.status === "pending").length,
+    },
+    {
+      id: "processing",
+      name: "ຢືນຢັນແລ້ວ",
+      count: orderList.filter((o) => o.status === "processing").length,
+    },
+    {
+      id: "completed",
+      name: "ສຳເລັດແລ້ວ",
+      count: orderList.filter((o) => o.status === "completed").length,
+    },
+    {
+      id: "cancelled",
+      name: "ຍົກເລີກແລ້ວ",
+      count: orderList.filter((o) => o.status === "cancelled").length,
+    },
+  ];
 
   if (!mounted) return null;
 
@@ -83,54 +133,29 @@ const OrdersPage = () => {
         </div>
       </div>
 
-      {/* Stats Overview */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        {[
-          {
-            label: "ທັງໝົດ",
-            value: orderList.length,
-            icon: ShoppingCart,
-            color: "blue",
-          },
-          {
-            label: "ລໍຖ້າການຢືນຢັນ",
-            value: orderList.filter((o) => o.status === "pending").length,
-            icon: Clock,
-            color: "amber",
-          },
-          {
-            label: "ສຳເລັດແລ້ວ",
-            value: orderList.filter((o) => o.status === "completed").length,
-            icon: CheckCircle2,
-            color: "emerald",
-          },
-          {
-            label: "ຍົກເລີກ",
-            value: orderList.filter((o) => o.status === "cancelled").length,
-            icon: XCircle,
-            color: "red",
-          },
-        ].map((stat, i) => (
-          <div
-            key={i}
-            className="bg-white dark:bg-gray-900 p-6 rounded-[24px] border border-gray-100 dark:border-gray-800 shadow-sm"
+      {/* Tabs */}
+      <div className="flex flex-wrap gap-2 p-1 bg-gray-100 dark:bg-gray-800/50 rounded-2xl w-fit">
+        {tabs.map((tab) => (
+          <button
+            key={tab.id}
+            onClick={() => setActiveTab(tab.id)}
+            className={`px-6 py-2.5 rounded-xl text-sm font-bold transition-all flex items-center gap-2 ${
+              activeTab === tab.id
+                ? "bg-white dark:bg-gray-700 text-teal-600 shadow-sm"
+                : "text-gray-500 hover:text-gray-700 dark:hover:text-gray-300"
+            }`}
           >
-            <div className="flex items-center gap-4">
-              <div
-                className={`w-12 h-12 rounded-2xl flex items-center justify-center bg-${stat.color}-50 dark:bg-${stat.color}-900/20 text-${stat.color}-600 dark:text-${stat.color}-400`}
-              >
-                <stat.icon className="w-6 h-6" />
-              </div>
-              <div>
-                <p className="text-sm font-medium text-gray-500 dark:text-gray-400">
-                  {stat.label}
-                </p>
-                <p className="text-2xl font-bold text-gray-800 dark:text-white">
-                  {stat.value}
-                </p>
-              </div>
-            </div>
-          </div>
+            {tab.name}
+            <span
+              className={`px-2 py-0.5 rounded-md text-[10px] ${
+                activeTab === tab.id
+                  ? "bg-teal-50 text-teal-600"
+                  : "bg-gray-200 dark:bg-gray-600 text-gray-500"
+              }`}
+            >
+              {tab.count}
+            </span>
+          </button>
         ))}
       </div>
 
@@ -168,9 +193,6 @@ const OrdersPage = () => {
                   ວັນທີ
                 </th>
                 <th className="px-8 py-5 text-xs font-bold text-gray-400 uppercase tracking-wider">
-                  ຈຳນວນ
-                </th>
-                <th className="px-8 py-5 text-xs font-bold text-gray-400 uppercase tracking-wider">
                   ຍອດລວມ
                 </th>
                 <th className="px-8 py-5 text-xs font-bold text-gray-400 uppercase tracking-wider">
@@ -182,7 +204,7 @@ const OrdersPage = () => {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-50 dark:divide-gray-800">
-              {orderList.map((order) => (
+              {filteredOrders.map((order) => (
                 <tr
                   key={order.id}
                   className="hover:bg-gray-50/50 dark:hover:bg-gray-800/30 transition-colors group"
@@ -206,12 +228,6 @@ const OrdersPage = () => {
                     <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
                       <Calendar className="w-4 h-4 text-gray-400" />
                       {order.date}
-                    </div>
-                  </td>
-                  <td className="px-8 py-5">
-                    <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
-                      <Package className="w-4 h-4 text-gray-400" />
-                      {order.items} ລາຍການ
                     </div>
                   </td>
                   <td className="px-8 py-5">
@@ -246,45 +262,36 @@ const OrdersPage = () => {
                       {order.status === "completed"
                         ? "ສຳເລັດແລ້ວ"
                         : order.status === "pending"
-                        ? "ລໍຖ້າການຢືນຢັນ"
+                        ? "ລໍຖ້າຢືນຢັນ"
                         : order.status === "processing"
-                        ? "ກຳລັງດຳເນີນການ"
+                        ? "ຢືນຢັນແລ້ວ"
                         : "ຍົກເລີກແລ້ວ"}
                     </span>
                   </td>
                   <td className="px-8 py-5 text-right">
                     <div className="flex items-center justify-end gap-2">
                       {order.status === "pending" && (
-                        <>
-                          <button
-                            onClick={() =>
-                              handleStatusUpdate(order.id, "processing")
-                            }
-                            className="px-3 py-1.5 text-xs font-bold bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition-all shadow-sm"
-                          >
-                            ຢືນຢັນ
-                          </button>
-                          <button
-                            onClick={() =>
-                              handleStatusUpdate(order.id, "cancelled")
-                            }
-                            className="px-3 py-1.5 text-xs font-bold bg-red-50 text-red-600 rounded-lg hover:bg-red-100 transition-all"
-                          >
-                            ຍົກເລີກ
-                          </button>
-                        </>
+                        <button
+                          onClick={() => openOrderDetails(order)}
+                          className="px-4 py-2 text-xs font-bold bg-teal-600 text-white rounded-xl hover:bg-teal-700 transition-all shadow-lg shadow-teal-100 dark:shadow-none"
+                        >
+                          ກວດສອບ
+                        </button>
                       )}
                       {order.status === "processing" && (
                         <button
                           onClick={() =>
                             handleStatusUpdate(order.id, "completed")
                           }
-                          className="px-3 py-1.5 text-xs font-bold bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-all shadow-sm"
+                          className="px-4 py-2 text-xs font-bold bg-emerald-600 text-white rounded-xl hover:bg-emerald-700 transition-all shadow-lg shadow-emerald-100 dark:shadow-none"
                         >
                           ສຳເລັດ
                         </button>
                       )}
-                      <button className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-xl transition-all">
+                      <button
+                        onClick={() => openOrderDetails(order)}
+                        className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-xl transition-all"
+                      >
                         <ChevronRight className="w-4 h-4" />
                       </button>
                     </div>
@@ -293,8 +300,204 @@ const OrdersPage = () => {
               ))}
             </tbody>
           </table>
+          {filteredOrders.length === 0 && (
+            <div className="py-20 text-center">
+              <div className="w-20 h-20 bg-gray-50 dark:bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-4">
+                <ShoppingCart className="w-10 h-10 text-gray-300" />
+              </div>
+              <p className="text-gray-500 dark:text-gray-400 font-medium">
+                ບໍ່ມີລາຍການສັ່ງຊື້ໃນໝວດນີ້
+              </p>
+            </div>
+          )}
         </div>
       </div>
+
+      {/* Order Details Modal */}
+      {isModalOpen && selectedOrder && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm animate-in fade-in duration-300">
+          <div className="bg-white dark:bg-gray-900 w-full max-w-2xl rounded-[32px] shadow-2xl overflow-hidden animate-in zoom-in-95 duration-300">
+            {/* Modal Header */}
+            <div className="p-6 md:p-8 border-b border-gray-100 dark:border-gray-800 flex items-center justify-between bg-gray-50/50 dark:bg-gray-800/50">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-2xl bg-teal-600 flex items-center justify-center text-white shadow-lg shadow-teal-100 dark:shadow-none">
+                  <ShoppingCart className="w-6 h-6" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-gray-800 dark:text-white">
+                    ລາຍລະອຽດການສັ່ງຊື້
+                  </h3>
+                  <p className="text-sm text-teal-600 font-bold">
+                    {selectedOrder.id}
+                  </p>
+                </div>
+              </div>
+              <button
+                onClick={() => setIsModalOpen(false)}
+                className="p-2 hover:bg-white dark:hover:bg-gray-700 rounded-full transition-all text-gray-400 hover:text-gray-600"
+              >
+                <X className="w-6 h-6" />
+              </button>
+            </div>
+
+            {/* Modal Content */}
+            <div className="p-6 md:p-8 space-y-8 max-h-[70vh] overflow-y-auto custom-scrollbar">
+              {/* Customer Info */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="space-y-4">
+                  <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider">
+                    ຂໍ້ມູນລູກຄ້າ
+                  </h4>
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-3 text-gray-700 dark:text-gray-300">
+                      <User className="w-4 h-4 text-teal-600" />
+                      <span className="font-bold">
+                        {selectedOrder.customer}
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-3 text-gray-600 dark:text-gray-400">
+                      <Phone className="w-4 h-4 text-teal-600" />
+                      <span>{selectedOrder.phone}</span>
+                    </div>
+                    <div className="flex items-start gap-3 text-gray-600 dark:text-gray-400">
+                      <MapPin className="w-4 h-4 text-teal-600 mt-1" />
+                      <span className="text-sm leading-relaxed">
+                        {selectedOrder.address}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div className="space-y-4">
+                  <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider">
+                    ຂໍ້ມູນການສັ່ງຊື້
+                  </h4>
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-3 text-gray-600 dark:text-gray-400">
+                      <Calendar className="w-4 h-4 text-teal-600" />
+                      <span>ວັນທີ: {selectedOrder.date}</span>
+                    </div>
+                    <div className="flex items-center gap-3 text-gray-600 dark:text-gray-400">
+                      <CreditCard className="w-4 h-4 text-teal-600" />
+                      <span>ການຊຳລະ: ໂອນຜ່ານທະນາຄານ</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <div
+                        className={`px-3 py-1 rounded-full text-[10px] font-bold ${
+                          selectedOrder.status === "completed"
+                            ? "bg-emerald-50 text-emerald-600"
+                            : selectedOrder.status === "pending"
+                            ? "bg-amber-50 text-amber-600"
+                            : selectedOrder.status === "processing"
+                            ? "bg-blue-50 text-blue-600"
+                            : "bg-red-50 text-red-600"
+                        }`}
+                      >
+                        {selectedOrder.status === "completed"
+                          ? "ສຳເລັດແລ້ວ"
+                          : selectedOrder.status === "pending"
+                          ? "ລໍຖ້າຢືນຢັນ"
+                          : selectedOrder.status === "processing"
+                          ? "ຢືນຢັນແລ້ວ"
+                          : "ຍົກເລີກແລ້ວ"}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Product List */}
+              <div className="space-y-4">
+                <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider">
+                  ລາຍການສິນຄ້າ
+                </h4>
+                <div className="bg-gray-50 dark:bg-gray-800/50 rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-800">
+                  <table className="w-full text-left border-collapse">
+                    <thead>
+                      <tr className="border-b border-gray-100 dark:border-gray-800">
+                        <th className="px-6 py-4 text-[10px] font-bold text-gray-400 uppercase">
+                          ສິນຄ້າ
+                        </th>
+                        <th className="px-6 py-4 text-[10px] font-bold text-gray-400 uppercase text-center">
+                          ຈຳນວນ
+                        </th>
+                        <th className="px-6 py-4 text-[10px] font-bold text-gray-400 uppercase text-right">
+                          ລາຄາ
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-gray-100 dark:divide-gray-800">
+                      {selectedOrder.items.map((item: any, i: number) => (
+                        <tr key={i}>
+                          <td className="px-6 py-4">
+                            <span className="text-sm font-bold text-gray-800 dark:text-white">
+                              {item.name}
+                            </span>
+                          </td>
+                          <td className="px-6 py-4 text-center">
+                            <span className="text-sm text-gray-600 dark:text-gray-400">
+                              x{item.quantity}
+                            </span>
+                          </td>
+                          <td className="px-6 py-4 text-right">
+                            <span className="text-sm font-bold text-gray-800 dark:text-white">
+                              {item.price.toLocaleString()}
+                            </span>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                    <tfoot>
+                      <tr className="bg-gray-100/50 dark:bg-gray-800">
+                        <td
+                          colSpan={2}
+                          className="px-6 py-4 text-right font-bold text-gray-500"
+                        >
+                          ຍອດລວມທັງໝົດ:
+                        </td>
+                        <td className="px-6 py-4 text-right font-bold text-teal-600 text-lg">
+                          {selectedOrder.total.toLocaleString()} ກີບ
+                        </td>
+                      </tr>
+                    </tfoot>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            {/* Modal Footer */}
+            <div className="p-6 md:p-8 border-t border-gray-100 dark:border-gray-800 flex flex-col sm:flex-row gap-4 bg-gray-50/50 dark:bg-gray-800/50">
+              {selectedOrder.status === "pending" ? (
+                <>
+                  <button
+                    onClick={() =>
+                      handleStatusUpdate(selectedOrder.id, "cancelled")
+                    }
+                    className="flex-1 py-4 bg-red-50 text-red-600 rounded-2xl font-bold hover:bg-red-100 transition-all"
+                  >
+                    ປະຕິເສດການສັ່ງຊື້
+                  </button>
+                  <button
+                    onClick={() =>
+                      handleStatusUpdate(selectedOrder.id, "processing")
+                    }
+                    className="flex-1 py-4 bg-teal-600 text-white rounded-2xl font-bold hover:bg-teal-700 shadow-lg shadow-teal-100 dark:shadow-none transition-all flex items-center justify-center gap-2"
+                  >
+                    <CheckCircle2 className="w-5 h-5" />
+                    ຢືນຢັນການສັ່ງຊື້
+                  </button>
+                </>
+              ) : (
+                <button
+                  onClick={() => setIsModalOpen(false)}
+                  className="w-full py-4 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 rounded-2xl font-bold hover:bg-gray-300 dark:hover:bg-gray-600 transition-all"
+                >
+                  ປິດໜ້າຕ່າງ
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
