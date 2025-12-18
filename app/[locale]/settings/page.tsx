@@ -36,15 +36,15 @@ const SettingsPage = () => {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <h1 className="text-3xl font-bold text-gray-800 dark:text-white">
-            {t("system_settings")}
+            {t("title")}
           </h1>
           <p className="text-gray-500 dark:text-gray-400 mt-1">
-            {t("manage_settings")}
+            {t("description")}
           </p>
         </div>
         <button className="flex items-center gap-2 bg-teal-600 text-white px-6 py-2.5 rounded-xl font-bold hover:bg-teal-700 transition-all shadow-lg shadow-teal-100">
           <Save className="w-5 h-5" />
-          <span>{t("save_all")}</span>
+          <span>{t("saveAll")}</span>
         </button>
       </div>
 
@@ -58,15 +58,15 @@ const SettingsPage = () => {
                 <Monitor className="w-5 h-5" />
               </div>
               <h2 className="text-xl font-bold text-gray-800 dark:text-white">
-                {t("appearance")}
+                {t("appearance.title")}
               </h2>
             </div>
 
             <div className="grid grid-cols-3 gap-4">
               {[
-                { id: "light", name: t("light"), icon: Sun },
-                { id: "dark", name: t("dark"), icon: Moon },
-                { id: "system", name: t("system"), icon: Monitor },
+                { id: "light", name: t("appearance.light"), icon: Sun },
+                { id: "dark", name: t("appearance.dark"), icon: Moon },
+                { id: "system", name: t("appearance.system"), icon: Monitor },
               ].map((item) => {
                 const Icon = item.icon;
                 return (
@@ -94,7 +94,7 @@ const SettingsPage = () => {
                 <Globe className="w-5 h-5" />
               </div>
               <h2 className="text-xl font-bold text-gray-800 dark:text-white">
-                {t("language_region")}
+                {t("language.title")}
               </h2>
             </div>
 
@@ -104,16 +104,16 @@ const SettingsPage = () => {
                   <Globe className="w-5 h-5 text-gray-400" />
                   <div>
                     <p className="text-sm font-bold text-gray-700 dark:text-gray-200">
-                      {t("system_language")}
+                      {t("language.systemLanguage")}
                     </p>
                     <p className="text-xs text-gray-500 dark:text-gray-400">
-                      ເລືອກພາສາທີ່ທ່ານຕ້ອງການໃຊ້ໃນລະບົບ
+                      {t("language.selectLanguage")}
                     </p>
                   </div>
                 </div>
                 <select
-                  value={language}
-                  onChange={(e) => setLanguage(e.target.value as any)}
+                  value={locale}
+                  onChange={(e) => handleLanguageChange(e.target.value)}
                   className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-2 text-sm font-medium outline-none focus:ring-2 focus:ring-teal-500/20 dark:text-white"
                 >
                   <option value="lo">ພາສາລາວ</option>
@@ -130,14 +130,14 @@ const SettingsPage = () => {
                 <Info className="w-5 h-5" />
               </div>
               <h2 className="text-xl font-bold text-gray-800 dark:text-white">
-                {t("about_system")}
+                {t("about.title")}
               </h2>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="p-4 bg-gray-50 dark:bg-gray-800/50 rounded-2xl border border-gray-100 dark:border-gray-800">
                 <p className="text-xs text-gray-500 dark:text-gray-400 uppercase font-bold tracking-wider mb-1">
-                  {t("version")}
+                  {t("about.version")}
                 </p>
                 <p className="text-sm font-bold text-gray-800 dark:text-white">
                   v1.0.0-stable
@@ -145,7 +145,7 @@ const SettingsPage = () => {
               </div>
               <div className="p-4 bg-gray-50 dark:bg-gray-800/50 rounded-2xl border border-gray-100 dark:border-gray-800">
                 <p className="text-xs text-gray-500 dark:text-gray-400 uppercase font-bold tracking-wider mb-1">
-                  {t("build_date")}
+                  {t("about.buildDate")}
                 </p>
                 <p className="text-sm font-bold text-gray-800 dark:text-white">
                   December 18, 2025
@@ -153,7 +153,7 @@ const SettingsPage = () => {
               </div>
               <div className="p-4 bg-gray-50 dark:bg-gray-800/50 rounded-2xl border border-gray-100 dark:border-gray-800 sm:col-span-2">
                 <p className="text-xs text-gray-500 dark:text-gray-400 uppercase font-bold tracking-wider mb-1">
-                  {t("developer")}
+                  {t("about.developer")}
                 </p>
                 <p className="text-sm font-bold text-gray-800 dark:text-white">
                   Antigravity AI Team
