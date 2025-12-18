@@ -11,34 +11,44 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-const data = [
-  { name: "Jan", revenue: 4000, expenses: 2400 },
-  { name: "Feb", revenue: 3000, expenses: 1398 },
-  { name: "Mar", revenue: 2000, expenses: 9800 },
-  { name: "Apr", revenue: 2780, expenses: 3908 },
-  { name: "May", revenue: 1890, expenses: 4800 },
-  { name: "Jun", revenue: 2390, expenses: 3800 },
-  { name: "Jul", revenue: 3490, expenses: 4300 },
-];
+import { useTranslations } from "next-intl";
 
 const FinancialChart = () => {
+  const t = useTranslations("Chart");
+
+  const data = [
+    { name: t("months.jan"), revenue: 4000, expenses: 2400 },
+    { name: t("months.feb"), revenue: 3000, expenses: 1398 },
+    { name: t("months.mar"), revenue: 2000, expenses: 9800 },
+    { name: t("months.apr"), revenue: 2780, expenses: 3908 },
+    { name: t("months.may"), revenue: 1890, expenses: 4800 },
+    { name: t("months.jun"), revenue: 2390, expenses: 3800 },
+    { name: t("months.jul"), revenue: 3490, expenses: 4300 },
+  ];
+
   return (
-    <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
+    <div className="bg-white dark:bg-gray-900 p-6 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm">
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h2 className="text-lg font-bold text-gray-800">
-            Financial Performance
+          <h2 className="text-lg font-bold text-gray-800 dark:text-white">
+            {t("title")}
           </h2>
-          <p className="text-sm text-gray-500">Revenue vs Expenses (Monthly)</p>
+          <p className="text-sm text-gray-500 dark:text-gray-400">
+            {t("description")}
+          </p>
         </div>
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-2">
             <div className="w-3 h-3 rounded-full bg-teal-500"></div>
-            <span className="text-xs font-medium text-gray-600">Revenue</span>
+            <span className="text-xs font-medium text-gray-600 dark:text-gray-400">
+              {t("revenue")}
+            </span>
           </div>
           <div className="flex items-center gap-2">
             <div className="w-3 h-3 rounded-full bg-red-400"></div>
-            <span className="text-xs font-medium text-gray-600">Expenses</span>
+            <span className="text-xs font-medium text-gray-600 dark:text-gray-400">
+              {t("expenses")}
+            </span>
           </div>
         </div>
       </div>
