@@ -1,205 +1,276 @@
 "use client";
 
-import { useAppContext } from "../context/AppContext";
+import React, { useState, useEffect } from "react";
 import {
   Settings,
+  User,
+  Lock,
+  Bell,
   Globe,
+  Shield,
   Moon,
   Sun,
   Monitor,
-  Database,
-  ShieldCheck,
-  BellRing,
-  Smartphone,
-  Cloud,
   Save,
-  RefreshCw,
-  Info,
+  ChevronRight,
+  Eye,
+  EyeOff,
 } from "lucide-react";
+import { useAppContext } from "../context/AppContext";
 
 const SettingsPage = () => {
-  const { theme, setTheme } = useAppContext();
+  const [mounted, setMounted] = useState(false);
+  const { theme, setTheme, user } = useAppContext();
+  const [activeTab, setActiveTab] = useState("general");
+  const [showPassword, setShowPassword] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
+
+  const tabs = [
+    { id: "general", name: "ທົ່ວໄປ", icon: Settings },
+    { id: "profile", name: "ໂປຣໄຟລ໌", icon: User },
+    { id: "security", name: "ຄວາມປອດໄພ", icon: Shield },
+    { id: "notifications", name: "ການແຈ້ງເຕືອນ", icon: Bell },
+  ];
 
   return (
-    <div className="max-w-5xl mx-auto space-y-8">
-      {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div>
-          <h1 className="text-3xl font-bold text-gray-800 dark:text-white">
-            ຕັ້ງຄ່າລະບົບ
-          </h1>
-          <p className="text-gray-500 dark:text-gray-400 mt-1">
-            ຈັດການການຕັ້ງຄ່າ ແລະ ຄວາມປອດໄພຂອງລະບົບ
-          </p>
-        </div>
-        <button className="flex items-center gap-2 bg-teal-600 text-white px-6 py-2.5 rounded-xl font-bold hover:bg-teal-700 transition-all shadow-lg shadow-teal-100">
-          <Save className="w-5 h-5" />
-          <span>ບັນທຶກທັງໝົດ</span>
-        </button>
+    <div className="space-y-8 animate-in fade-in duration-500">
+      {/* Page Header */}
+      <div>
+        <h1 className="text-3xl font-bold text-gray-800 dark:text-white">
+          ຕັ້ງຄ່າລະບົບ
+        </h1>
+        <p className="text-gray-500 dark:text-gray-400 mt-1">
+          ຈັດການຂໍ້ມູນສ່ວນຕົວ ແລະ ການຕັ້ງຄ່າຄວາມປອດໄພຂອງທ່ານ
+        </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-        {/* Left Column: General & Appearance */}
-        <div className="md:col-span-2 space-y-8">
-          {/* Appearance Section */}
-          <div className="bg-white dark:bg-gray-900 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm p-8 space-y-6">
-            <div className="flex items-center gap-3 mb-2">
-              <div className="p-2 bg-teal-50 dark:bg-teal-900/30 text-teal-600 rounded-lg">
-                <Monitor className="w-5 h-5" />
-              </div>
-              <h2 className="text-xl font-bold text-gray-800 dark:text-white">
-                ຮູບລັກສະນະ
-              </h2>
-            </div>
-
-            <div className="grid grid-cols-3 gap-4">
-              {[
-                { id: "light", name: "ໂໝດສະຫວ່າງ", icon: Sun },
-                { id: "dark", name: "ໂໝດມືດ", icon: Moon },
-                { id: "system", name: "ຕາມລະບົບ", icon: Monitor },
-              ].map((item) => {
-                const Icon = item.icon;
-                return (
-                  <button
-                    key={item.id}
-                    onClick={() => setTheme(item.id as any)}
-                    className={`flex flex-col items-center gap-3 p-4 rounded-2xl border-2 transition-all ${
-                      theme === item.id
-                        ? "border-teal-600 bg-teal-50/50 dark:bg-teal-900/20 text-teal-700 dark:text-teal-400"
-                        : "border-gray-50 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-800/50 text-gray-500 hover:border-gray-200"
-                    }`}
-                  >
-                    <Icon className="w-6 h-6" />
-                    <span className="text-xs font-bold">{item.name}</span>
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* Language & Region (Static) */}
-          <div className="bg-white dark:bg-gray-900 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm p-8 space-y-6">
-            <div className="flex items-center gap-3 mb-2">
-              <div className="p-2 bg-blue-50 dark:bg-blue-900/30 text-blue-600 rounded-lg">
-                <Globe className="w-5 h-5" />
-              </div>
-              <h2 className="text-xl font-bold text-gray-800 dark:text-white">
-                ພາສາ ແລະ ພາກພື້ນ
-              </h2>
-            </div>
-
-            <div className="space-y-4">
-              <div className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-800/50 rounded-2xl border border-gray-100 dark:border-gray-800">
-                <div className="flex items-center gap-3">
-                  <Globe className="w-5 h-5 text-gray-400" />
-                  <div>
-                    <p className="text-sm font-bold text-gray-700 dark:text-gray-200">
-                      ພາສາຂອງລະບົບ
-                    </p>
-                    <p className="text-xs text-gray-500 dark:text-gray-400">
-                      ພາສາລາວ (ເລີ່ມຕົ້ນ)
-                    </p>
-                  </div>
-                </div>
-                <span className="text-sm font-medium text-teal-600 bg-teal-50 dark:bg-teal-900/30 px-3 py-1 rounded-lg">
-                  ພາສາລາວ
-                </span>
-              </div>
-            </div>
-          </div>
-
-          {/* About System Section */}
-          <div className="bg-white dark:bg-gray-900 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm p-8 space-y-6">
-            <div className="flex items-center gap-3 mb-2">
-              <div className="p-2 bg-orange-50 dark:bg-orange-900/30 text-orange-600 rounded-lg">
-                <Info className="w-5 h-5" />
-              </div>
-              <h2 className="text-xl font-bold text-gray-800 dark:text-white">
-                ກ່ຽວກັບລະບົບ
-              </h2>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="p-4 bg-gray-50 dark:bg-gray-800/50 rounded-2xl border border-gray-100 dark:border-gray-800">
-                <p className="text-xs text-gray-500 dark:text-gray-400 uppercase font-bold tracking-wider mb-1">
-                  ເວີຊັນ
-                </p>
-                <p className="text-sm font-bold text-gray-800 dark:text-white">
-                  v1.0.0-stable
-                </p>
-              </div>
-              <div className="p-4 bg-gray-50 dark:bg-gray-800/50 rounded-2xl border border-gray-100 dark:border-gray-800">
-                <p className="text-xs text-gray-500 dark:text-gray-400 uppercase font-bold tracking-wider mb-1">
-                  ວັນທີສ້າງ
-                </p>
-                <p className="text-sm font-bold text-gray-800 dark:text-white">
-                  December 18, 2025
-                </p>
-              </div>
-              <div className="p-4 bg-gray-50 dark:bg-gray-800/50 rounded-2xl border border-gray-100 dark:border-gray-800 sm:col-span-2">
-                <p className="text-xs text-gray-500 dark:text-gray-400 uppercase font-bold tracking-wider mb-1">
-                  ຜູ້ພັດທະນາ
-                </p>
-                <p className="text-sm font-bold text-gray-800 dark:text-white">
-                  Antigravity AI Team
-                </p>
-              </div>
-            </div>
-          </div>
+      <div className="flex flex-col lg:flex-row gap-8">
+        {/* Sidebar Tabs */}
+        <div className="w-full lg:w-64 space-y-2">
+          {tabs.map((tab) => {
+            const Icon = tab.icon;
+            return (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`w-full flex items-center gap-3 px-5 py-4 rounded-2xl font-bold transition-all ${
+                  activeTab === tab.id
+                    ? "bg-teal-600 text-white shadow-lg shadow-teal-100 dark:shadow-none"
+                    : "text-gray-500 dark:text-gray-400 hover:bg-white dark:hover:bg-gray-900 hover:text-teal-600 border border-transparent hover:border-gray-100 dark:hover:border-gray-800"
+                }`}
+              >
+                <Icon className="w-5 h-5" />
+                <span>{tab.name}</span>
+                {activeTab === tab.id && (
+                  <ChevronRight className="ml-auto w-4 h-4" />
+                )}
+              </button>
+            );
+          })}
         </div>
 
-        {/* Right Column: Quick Toggles */}
-        <div className="space-y-6">
-          <div className="bg-white dark:bg-gray-900 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm p-8 space-y-6">
-            <h3 className="text-lg font-bold text-gray-800 dark:text-white">
-              ການແຈ້ງເຕືອນດ່ວນ
-            </h3>
-            <div className="space-y-4">
-              {[
-                {
-                  name: "ການແຈ້ງເຕືອນຜ່ານມືຖື",
-                  icon: Smartphone,
-                  checked: true,
-                },
-                { name: "ການແຈ້ງເຕືອນອີເມວ", icon: BellRing, checked: false },
-                { name: "ຄວາມປອດໄພຂັ້ນສູງ", icon: ShieldCheck, checked: true },
-              ].map((item, i) => (
-                <div
-                  key={i}
-                  className="flex items-center justify-between group"
-                >
-                  <div className="flex items-center gap-3">
-                    <item.icon className="w-5 h-5 text-gray-400 group-hover:text-teal-600 transition-colors" />
-                    <span className="text-sm font-medium text-gray-600 dark:text-gray-300">
-                      {item.name}
-                    </span>
+        {/* Content Area */}
+        <div className="flex-1 space-y-6">
+          {activeTab === "general" && (
+            <div className="bg-white dark:bg-gray-900 rounded-[32px] border border-gray-100 dark:border-gray-800 shadow-sm overflow-hidden">
+              <div className="p-8 md:p-10 space-y-8">
+                <div className="flex items-center gap-4 pb-6 border-b border-gray-50 dark:border-gray-800">
+                  <div className="w-12 h-12 rounded-2xl bg-teal-50 dark:bg-teal-900/20 flex items-center justify-center text-teal-600">
+                    <Monitor className="w-6 h-6" />
                   </div>
-                  <label className="relative inline-flex items-center cursor-pointer">
-                    <input
-                      type="checkbox"
-                      className="sr-only peer"
-                      defaultChecked={item.checked}
-                    />
-                    <div className="w-10 h-5 bg-gray-200 dark:bg-gray-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-teal-600"></div>
-                  </label>
+                  <div>
+                    <h3 className="text-xl font-bold text-gray-800 dark:text-white">
+                      ການສະແດງຜົນ
+                    </h3>
+                    <p className="text-sm text-gray-500">
+                      ປັບແຕ່ງຮູບແບບການສະແດງຜົນຂອງລະບົບ
+                    </p>
+                  </div>
                 </div>
-              ))}
-            </div>
-          </div>
 
-          <div className="bg-amber-50 dark:bg-amber-900/20 rounded-3xl border border-amber-100 dark:border-amber-900/30 p-8 space-y-4">
-            <div className="flex items-center gap-3 text-amber-800 dark:text-amber-400">
-              <ShieldCheck className="w-6 h-6" />
-              <h3 className="font-bold">ສະຖານະຄວາມປອດໄພ</h3>
+                <div className="space-y-6">
+                  <div className="flex items-center justify-between">
+                    <div className="space-y-1">
+                      <p className="font-bold text-gray-800 dark:text-white">
+                        ຮູບແບບສີ (Theme)
+                      </p>
+                      <p className="text-sm text-gray-500">
+                        ເລືອກຮູບແບບສີທີ່ທ່ານຕ້ອງການ
+                      </p>
+                    </div>
+                    <div className="flex bg-gray-50 dark:bg-gray-800 p-1.5 rounded-2xl border border-gray-100 dark:border-gray-700">
+                      <button
+                        onClick={() => setTheme("light")}
+                        className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-bold transition-all ${
+                          theme === "light"
+                            ? "bg-white dark:bg-gray-700 text-teal-600 shadow-sm"
+                            : "text-gray-400 hover:text-gray-600"
+                        }`}
+                      >
+                        <Sun className="w-4 h-4" />
+                        <span>Light</span>
+                      </button>
+                      <button
+                        onClick={() => setTheme("dark")}
+                        className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-bold transition-all ${
+                          theme === "dark"
+                            ? "bg-white dark:bg-gray-700 text-teal-600 shadow-sm"
+                            : "text-gray-400 hover:text-gray-600"
+                        }`}
+                      >
+                        <Moon className="w-4 h-4" />
+                        <span>Dark</span>
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center justify-between pt-6 border-t border-gray-50 dark:border-gray-800">
+                    <div className="space-y-1">
+                      <p className="font-bold text-gray-800 dark:text-white">
+                        ພາສາ (Language)
+                      </p>
+                      <p className="text-sm text-gray-500">
+                        ເລືອກພາສາທີ່ໃຊ້ໃນລະບົບ
+                      </p>
+                    </div>
+                    <select className="px-4 py-2 bg-gray-50 dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-xl text-sm font-bold text-gray-700 dark:text-gray-300 outline-none focus:ring-2 focus:ring-teal-500/20">
+                      <option value="lo">ພາສາລາວ</option>
+                      <option value="en">English</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
             </div>
-            <p className="text-sm text-amber-700 dark:text-amber-500 leading-relaxed">
-              ລະບົບຂອງທ່ານໄດ້ຮັບການປົກປ້ອງດ້ວຍການເຂົ້າລະຫັດຂັ້ນສູງ.
-              ກະລຸນາກວດສອບການອັບເດດເປັນປະຈຳ.
-            </p>
-            <button className="w-full py-3 bg-amber-600 text-white rounded-xl font-bold text-sm hover:bg-amber-700 transition-all shadow-lg shadow-amber-200 dark:shadow-none">
-              ກວດສອບຄວາມປອດໄພ
-            </button>
-          </div>
+          )}
+
+          {activeTab === "security" && (
+            <div className="bg-white dark:bg-gray-900 rounded-[32px] border border-gray-100 dark:border-gray-800 shadow-sm overflow-hidden">
+              <div className="p-8 md:p-10 space-y-8">
+                <div className="flex items-center gap-4 pb-6 border-b border-gray-50 dark:border-gray-800">
+                  <div className="w-12 h-12 rounded-2xl bg-red-50 dark:bg-red-900/20 flex items-center justify-center text-red-600">
+                    <Lock className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold text-gray-800 dark:text-white">
+                      ປ່ຽນລະຫັດຜ່ານ
+                    </h3>
+                    <p className="text-sm text-gray-500">
+                      ແນະນຳໃຫ້ປ່ຽນລະຫັດຜ່ານທຸກໆ 3 ເດືອນ
+                    </p>
+                  </div>
+                </div>
+
+                <form className="space-y-6 max-w-md">
+                  <div className="space-y-2">
+                    <label className="text-sm font-bold text-gray-700 dark:text-gray-300">
+                      ລະຫັດຜ່ານປັດຈຸບັນ
+                    </label>
+                    <div className="relative">
+                      <input
+                        type={showPassword ? "text" : "password"}
+                        className="w-full px-5 py-4 bg-gray-50 dark:bg-gray-800 border-none rounded-2xl focus:ring-2 focus:ring-teal-500/20 outline-none transition-all dark:text-white"
+                        placeholder="••••••••"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowPassword(!showPassword)}
+                        className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400"
+                      >
+                        {showPassword ? (
+                          <EyeOff className="w-5 h-5" />
+                        ) : (
+                          <Eye className="w-5 h-5" />
+                        )}
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <label className="text-sm font-bold text-gray-700 dark:text-gray-300">
+                      ລະຫັດຜ່ານໃໝ່
+                    </label>
+                    <input
+                      type="password"
+                      className="w-full px-5 py-4 bg-gray-50 dark:bg-gray-800 border-none rounded-2xl focus:ring-2 focus:ring-teal-500/20 outline-none transition-all dark:text-white"
+                      placeholder="••••••••"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <label className="text-sm font-bold text-gray-700 dark:text-gray-300">
+                      ຢືນຢັນລະຫັດຜ່ານໃໝ່
+                    </label>
+                    <input
+                      type="password"
+                      className="w-full px-5 py-4 bg-gray-50 dark:bg-gray-800 border-none rounded-2xl focus:ring-2 focus:ring-teal-500/20 outline-none transition-all dark:text-white"
+                      placeholder="••••••••"
+                    />
+                  </div>
+
+                  <button
+                    type="button"
+                    className="w-full py-4 bg-teal-600 hover:bg-teal-700 text-white rounded-2xl font-bold shadow-lg shadow-teal-100 dark:shadow-none transition-all flex items-center justify-center gap-2"
+                  >
+                    <Save className="w-5 h-5" />
+                    <span>ອັບເດດລະຫັດຜ່ານ</span>
+                  </button>
+                </form>
+              </div>
+            </div>
+          )}
+
+          {activeTab === "profile" && (
+            <div className="bg-white dark:bg-gray-900 rounded-[32px] border border-gray-100 dark:border-gray-800 shadow-sm overflow-hidden">
+              <div className="p-8 md:p-10 space-y-8">
+                <div className="flex items-center gap-6 pb-8 border-b border-gray-50 dark:border-gray-800">
+                  <div className="relative">
+                    <div className="w-24 h-24 rounded-full bg-teal-100 dark:bg-teal-900/30 flex items-center justify-center text-teal-700 dark:text-teal-400 font-bold text-3xl border-4 border-white dark:border-gray-800 shadow-sm">
+                      {user?.username?.charAt(0).toUpperCase() || "A"}
+                    </div>
+                    <button className="absolute bottom-0 right-0 p-2 bg-white dark:bg-gray-700 rounded-full shadow-md border border-gray-100 dark:border-gray-600 text-teal-600">
+                      <Settings className="w-4 h-4" />
+                    </button>
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-bold text-gray-800 dark:text-white">
+                      {user?.username || "Admin User"}
+                    </h3>
+                    <p className="text-gray-500">
+                      {user?.role || "Administrator"}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <label className="text-sm font-bold text-gray-700 dark:text-gray-300">
+                      ຊື່ຜູ້ໃຊ້
+                    </label>
+                    <input
+                      type="text"
+                      defaultValue={user?.username}
+                      className="w-full px-5 py-4 bg-gray-50 dark:bg-gray-800 border-none rounded-2xl focus:ring-2 focus:ring-teal-500/20 outline-none transition-all dark:text-white"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-sm font-bold text-gray-700 dark:text-gray-300">
+                      ອີເມວ
+                    </label>
+                    <input
+                      type="email"
+                      defaultValue="admin@example.com"
+                      className="w-full px-5 py-4 bg-gray-50 dark:bg-gray-800 border-none rounded-2xl focus:ring-2 focus:ring-teal-500/20 outline-none transition-all dark:text-white"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>
