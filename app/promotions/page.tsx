@@ -223,9 +223,11 @@ const PromotionsPage = () => {
                   </td>
                   <td className="px-8 py-5 text-right">
                     <div className="flex items-center justify-end gap-2">
-                      <button className="p-2 text-gray-400 hover:text-teal-600 hover:bg-teal-50 dark:hover:bg-teal-900/20 rounded-xl transition-all">
-                        <Edit2 className="w-4 h-4" />
-                      </button>
+                      <Link href={`/promotions/${promo.id}/edit`}>
+                        <button className="p-2 text-gray-400 hover:text-teal-600 hover:bg-teal-50 dark:hover:bg-teal-900/20 rounded-xl transition-all">
+                          <Edit2 className="w-4 h-4" />
+                        </button>
+                      </Link>
                       <button className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-xl transition-all">
                         <Trash2 className="w-4 h-4" />
                       </button>
