@@ -17,13 +17,14 @@ export default function ClientLayout({
     setMounted(true);
   }, []);
 
-  const isLoginPage = pathname === "/login";
+  const publicRoutes = ["/login", "/register"];
+  const isPublicPage = publicRoutes.includes(pathname);
 
   if (!mounted) {
     return <main>{children}</main>;
   }
 
-  if (isLoginPage) {
+  if (isPublicPage) {
     return <main>{children}</main>;
   }
 
