@@ -2,38 +2,39 @@
 
 import React from "react";
 import { ShoppingBag, Plus, Filter, Search } from "lucide-react";
-import { useAppContext } from "../context/AppContext";
+import { useTranslations } from "next-intl";
+import { Link } from "../../../i18n/routing";
 
 const ProductPage = () => {
-  const { t } = useAppContext();
+  const t = useTranslations("Products");
 
   const products = [
     {
       id: 1,
       name: "ຫູຟັງໄຮ້ສາຍ",
       price: 59.99,
-      category: t("electronics"),
+      category: t("categories.electronics"),
       stock: 12,
     },
     {
       id: 2,
       name: "ໂມງອັດສະລິຍະ",
       price: 129.99,
-      category: t("wearables"),
+      category: t("categories.wearables"),
       stock: 8,
     },
     {
       id: 3,
       name: "ລຳໂພງບລູທູດ",
       price: 39.99,
-      category: t("electronics"),
+      category: t("categories.electronics"),
       stock: 25,
     },
     {
       id: 4,
       name: "ເມົາສ໌ເກມມິ່ງ",
       price: 24.99,
-      category: t("accessories"),
+      category: t("categories.accessories"),
       stock: 15,
     },
   ];
@@ -44,15 +45,15 @@ const ProductPage = () => {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold text-gray-800 dark:text-white">
-            {t("products")}
+            {t("title")}
           </h1>
           <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">
-            ຈັດການສາງສິນຄ້າ ແລະ ລາຍການສິນຄ້າຂອງທ່ານ
+            {t("description")}
           </p>
         </div>
         <button className="flex items-center gap-2 bg-teal-600 hover:bg-teal-700 text-white px-5 py-2.5 rounded-xl font-semibold transition-all shadow-lg shadow-teal-100">
           <Plus className="w-5 h-5" />
-          <span>{t("add_product")}</span>
+          <span>{t("addProduct")}</span>
         </button>
       </div>
 
@@ -72,10 +73,10 @@ const ProductPage = () => {
             <span>{t("filter")}</span>
           </button>
           <select className="flex-1 md:flex-none px-4 py-2 border border-gray-200 dark:border-gray-700 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none transition-all">
-            <option>{t("all_categories")}</option>
-            <option>{t("electronics")}</option>
-            <option>{t("wearables")}</option>
-            <option>{t("accessories")}</option>
+            <option>{t("allCategories")}</option>
+            <option>{t("categories.electronics")}</option>
+            <option>{t("categories.wearables")}</option>
+            <option>{t("categories.accessories")}</option>
           </select>
         </div>
       </div>
@@ -113,7 +114,7 @@ const ProductPage = () => {
               </div>
             </div>
             <button className="w-full mt-6 py-2.5 bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-300 font-semibold rounded-xl hover:bg-teal-600 hover:text-white transition-all">
-              {t("edit_product")}
+              {t("edit")}
             </button>
           </div>
         ))}
