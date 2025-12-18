@@ -14,24 +14,27 @@ import {
   Lock,
 } from "lucide-react";
 
+import { useTranslations } from "next-intl";
+
 const ProfilePage = () => {
   const [activeTab, setActiveTab] = useState("personal");
+  const t = useTranslations("Profile");
 
   const tabs = [
-    { id: "personal", name: "ຂໍ້ມູນສ່ວນຕົວ", icon: User },
-    { id: "security", name: "ຄວາມປອດໄພ", icon: Shield },
-    { id: "notifications", name: "ການແຈ້ງເຕືອນ", icon: Bell },
+    { id: "personal", name: t("tabs.personal"), icon: User },
+    { id: "security", name: t("tabs.security"), icon: Shield },
+    { id: "notifications", name: t("tabs.notifications"), icon: Bell },
   ];
 
   return (
     <div className="max-w-10xl mx-auto space-y-8">
       {/* Header */}
       <div>
-        <h1 className="text-3xl font-bold text-gray-800">
-          ຈັດການຂໍ້ມູນສ່ວນຕົວ
+        <h1 className="text-3xl font-bold text-gray-800 dark:text-white">
+          {t("title")}
         </h1>
-        <p className="text-gray-500 mt-1">
-          ການຈັດການຂໍ້ມູນສ່ວນຕົວຂໍ້ມູນຂອງທ່ານ
+        <p className="text-gray-500 dark:text-gray-400 mt-1">
+          {t("description")}
         </p>
       </div>
 
