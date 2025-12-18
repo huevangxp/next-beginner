@@ -18,7 +18,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 
-const CreateUserPage = () => {
+const CreateCustomerPage = () => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -36,7 +36,7 @@ const CreateUserPage = () => {
     // Mock saving process
     setTimeout(() => {
       setIsLoading(false);
-      router.push("/users");
+      router.push("/customers");
     }, 1500);
   };
 
@@ -59,17 +59,17 @@ const CreateUserPage = () => {
         {/* Header */}
         <div className="flex items-start gap-4 mb-8">
           <Link
-            href="/users"
+            href="/customers"
             className="mt-1 p-2 hover:bg-white dark:hover:bg-gray-800 rounded-full transition-all text-gray-400 hover:text-gray-600 shadow-sm"
           >
             <ArrowLeft className="w-5 h-5" />
           </Link>
           <div>
             <h1 className="text-2xl font-bold text-[#0f172a] dark:text-white">
-              ເພີ່ມຜູ້ໃຊ້ໃໝ່
+              ເພີ່ມລູກຄ້າໃໝ່
             </h1>
             <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-              ຕື່ມຂໍ້ມູນລຸ່ມນີ້ເພື່ອສ້າງບັນຊີຜູ້ໃຊ້ໃໝ່.
+              ຕື່ມຂໍ້ມູນລຸ່ມນີ້ເພື່ອສ້າງບັນຊີລູກຄ້າໃໝ່.
             </p>
           </div>
         </div>
@@ -167,13 +167,12 @@ const CreateUserPage = () => {
               <div className="space-y-2">
                 <label className="text-sm font-bold text-[#0f172a] dark:text-gray-300 flex items-center gap-2">
                   <Shield className="w-4 h-4 text-[#009688]" />
-                  ບົດບາດ
+                  ປະເພດລູກຄ້າ
                 </label>
                 <div className="relative">
                   <select className="w-full px-5 py-4 bg-[#f8fafc] dark:bg-gray-800 border-none rounded-2xl focus:ring-2 focus:ring-[#009688]/20 outline-none transition-all dark:text-white appearance-none cursor-pointer">
-                    <option value="admin">Administrator</option>
-                    <option value="editor">Editor</option>
-                    <option value="viewer">Viewer</option>
+                    <option value="vip">VIP Customer</option>
+                    <option value="regular">Regular Customer</option>
                   </select>
                   <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
                 </div>
@@ -219,7 +218,7 @@ const CreateUserPage = () => {
                     ສະຖານະບັນຊີ
                   </h4>
                   <p className="text-xs text-gray-500 dark:text-gray-400">
-                    ເປີດ ຫຼື ປິດການໃຊ້ງານບັນຊີນີ້
+                    ເປີດ ຫຼື ປິດການໃຊ້ງານບັນຊີລູກຄ້ານີ້
                   </p>
                 </div>
               </div>
@@ -241,7 +240,7 @@ const CreateUserPage = () => {
             {/* Form Actions */}
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
               <Link
-                href="/users"
+                href="/customers"
                 className="flex-1 py-4 bg-[#f8fafc] dark:bg-gray-800 text-gray-600 dark:text-gray-300 rounded-2xl font-bold text-center hover:bg-gray-100 dark:hover:bg-gray-700 transition-all"
               >
                 ຍົກເລີກ
@@ -256,7 +255,7 @@ const CreateUserPage = () => {
                 ) : (
                   <>
                     <Save className="w-5 h-5" />
-                    <span>ບັນທຶກຜູ້ໃຊ້</span>
+                    <span>ບັນທຶກລູກຄ້າ</span>
                   </>
                 )}
               </button>
@@ -268,4 +267,4 @@ const CreateUserPage = () => {
   );
 };
 
-export default CreateUserPage;
+export default CreateCustomerPage;
