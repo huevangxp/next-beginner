@@ -14,6 +14,7 @@ import {
   Plus,
   Edit2,
   Box,
+  XCircle,
 } from "lucide-react";
 
 const InventoryPage = () => {
