@@ -47,14 +47,6 @@ const RegisterPage = () => {
   return (
     <div className="min-h-screen bg-white dark:bg-gray-950 flex items-center justify-center p-0 md:p-6 relative overflow-hidden">
       {/* Background Decorative Elements */}
-      <Image
-        src="/assets/images/auth.png"
-        alt="Auth Illustration"
-        width={500}
-        height={500}
-        priority
-        className="object-cover opacity-90 scale-x-[-1]"
-      />
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
         <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-blue-500/5 rounded-full blur-[120px]"></div>
         <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-teal-500/5 rounded-full blur-[120px]"></div>
@@ -68,6 +60,7 @@ const RegisterPage = () => {
             alt="Auth Illustration"
             fill
             priority
+            className="object-cover opacity-90 scale-x-[-1]"
           />
           <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 to-teal-600/20 backdrop-blur-[2px]"></div>
 
