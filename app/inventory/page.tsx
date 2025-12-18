@@ -18,7 +18,7 @@ import {
   FileSpreadsheet,
   FileText as FilePdf,
 } from "lucide-react";
-import { exportToExcel, exportToPDF } from "../utils/exportUtils";
+import { exportToExcel, exportElementToPDF } from "../utils/exportUtils";
 
 const InventoryPage = () => {
   const [mounted, setMounted] = useState(false);
@@ -41,27 +41,7 @@ const InventoryPage = () => {
   };
 
   const handleDownloadPDF = () => {
-    const headers = [
-      "ID",
-      "ຊື່ສິນຄ້າ",
-      "ໝວດໝູ່",
-      "ຄົງເຫຼືອ",
-      "ຕໍ່າສຸດ",
-      "ສະຖານະ",
-    ];
-    const data = inventoryItems.map((item) => [
-      item.id,
-      item.name,
-      item.category,
-      item.stock,
-      item.minStock,
-      item.status === "ok"
-        ? "ປົກກະຕິ"
-        : item.status === "low"
-        ? "ໃກ້ໝົດ"
-        : "ໝົດສະຕັອກ",
-    ]);
-    exportToPDF(headers, data, "Inventory_Report", "ລາຍງານສາງສິນຄ້າທັງໝົດ");
+    exportElementToPDF("inventory-table", "Inventory_Report");
   };
 
   const inventoryItems = [
@@ -212,7 +192,10 @@ const InventoryPage = () => {
       </div>
 
       {/* Inventory Table */}
-      <div className="bg-white dark:bg-gray-900 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm overflow-hidden">
+      <div
+        id="inventory-table"
+        className="bg-white dark:bg-gray-900 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm overflow-hidden"
+      >
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
