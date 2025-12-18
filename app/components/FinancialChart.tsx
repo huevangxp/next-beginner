@@ -12,6 +12,12 @@ import {
 } from "recharts";
 
 const FinancialChart = () => {
+  const [mounted, setMounted] = React.useState(false);
+
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const data = [
     { name: "ມັງກອນ", revenue: 4000, expenses: 2400 },
     { name: "ກຸມພາ", revenue: 3000, expenses: 1398 },
@@ -21,6 +27,14 @@ const FinancialChart = () => {
     { name: "ມິຖຸນາ", revenue: 2390, expenses: 3800 },
     { name: "ກໍລະກົດ", revenue: 3490, expenses: 4300 },
   ];
+
+  if (!mounted) {
+    return (
+      <div className="bg-white dark:bg-gray-900 p-6 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm h-[400px] flex items-center justify-center">
+        <div className="w-8 h-8 border-4 border-teal-500/30 border-t-teal-500 rounded-full animate-spin"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-white dark:bg-gray-900 p-6 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm">
