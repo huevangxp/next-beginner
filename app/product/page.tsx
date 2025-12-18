@@ -2,6 +2,7 @@
 
 import React from "react";
 import { ShoppingBag, Plus, Filter, Search } from "lucide-react";
+import Link from "next/link";
 
 const ProductPage = () => {
   const products = [
