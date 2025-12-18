@@ -75,8 +75,11 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme") as Theme;
     const savedLang = localStorage.getItem("lang") as Language;
-    if (savedTheme) setThemeState(savedTheme);
-    if (savedLang) setLanguageState(savedLang);
+    if (savedTheme) setTheme(savedTheme);
+    if (savedLang) {
+      setLanguageState(savedLang);
+      document.documentElement.lang = savedLang;
+    }
   }, []);
 
   const setTheme = (newTheme: Theme) => {
@@ -95,6 +98,7 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
   const setLanguage = (lang: Language) => {
     setLanguageState(lang);
     localStorage.setItem("lang", lang);
+    document.documentElement.lang = lang;
   };
 
   const t = (key: string) => {
