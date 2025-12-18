@@ -142,6 +142,9 @@ const DashboardPage = () => {
         })}
       </div>
 
+      {/* Financial Chart */}
+      <FinancialChart />
+
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Recent Activity Table */}
         <div className="lg:col-span-2 bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
