@@ -77,7 +77,8 @@ const FinancialChart = () => {
             <CartesianGrid
               strokeDasharray="3 3"
               vertical={false}
-              stroke="#f1f5f9"
+              stroke="currentColor"
+              className="text-gray-100 dark:text-gray-800"
             />
             <XAxis
               dataKey="name"
