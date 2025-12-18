@@ -53,7 +53,7 @@ const LoginPage = () => {
         {/* Left Side: Illustration */}
         <div className="md:flex md:w-1/2 relative items-center justify-center overflow-hidden border-r border-gray-50 dark:border-gray-800">
           <Image
-            src="/image.png"
+            src="/image/auth.png"
             alt="Auth Illustration"
             fill
             priority
