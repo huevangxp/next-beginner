@@ -67,7 +67,7 @@ const RegisterPage = () => {
             alt="Auth Illustration"
             width={500}
             height={500}
-            className="absolute inset-0 w-full h-full object-cover opacity-90 scale-x-[-1]"
+            className="absolute inset-0 object-cover opacity-90 scale-x-[-1]"
           />
           {/* <img
             src="../auth.png"
