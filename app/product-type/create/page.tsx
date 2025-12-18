@@ -37,7 +37,7 @@ const CreateProductTypePage = () => {
 
   return (
     <div className="min-h-screen bg-[#f8fafc] dark:bg-gray-950 p-4 md:p-8 animate-in fade-in duration-500">
-      <div className="max-w-4xl mx-auto space-y-6">
+      <div className="max-w-12xl mx-auto space-y-6">
         {/* Header */}
         <div className="flex items-start gap-4 mb-8">
           <Link
