@@ -20,7 +20,7 @@ import {
   Download,
 } from "lucide-react";
 import Link from "next/link";
-import { exportToExcel, exportToPDF } from "../utils/exportUtils";
+import { exportToExcel, exportElementToPDF } from "../utils/exportUtils";
 
 const PromotionsPage = () => {
   const [mounted, setMounted] = useState(false);
@@ -45,23 +45,7 @@ const PromotionsPage = () => {
   };
 
   const handleDownloadPDF = () => {
-    const headers = [
-      "ID",
-      "ຊື່ໂປຣໂມຊັ່ນ",
-      "ລະຫັດ",
-      "ສ່ວນຫຼຸດ",
-      "ໄລຍະເວລາ",
-      "ສະຖານະ",
-    ];
-    const data = promotions.map((promo) => [
-      promo.id,
-      promo.name,
-      promo.code,
-      promo.discount,
-      `${promo.startDate} - ${promo.endDate}`,
-      promo.status === "active" ? "ກຳລັງໃຊ້ງານ" : "ໝົດອາຍຸ",
-    ]);
-    exportToPDF(headers, data, "Promotions_Report", "ລາຍງານໂປຣໂມຊັ່ນທັງໝົດ");
+    exportElementToPDF("promotions-table", "Promotions_Report");
   };
 
   const handleDelete = (id: number) => {
@@ -213,7 +197,10 @@ const PromotionsPage = () => {
       </div>
 
       {/* Promotions Table */}
-      <div className="bg-white dark:bg-gray-900 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm overflow-hidden">
+      <div
+        id="promotions-table"
+        className="bg-white dark:bg-gray-900 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm overflow-hidden"
+      >
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
