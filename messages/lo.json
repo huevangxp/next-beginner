@@ -1,0 +1,81 @@
+{
+  "Dashboard": {
+    "title": "ພາບລວມລະບົບ",
+    "welcome": "ຍິນດີຕ້ອນຮັບ, ຜູ້ດູແລລະບົບ!",
+    "description": "ນີ້ແມ່ນສິ່ງທີ່ເກີດຂຶ້ນໃນມື້ນີ້.",
+    "lastUpdated": "ອັບເດດຫຼ້າສຸດ",
+    "minutesAgo": "ນາທີກ່ອນ",
+    "downloadReport": "ດາວໂຫຼດລາຍງານ",
+    "stats": {
+      "totalRevenue": "ລາຍຮັບທັງໝົດ",
+      "activeUsers": "ຜູ້ໃຊ້ງານ",
+      "newOrders": "ຄຳສັ່ງຊື້ໃໝ່",
+      "growthRate": "ອັດຕາການເຕີບໂຕ"
+    },
+    "recentActivity": {
+      "title": "ກິດຈະກຳຫຼ້າສຸດ",
+      "viewAll": "ເບິ່ງທັງໝົດ",
+      "user": "ຜູ້ໃຊ້",
+      "activity": "ກິດຈະກຳ",
+      "time": "ເວລາ",
+      "amount": "ຈຳນວນ"
+    },
+    "quickActions": {
+      "title": "ຈັດການດ່ວນ",
+      "addProduct": "ເພີ່ມສິນຄ້າ",
+      "addUser": "ເພີ່ມຜູ້ໃຊ້"
+    },
+    "upgrade": {
+      "title": "ອັບເກຣດ Pro Plan",
+      "description": "ເຂົ້າເຖິງການວິເຄາະຂັ້ນສູງ ແລະ ສິນຄ້າບໍ່ຈຳກັດ.",
+      "button": "ອັບເກຣດດຽວນີ້"
+    }
+  },
+  "Navigation": {
+    "home": "ໜ້າຫຼັກ",
+    "products": "ສິນຄ້າ",
+    "profile": "ຂໍ້ມູນສ່ວນຕົວ",
+    "settings": "ການຕັ້ງຄ່າ",
+    "logout": "ອອກຈາກລະບົບ",
+    "systemStatus": "ສະຖານະລະບົບ",
+    "online": "ກຳລັງເຮັດວຽກ"
+  },
+  "Settings": {
+    "title": "ການຕັ້ງຄ່າລະບົບ",
+    "description": "ຈັດການການຕັ້ງຄ່າທົ່ວໄປ ແລະ ຄວາມປອດໄພຂອງລະບົບ.",
+    "saveAll": "ບັນທຶກທັງໝົດ",
+    "appearance": {
+      "title": "ຮູບແບບການສະແດງຜົນ",
+      "light": "ໂໝດສະຫວ່າງ",
+      "dark": "ໂໝດມືດ",
+      "system": "ຕາມລະບົບ"
+    },
+    "language": {
+      "title": "ພາສາ ແລະ ພາກພື້ນ",
+      "systemLanguage": "ພາສາຂອງລະບົບ",
+      "selectLanguage": "ເລືອກພາສາທີ່ທ່ານຕ້ອງການໃຊ້ໃນລະບົບ"
+    },
+    "about": {
+      "title": "ກ່ຽວກັບລະບົບ",
+      "version": "ເວີຊັນ",
+      "buildDate": "ວັນທີສ້າງ",
+      "developer": "ຜູ້ພັດທະນາ"
+    }
+  },
+  "Products": {
+    "title": "ສິນຄ້າ",
+    "description": "ຈັດການສາງສິນຄ້າ ແລະ ລາຍການສິນຄ້າຂອງທ່ານ",
+    "addProduct": "ເພີ່ມສິນຄ້າ",
+    "search": "ຄົ້ນຫາສິນຄ້າ...",
+    "filter": "ກັ່ນຕອງ",
+    "allCategories": "ທຸກໝວດໝູ່",
+    "categories": {
+      "electronics": "ເຄື່ອງເອເລັກໂຕຣນິກ",
+      "wearables": "ອຸປະກອນສວມໃສ່",
+      "accessories": "ອຸປະກອນເສີມ"
+    },
+    "stock": "ມີໃນສາງ",
+    "items": "ລາຍການ",
+    "edit": "ແກ້ໄຂສິນຄ້າ"
+  }
+}
