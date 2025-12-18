@@ -54,12 +54,16 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
     setUser(newUser);
     setIsAuthenticated(true);
     localStorage.setItem("user", JSON.stringify(newUser));
+    // Set cookie for middleware
+    document.cookie = `user=${JSON.stringify(newUser)}; path=/; max-age=86400`;
   };
 
   const logout = () => {
     setUser(null);
     setIsAuthenticated(false);
     localStorage.removeItem("user");
+    // Remove cookie
+    document.cookie = "user=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
   };
 
   return (
