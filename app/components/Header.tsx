@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Link from "next/link";
 import {
   Settings,
   User,
@@ -71,10 +72,13 @@ const Header = () => {
                 </p>
               </div>
 
-              <button className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-gray-600 hover:bg-teal-50 hover:text-teal-700 transition-colors">
+              <Link
+                href="/profile"
+                className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-gray-600 hover:bg-teal-50 hover:text-teal-700 transition-colors"
+              >
                 <User className="w-4 h-4" />
                 <span>Profile</span>
-              </button>
+              </Link>
 
               <button className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-gray-600 hover:bg-teal-50 hover:text-teal-700 transition-colors">
                 <Settings className="w-4 h-4" />
