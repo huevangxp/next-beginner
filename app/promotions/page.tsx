@@ -25,6 +25,13 @@ const PromotionsPage = () => {
     setMounted(true);
   }, []);
 
+  const handleDelete = (id: number) => {
+    if (window.confirm("ທ່ານແນ່ໃຈບໍ່ວ່າຕ້ອງການລຶບໂປຣໂມຊັ່ນນີ້?")) {
+      // In a real app, you would call an API here
+      console.log("Deleting promo:", id);
+    }
+  };
+
   const promotions = [
     {
       id: 1,
@@ -228,7 +235,10 @@ const PromotionsPage = () => {
                           <Edit2 className="w-4 h-4" />
                         </button>
                       </Link>
-                      <button className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-xl transition-all">
+                      <button
+                        onClick={() => handleDelete(promo.id)}
+                        className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-xl transition-all"
+                      >
                         <Trash2 className="w-4 h-4" />
                       </button>
                     </div>
