@@ -15,8 +15,21 @@ import {
   Filter,
   ChevronRight,
   Package,
+  DollarSign,
 } from "lucide-react";
 import Link from "next/link";
+import {
+  AreaChart,
+  Area,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+  BarChart,
+  Bar,
+  Cell,
+} from "recharts";
 
 const ReportsPage = () => {
   const [mounted, setMounted] = useState(false);
@@ -24,6 +37,17 @@ const ReportsPage = () => {
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  // Mock data for charts
+  const weeklyData = [
+    { day: "Mon", value: 400 },
+    { day: "Tue", value: 300 },
+    { day: "Wed", value: 600 },
+    { day: "Thu", value: 800 },
+    { day: "Fri", value: 500 },
+    { day: "Sat", value: 900 },
+    { day: "Sun", value: 700 },
+  ];
 
   const reportCards = [
     {
@@ -34,8 +58,14 @@ const ReportsPage = () => {
       trend: "+12%",
       trendUp: true,
       icon: ShoppingBag,
-      color: "teal",
+      color: "#0d9488", // teal-600
       href: "/product",
+      data: [
+        { name: "W1", val: 40 },
+        { name: "W2", val: 30 },
+        { name: "W3", val: 60 },
+        { name: "W4", val: 45 },
+      ],
     },
     {
       title: "ລາຍງານການສັ່ງຊື້",
@@ -45,8 +75,14 @@ const ReportsPage = () => {
       trend: "+8.5%",
       trendUp: true,
       icon: TrendingUp,
-      color: "blue",
+      color: "#2563eb", // blue-600
       href: "/orders",
+      data: [
+        { name: "W1", val: 20 },
+        { name: "W2", val: 45 },
+        { name: "W3", val: 30 },
+        { name: "W4", val: 55 },
+      ],
     },
     {
       title: "ລາຍງານຜູ້ໃຊ້ງານ",
@@ -56,8 +92,14 @@ const ReportsPage = () => {
       trend: "+5.2%",
       trendUp: true,
       icon: Users,
-      color: "purple",
+      color: "#9333ea", // purple-600
       href: "/users",
+      data: [
+        { name: "W1", val: 10 },
+        { name: "W2", val: 25 },
+        { name: "W3", val: 20 },
+        { name: "W4", val: 35 },
+      ],
     },
     {
       title: "ປະເພດສິນຄ້າ",
@@ -67,8 +109,14 @@ const ReportsPage = () => {
       trend: "0%",
       trendUp: true,
       icon: Layers,
-      color: "orange",
+      color: "#ea580c", // orange-600
       href: "/product-type",
+      data: [
+        { name: "W1", val: 5 },
+        { name: "W2", val: 5 },
+        { name: "W3", val: 8 },
+        { name: "W4", val: 8 },
+      ],
     },
     {
       title: "ຜູ້ດູແລລະບົບ",
@@ -78,8 +126,14 @@ const ReportsPage = () => {
       trend: "+1",
       trendUp: true,
       icon: ShieldCheck,
-      color: "red",
+      color: "#dc2626", // red-600
       href: "/admins",
+      data: [
+        { name: "W1", val: 2 },
+        { name: "W2", val: 2 },
+        { name: "W3", val: 3 },
+        { name: "W4", val: 3 },
+      ],
     },
     {
       title: "ປະເພດສິດ",
@@ -89,8 +143,14 @@ const ReportsPage = () => {
       trend: "ຄົງທີ່",
       trendUp: true,
       icon: ShieldCheck,
-      color: "indigo",
+      color: "#4f46e5", // indigo-600
       href: "/roles",
+      data: [
+        { name: "W1", val: 4 },
+        { name: "W2", val: 4 },
+        { name: "W3", val: 4 },
+        { name: "W4", val: 4 },
+      ],
     },
   ];
 
@@ -151,7 +211,89 @@ const ReportsPage = () => {
         </div>
       </div>
 
-      {/* Report Cards Grid */}
+      {/* Summary Money at Top */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="lg:col-span-2 bg-teal-600 rounded-[32px] p-8 text-white shadow-lg shadow-teal-100 dark:shadow-none relative overflow-hidden group">
+          <div className="relative z-10 flex flex-col md:flex-row justify-between gap-8">
+            <div className="space-y-4">
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 rounded-2xl bg-white/20 flex items-center justify-center">
+                  <DollarSign className="w-6 h-6" />
+                </div>
+                <div>
+                  <p className="text-teal-100 text-sm font-medium">
+                    ຍອດຂາຍລວມເດືອນນີ້
+                  </p>
+                  <h3 className="text-4xl font-bold">125,450,000 ກີບ</h3>
+                </div>
+              </div>
+              <div className="flex items-center gap-2 text-xs font-bold bg-white/20 w-fit px-4 py-2 rounded-full">
+                <ArrowUpRight className="w-4 h-4" />
+                <span>ເພີ່ມຂຶ້ນ 15% ຈາກເດືອນກ່ອນ</span>
+              </div>
+              <p className="text-teal-100/80 text-sm max-w-md">
+                ຜົນການດຳເນີນງານໃນເດືອນນີ້ດີກວ່າເປົ້າໝາຍທີ່ຕັ້ງໄວ້ 5%.
+                ລະບົບກຳລັງເຕີບໂຕຢ່າງຕໍ່ເນື່ອງ.
+              </p>
+            </div>
+            <div className="w-full md:w-64 h-32">
+              <ResponsiveContainer width="100%" height="100%">
+                <AreaChart data={weeklyData}>
+                  <defs>
+                    <linearGradient id="colorVal" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="5%" stopColor="#ffffff" stopOpacity={0.3} />
+                      <stop offset="95%" stopColor="#ffffff" stopOpacity={0} />
+                    </linearGradient>
+                  </defs>
+                  <Area
+                    type="monotone"
+                    dataKey="value"
+                    stroke="#ffffff"
+                    fillOpacity={1}
+                    fill="url(#colorVal)"
+                    strokeWidth={3}
+                  />
+                </AreaChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
+          <BarChart3 className="absolute -right-8 -bottom-8 w-48 h-48 text-white/5 group-hover:scale-110 transition-transform duration-700" />
+        </div>
+
+        <div className="bg-white dark:bg-gray-900 rounded-[32px] border border-gray-100 dark:border-gray-800 shadow-sm p-8 flex flex-col justify-center">
+          <div className="flex items-center justify-between mb-6">
+            <h4 className="font-bold text-gray-800 dark:text-white">
+              ເປົ້າໝາຍການຂາຍ
+            </h4>
+            <span className="text-teal-600 font-bold">75%</span>
+          </div>
+          <div className="space-y-6">
+            <div className="h-4 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden">
+              <div className="h-full bg-teal-600 rounded-full w-[75%] animate-pulse" />
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="p-4 bg-gray-50 dark:bg-gray-800/50 rounded-2xl">
+                <p className="text-[10px] text-gray-400 uppercase font-bold mb-1">
+                  ຍັງເຫຼືອ
+                </p>
+                <p className="text-sm font-bold text-gray-700 dark:text-gray-200">
+                  25M ກີບ
+                </p>
+              </div>
+              <div className="p-4 bg-gray-50 dark:bg-gray-800/50 rounded-2xl">
+                <p className="text-[10px] text-gray-400 uppercase font-bold mb-1">
+                  ກຳນົດເວລາ
+                </p>
+                <p className="text-sm font-bold text-gray-700 dark:text-gray-200">
+                  12 ວັນ
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Report Cards Grid with Mini Charts */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {reportCards.map((card, i) => (
           <div
@@ -161,7 +303,12 @@ const ReportsPage = () => {
             <div className="p-8 space-y-6">
               <div className="flex items-start justify-between">
                 <div
-                  className={`w-14 h-14 rounded-2xl bg-${card.color}-50 dark:bg-${card.color}-900/20 flex items-center justify-center text-${card.color}-600 border border-${card.color}-100 dark:border-${card.color}-900/30 shadow-inner`}
+                  className="w-14 h-14 rounded-2xl flex items-center justify-center shadow-inner border"
+                  style={{
+                    backgroundColor: `${card.color}10`,
+                    color: card.color,
+                    borderColor: `${card.color}20`,
+                  }}
                 >
                   <card.icon className="w-7 h-7" />
                 </div>
@@ -181,19 +328,38 @@ const ReportsPage = () => {
                 </div>
               </div>
 
-              <div>
-                <p className="text-sm font-medium text-gray-500 dark:text-gray-400">
-                  {card.title}
-                </p>
-                <div className="flex items-baseline gap-2 mt-1">
-                  <h3 className="text-3xl font-bold text-gray-800 dark:text-white">
-                    {card.value}
-                  </h3>
-                  <span className="text-sm font-bold text-gray-400">
-                    {card.unit}
-                  </span>
+              <div className="flex justify-between items-end">
+                <div>
+                  <p className="text-sm font-medium text-gray-500 dark:text-gray-400">
+                    {card.title}
+                  </p>
+                  <div className="flex items-baseline gap-2 mt-1">
+                    <h3 className="text-3xl font-bold text-gray-800 dark:text-white">
+                      {card.value}
+                    </h3>
+                    <span className="text-sm font-bold text-gray-400">
+                      {card.unit}
+                    </span>
+                  </div>
                 </div>
-                <p className="text-xs text-gray-400 mt-2">{card.desc}</p>
+                {/* Mini Chart per Week */}
+                <div className="w-24 h-12">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <BarChart data={card.data}>
+                      <Bar dataKey="val" radius={[2, 2, 0, 0]}>
+                        {card.data.map((entry, index) => (
+                          <Cell
+                            key={`cell-${index}`}
+                            fill={card.color}
+                            fillOpacity={
+                              index === card.data.length - 1 ? 1 : 0.4
+                            }
+                          />
+                        ))}
+                      </Bar>
+                    </BarChart>
+                  </ResponsiveContainer>
+                </div>
               </div>
 
               <div className="pt-6 border-t border-gray-50 dark:border-gray-800">
@@ -254,42 +420,42 @@ const ReportsPage = () => {
           </div>
         </div>
 
-        {/* Quick Stats */}
-        <div className="space-y-6">
-          <div className="bg-teal-600 rounded-[32px] p-8 text-white shadow-lg shadow-teal-100 dark:shadow-none relative overflow-hidden group">
-            <div className="relative z-10">
-              <p className="text-teal-100 text-sm font-medium">
-                ຍອດຂາຍລວມເດືອນນີ້
-              </p>
-              <h3 className="text-3xl font-bold mt-2">125,450,000 ກີບ</h3>
-              <div className="mt-6 flex items-center gap-2 text-xs font-bold bg-white/20 w-fit px-3 py-1.5 rounded-full">
-                <ArrowUpRight className="w-3 h-3" />
-                <span>ເພີ່ມຂຶ້ນ 15% ຈາກເດືອນກ່ອນ</span>
-              </div>
-            </div>
-            <BarChart3 className="absolute -right-4 -bottom-4 w-32 h-32 text-white/10 group-hover:scale-110 transition-transform duration-500" />
-          </div>
-
-          <div className="bg-white dark:bg-gray-900 rounded-[32px] border border-gray-100 dark:border-gray-800 shadow-sm p-8">
-            <h4 className="font-bold text-gray-800 dark:text-white mb-6">
-              ເປົ້າໝາຍການຂາຍ
-            </h4>
-            <div className="space-y-6">
-              <div>
-                <div className="flex justify-between text-sm mb-2">
-                  <span className="text-gray-500">ເປົ້າໝາຍເດືອນນີ້</span>
-                  <span className="font-bold text-gray-800 dark:text-white">
-                    75%
-                  </span>
-                </div>
-                <div className="h-2 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden">
-                  <div className="h-full bg-teal-600 rounded-full w-[75%]" />
-                </div>
-              </div>
-              <p className="text-xs text-gray-400 leading-relaxed">
-                ທ່ານຍັງຕ້ອງການອີກ 25,000,000 ກີບ ເພື່ອບັນລຸເປົ້າໝາຍທີ່ຕັ້ງໄວ້.
-              </p>
-            </div>
+        {/* Weekly Trend Chart */}
+        <div className="bg-white dark:bg-gray-900 rounded-[32px] border border-gray-100 dark:border-gray-800 shadow-sm p-8">
+          <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-6">
+            ແນວໂນ້ມລາຍອາທິດ
+          </h3>
+          <div className="h-[300px] w-full">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={weeklyData}>
+                <CartesianGrid
+                  strokeDasharray="3 3"
+                  vertical={false}
+                  stroke="#f1f5f9"
+                />
+                <XAxis
+                  dataKey="day"
+                  axisLine={false}
+                  tickLine={false}
+                  tick={{ fontSize: 12, fill: "#94a3b8" }}
+                  dy={10}
+                />
+                <Tooltip
+                  cursor={{ fill: "#f8fafc" }}
+                  contentStyle={{
+                    borderRadius: "16px",
+                    border: "none",
+                    boxShadow: "0 10px 15px -3px rgb(0 0 0 / 0.1)",
+                  }}
+                />
+                <Bar
+                  dataKey="value"
+                  fill="#0d9488"
+                  radius={[6, 6, 0, 0]}
+                  barSize={30}
+                />
+              </BarChart>
+            </ResponsiveContainer>
           </div>
         </div>
       </div>
