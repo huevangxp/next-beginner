@@ -34,7 +34,7 @@ const DashboardPage = () => {
       bg: "bg-emerald-50",
     },
     {
-      title: "ຜູ້ໃຊ້ງານ",
+      title: "ລູກຄ້າ",
       value: "+2,350",
       change: "+180.1%",
       isPositive: true,
@@ -174,7 +174,7 @@ const DashboardPage = () => {
               <thead>
                 <tr className="bg-gray-50/50 dark:bg-gray-800/50">
                   <th className="px-6 py-4 text-xs font-bold text-gray-400 uppercase tracking-wider">
-                    ຜູ້ໃຊ້
+                    ລູກຄ້າ
                   </th>
                   <th className="px-6 py-4 text-xs font-bold text-gray-400 uppercase tracking-wider">
                     ກິດຈະກຳ
@@ -232,10 +232,10 @@ const DashboardPage = () => {
                   <span className="text-xs font-bold">ເພີ່ມສິນຄ້າ</span>
                 </button>
               </Link>
-              <Link href="/users/create" className="contents">
+              <Link href="/customers/create" className="contents">
                 <button className="p-4 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400 rounded-xl hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-all flex flex-col items-center gap-2 w-full">
                   <Users className="w-5 h-5" />
-                  <span className="text-xs font-bold">ເພີ່ມຜູ້ໃຊ້</span>
+                  <span className="text-xs font-bold">ເພີ່ມລູກຄ້າ</span>
                 </button>
               </Link>
             </div>
