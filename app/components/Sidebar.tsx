@@ -9,9 +9,9 @@ const Sidebar = () => {
   const pathname = usePathname();
 
   const menuItems = [
-    { name: "Dashboard", href: "/", icon: Home },
-    { name: "Product", href: "/product", icon: ShoppingBag },
-    { name: "Profile", href: "/profile", icon: User },
+    { name: "ໜ້າຫຼັກ", href: "/", icon: Home },
+    { name: "ສິນຄ້າ", href: "/product", icon: ShoppingBag },
+    { name: "ຂໍ້ມູນສ່ວນຕົວ", href: "/profile", icon: User },
   ];
 
   return (
