@@ -105,5 +105,20 @@
       "deleteDesc": "Once you delete your account, there is no going back. Please be certain.",
       "deleteButton": "Delete"
     }
+  },
+  "Chart": {
+    "title": "Financial Performance",
+    "description": "Revenue vs Expenses (Monthly)",
+    "revenue": "Revenue",
+    "expenses": "Expenses",
+    "months": {
+      "jan": "Jan",
+      "feb": "Feb",
+      "mar": "Mar",
+      "apr": "Apr",
+      "may": "May",
+      "jun": "Jun",
+      "jul": "Jul"
+    }
   }
 }
