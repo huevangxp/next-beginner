@@ -50,8 +50,6 @@ const RegisterPage = () => {
       <img
         src="/assets/images/auth.png"
         alt="Auth Illustration"
-        fill
-        priority
         className="object-cover opacity-90 scale-x-[-1]"
       />
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
