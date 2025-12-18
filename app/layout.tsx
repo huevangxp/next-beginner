@@ -25,6 +25,7 @@ export const metadata: Metadata = {
 };
 
 import Sidebar from "./components/Sidebar";
+import { AppProvider } from "./context/AppContext";
 
 export default function RootLayout({
   children,
@@ -34,20 +35,22 @@ export default function RootLayout({
   return (
     <html lang="lo">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${notoLaos.variable} antialiased bg-gray-50 font-[family-name:var(--font-noto-lao)]`}
+        className={`${geistSans.variable} ${geistMono.variable} ${notoLaos.variable} antialiased bg-gray-50 font-[family-name:var(--font-noto-lao)] transition-colors duration-300 dark:bg-gray-950`}
       >
-        <div className="flex min-h-screen">
-          {/* Sidebar */}
-          <Sidebar />
+        <AppProvider>
+          <div className="flex min-h-screen">
+            {/* Sidebar */}
+            <Sidebar />
 
-          {/* Main Content */}
-          <div className="flex-1 flex flex-col">
-            <Header />
-            <main className="p-8 flex-1">
-              <div className="max-w-7xl mx-auto">{children}</div>
-            </main>
+            {/* Main Content */}
+            <div className="flex-1 flex flex-col">
+              <Header />
+              <main className="p-8 flex-1">
+                <div className="max-w-7xl mx-auto">{children}</div>
+              </main>
+            </div>
           </div>
-        </div>
+        </AppProvider>
       </body>
     </html>
   );
