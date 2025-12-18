@@ -24,7 +24,7 @@ const Header = () => {
           </div>
           <div>
             <h1 className="text-lg font-bold text-gray-800 leading-none">
-              Learn NextJS Beginner
+              ອັດຕະຫຼາດລະບົບຄົວເຫຼືອ
             </h1>
             <span className="text-xs font-medium text-teal-600 bg-teal-50 px-2 py-0.5 rounded-full mt-1 inline-block">
               v1.0.0
