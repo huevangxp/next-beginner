@@ -1,6 +1,6 @@
 import * as XLSX from "xlsx";
 import jsPDF from "jspdf";
-import autoTable from "jspdf-autotable";
+import html2canvas from "html2canvas";
 
 export const exportToExcel = (data: any[], fileName: string) => {
   const worksheet = XLSX.utils.json_to_sheet(data);
@@ -9,6 +9,31 @@ export const exportToExcel = (data: any[], fileName: string) => {
   XLSX.writeFile(workbook, `${fileName}.xlsx`);
 };
 
+export const exportElementToPDF = async (
+  elementId: string,
+  fileName: string
+) => {
+  const element = document.getElementById(elementId);
+  if (!element) return;
+
+  const canvas = await html2canvas(element, {
+    scale: 2,
+    useCORS: true,
+    logging: false,
+    backgroundColor: "#ffffff",
+  });
+
+  const imgData = canvas.toDataURL("image/png");
+  const pdf = new jsPDF("p", "mm", "a4");
+  const imgProps = pdf.getImageProperties(imgData);
+  const pdfWidth = pdf.internal.pageSize.getWidth();
+  const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+
+  pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+  pdf.save(`${fileName}.pdf`);
+};
+
+// Keep the old one for compatibility but it won't support Lao well without fonts
 export const exportToPDF = (
   headers: string[],
   data: any[][],
@@ -16,24 +41,7 @@ export const exportToPDF = (
   title: string
 ) => {
   const doc = new jsPDF();
-
-  // Add title
   doc.setFontSize(18);
   doc.text(title, 14, 22);
-  doc.setFontSize(11);
-  doc.setTextColor(100);
-
-  // Add date
-  const date = new Date().toLocaleDateString();
-  doc.text(`ລາຍງານວັນທີ: ${date}`, 14, 30);
-
-  autoTable(doc, {
-    head: [headers],
-    body: data,
-    startY: 35,
-    styles: { font: "helvetica", fontSize: 10 },
-    headStyles: { fillColor: [13, 148, 136], textColor: [255, 255, 255] },
-  });
-
   doc.save(`${fileName}.pdf`);
 };
