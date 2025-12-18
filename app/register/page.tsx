@@ -47,11 +47,11 @@ const RegisterPage = () => {
   return (
     <div className="min-h-screen bg-white dark:bg-gray-950 flex items-center justify-center p-0 md:p-6 relative overflow-hidden">
       {/* Background Decorative Elements */}
-      {/* <img
+      <Image
         src="~/assets/images/login.png"
         alt="Auth Illustration"
         className="object-cover opacity-90 scale-x-[-1]"
-      /> */}
+      />
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
         <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-blue-500/5 rounded-full blur-[120px]"></div>
         <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-teal-500/5 rounded-full blur-[120px]"></div>
