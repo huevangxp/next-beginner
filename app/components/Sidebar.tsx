@@ -3,7 +3,13 @@
 import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, ShoppingBag, LayoutDashboard, User } from "lucide-react";
+import {
+  Home,
+  ShoppingBag,
+  LayoutDashboard,
+  User,
+  Settings,
+} from "lucide-react";
 
 const Sidebar = () => {
   const pathname = usePathname();
@@ -11,7 +17,8 @@ const Sidebar = () => {
   const menuItems = [
     { name: "ໜ້າຫຼັກ", href: "/", icon: Home },
     { name: "ສິນຄ້າ", href: "/product", icon: ShoppingBag },
-    // { name: "ຂໍ້ມູນສ່ວນຕົວ", href: "/profile", icon: User },
+    { name: "ຂໍ້ມູນສ່ວນຕົວ", href: "/profile", icon: User },
+    { name: "ການຕັ້ງຄ່າ", href: "/settings", icon: Settings },
   ];
 
   return (
