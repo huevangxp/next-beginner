@@ -69,11 +69,6 @@ const RegisterPage = () => {
             height={500}
             className="absolute inset-0 object-cover opacity-90 scale-x-[-1]"
           />
-          {/* <img
-            src="../auth.png"
-            alt="Auth Illustration"
-            className="absolute inset-0 w-full h-full object-cover opacity-90 scale-x-[-1]"
-          /> */}
           <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 to-teal-600/20 backdrop-blur-[2px]"></div>
 
           <div className="relative z-10 text-center space-y-8 animate-in fade-in slide-in-from-right-8 duration-1000 p-12">
