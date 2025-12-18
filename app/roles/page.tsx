@@ -10,8 +10,7 @@ import {
   Trash2,
   CheckCircle2,
   XCircle,
-  ChevronRight,
-  Shield,
+  FileText,
   Users,
 } from "lucide-react";
 import Link from "next/link";
@@ -98,68 +97,98 @@ const RolesPage = () => {
         </div>
       </div>
 
-      {/* Roles Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-        {roles.map((role) => (
-          <div
-            key={role.id}
-            className="bg-white dark:bg-gray-900 rounded-[32px] border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-xl hover:shadow-teal-500/5 transition-all group overflow-hidden"
-          >
-            <div className="p-8 space-y-6">
-              <div className="flex items-start justify-between">
-                <div className="w-14 h-14 rounded-2xl bg-teal-50 dark:bg-teal-900/20 flex items-center justify-center text-teal-600 border border-teal-100 dark:border-teal-900/30 shadow-inner">
-                  <ShieldCheck className="w-7 h-7" />
-                </div>
-                <span
-                  className={`inline-flex items-center px-3 py-1 rounded-full text-[10px] font-bold ${
-                    role.status === "active"
-                      ? "bg-emerald-50 text-emerald-600 dark:bg-emerald-900/20 dark:text-emerald-400"
-                      : "bg-red-50 text-red-600 dark:bg-red-900/20 dark:text-red-400"
-                  }`}
+      {/* Roles Table */}
+      <div className="bg-white dark:bg-gray-900 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm overflow-hidden">
+        <div className="overflow-x-auto">
+          <table className="w-full text-left border-collapse">
+            <thead>
+              <tr className="bg-gray-50/50 dark:bg-gray-800/50">
+                <th className="px-8 py-5 text-xs font-bold text-gray-400 uppercase tracking-wider">
+                  ປະເພດສິດ
+                </th>
+                <th className="px-8 py-5 text-xs font-bold text-gray-400 uppercase tracking-wider">
+                  ຄຳອະທິບາຍ
+                </th>
+                <th className="px-8 py-5 text-xs font-bold text-gray-400 uppercase tracking-wider">
+                  ຈຳນວນຜູ້ໃຊ້
+                </th>
+                <th className="px-8 py-5 text-xs font-bold text-gray-400 uppercase tracking-wider">
+                  ສະຖານະ
+                </th>
+                <th className="px-8 py-5 text-xs font-bold text-gray-400 uppercase tracking-wider text-right">
+                  ຈັດການ
+                </th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-50 dark:divide-gray-800">
+              {roles.map((role) => (
+                <tr
+                  key={role.id}
+                  className="hover:bg-gray-50/50 dark:hover:bg-gray-800/30 transition-colors group"
                 >
-                  {role.status === "active" ? "ເປີດໃຊ້ງານ" : "ປິດໃຊ້ງານ"}
-                </span>
-              </div>
-
-              <div>
-                <h3 className="text-xl font-bold text-gray-800 dark:text-white group-hover:text-teal-600 transition-colors">
-                  {role.name}
-                </h3>
-                <p className="text-sm text-gray-500 dark:text-gray-400 mt-2 line-clamp-2">
-                  {role.description}
-                </p>
-              </div>
-
-              <div className="flex flex-wrap gap-2">
-                {role.permissions.map((perm, i) => (
-                  <span
-                    key={i}
-                    className="px-3 py-1 bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-400 rounded-lg text-xs font-medium border border-gray-100 dark:border-gray-700"
-                  >
-                    {perm}
-                  </span>
-                ))}
-              </div>
-
-              <div className="pt-6 border-t border-gray-50 dark:border-gray-800 flex items-center justify-between">
-                <div className="flex items-center gap-2 text-gray-500 dark:text-gray-400">
-                  <Users className="w-4 h-4" />
-                  <span className="text-sm font-bold">
-                    {role.userCount} ຜູ້ໃຊ້
-                  </span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <button className="p-2 text-gray-400 hover:text-teal-600 hover:bg-teal-50 dark:hover:bg-teal-900/20 rounded-xl transition-all">
-                    <Edit2 className="w-4 h-4" />
-                  </button>
-                  <button className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-xl transition-all">
-                    <Trash2 className="w-4 h-4" />
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        ))}
+                  <td className="px-8 py-5">
+                    <div className="flex items-center gap-4">
+                      <div className="w-12 h-12 rounded-2xl bg-teal-50 dark:bg-teal-900/20 flex items-center justify-center text-teal-600 dark:text-teal-400 font-bold text-lg border border-teal-100 dark:border-teal-900/30">
+                        <ShieldCheck className="w-6 h-6" />
+                      </div>
+                      <div>
+                        <p className="font-bold text-gray-800 dark:text-white">
+                          {role.name}
+                        </p>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">
+                          ID: #{role.id.toString().padStart(4, "0")}
+                        </p>
+                      </div>
+                    </div>
+                  </td>
+                  <td className="px-8 py-5">
+                    <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400 max-w-xs truncate">
+                      <FileText className="w-4 h-4 text-gray-400 shrink-0" />
+                      {role.description}
+                    </div>
+                  </td>
+                  <td className="px-8 py-5">
+                    <div className="flex items-center gap-2 text-sm font-bold text-gray-800 dark:text-white">
+                      <Users className="w-4 h-4 text-gray-400" />
+                      {role.userCount} ຜູ້ໃຊ້
+                    </div>
+                  </td>
+                  <td className="px-8 py-5">
+                    <span
+                      className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-bold ${
+                        role.status === "active"
+                          ? "bg-emerald-50 text-emerald-600 dark:bg-emerald-900/20 dark:text-emerald-400"
+                          : "bg-red-50 text-red-600 dark:bg-red-900/20 dark:text-red-400"
+                      }`}
+                    >
+                      {role.status === "active" ? (
+                        <>
+                          <CheckCircle2 className="w-3 h-3 mr-1.5" />
+                          ເປີດໃຊ້ງານ
+                        </>
+                      ) : (
+                        <>
+                          <XCircle className="w-3 h-3 mr-1.5" />
+                          ປິດໃຊ້ງານ
+                        </>
+                      )}
+                    </span>
+                  </td>
+                  <td className="px-8 py-5 text-right">
+                    <div className="flex items-center justify-end gap-2">
+                      <button className="p-2 text-gray-400 hover:text-teal-600 hover:bg-teal-50 dark:hover:bg-teal-900/20 rounded-xl transition-all">
+                        <Edit2 className="w-4 h-4" />
+                      </button>
+                      <button className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-xl transition-all">
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );
