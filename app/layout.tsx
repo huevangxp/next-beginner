@@ -32,7 +32,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="lo">
+    <html lang="lo" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${notoLaos.variable} antialiased bg-gray-50 font-[family-name:var(--font-noto-lao)] transition-colors duration-300 dark:bg-gray-950`}
       >
