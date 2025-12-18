@@ -2,41 +2,44 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { useAppContext } from "../context/AppContext";
 import {
   Lock,
   User,
+  Mail,
   Eye,
   EyeOff,
   LayoutDashboard,
   ArrowRight,
 } from "lucide-react";
+import Link from "next/link";
 
-const LoginPage = () => {
+const RegisterPage = () => {
   const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const { login } = useAppContext();
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
+
+    if (password !== confirmPassword) {
+      setError("ລະຫັດຜ່ານບໍ່ກົງກັນ");
+      return;
+    }
+
     setIsLoading(true);
 
-    // Mock authentication
+    // Mock registration
     setTimeout(() => {
-      if (username === "admin" && password === "password") {
-        login(username);
-        router.push("/");
-      } else {
-        setError("ຊື່ຜູ້ໃຊ້ ຫຼື ລະຫັດຜ່ານບໍ່ຖືກຕ້ອງ");
-        setIsLoading(false);
-      }
-    }, 1000);
+      setIsLoading(false);
+      router.push("/login");
+    }, 1500);
   };
 
   return (
@@ -54,16 +57,16 @@ const LoginPage = () => {
             <LayoutDashboard className="text-white w-8 h-8" />
           </div>
           <h1 className="text-3xl font-bold text-gray-900 dark:text-white tracking-tight">
-            ຍິນດີຕ້ອນຮັບຄືນ
+            ລົງທະບຽນໃໝ່
           </h1>
-          <p className="text-gray-500 dark:text-gray-400 mt-2">
-            ກະລຸນາເຂົ້າສູ່ລະບົບເພື່ອຈັດການລະບົບຂອງທ່ານ
+          <p className="text-gray-500 dark:text-gray-400 mt-2 text-center">
+            ສ້າງບັນຊີຂອງທ່ານເພື່ອເລີ່ມຕົ້ນການໃຊ້ງານລະບົບ
           </p>
         </div>
 
-        {/* Login Card */}
+        {/* Register Card */}
         <div className="bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl p-8 rounded-[32px] border border-white dark:border-gray-800 shadow-2xl animate-in fade-in zoom-in-95 duration-500">
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-5">
             {error && (
               <div className="p-4 bg-red-50 dark:bg-red-900/20 border border-red-100 dark:border-red-900/30 rounded-2xl text-red-600 dark:text-red-400 text-sm font-medium animate-in shake duration-300">
                 {error}
@@ -88,17 +91,26 @@ const LoginPage = () => {
             </div>
 
             <div className="space-y-2">
-              <div className="flex items-center justify-between ml-1">
-                <label className="text-sm font-bold text-gray-700 dark:text-gray-300">
-                  ລະຫັດຜ່ານ
-                </label>
-                <button
-                  type="button"
-                  className="text-xs font-bold text-teal-600 hover:text-teal-700 transition-colors"
-                >
-                  ລືມລະຫັດຜ່ານ?
-                </button>
+              <label className="text-sm font-bold text-gray-700 dark:text-gray-300 ml-1">
+                ອີເມວ
+              </label>
+              <div className="relative group">
+                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 group-focus-within:text-teal-500 transition-colors" />
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="example@mail.com"
+                  className="w-full pl-12 pr-4 py-4 bg-gray-50 dark:bg-gray-800/50 border border-gray-100 dark:border-gray-700 rounded-2xl focus:ring-4 focus:ring-teal-500/10 focus:border-teal-500 outline-none transition-all dark:text-white placeholder:text-gray-400"
+                  required
+                />
               </div>
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-sm font-bold text-gray-700 dark:text-gray-300 ml-1">
+                ລະຫັດຜ່ານ
+              </label>
               <div className="relative group">
                 <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 group-focus-within:text-teal-500 transition-colors" />
                 <input
@@ -123,6 +135,23 @@ const LoginPage = () => {
               </div>
             </div>
 
+            <div className="space-y-2">
+              <label className="text-sm font-bold text-gray-700 dark:text-gray-300 ml-1">
+                ຢືນຢັນລະຫັດຜ່ານ
+              </label>
+              <div className="relative group">
+                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 group-focus-within:text-teal-500 transition-colors" />
+                <input
+                  type={showPassword ? "text" : "password"}
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  placeholder="••••••••"
+                  className="w-full pl-12 pr-12 py-4 bg-gray-50 dark:bg-gray-800/50 border border-gray-100 dark:border-gray-700 rounded-2xl focus:ring-4 focus:ring-teal-500/10 focus:border-teal-500 outline-none transition-all dark:text-white placeholder:text-gray-400"
+                  required
+                />
+              </div>
+            </div>
+
             <button
               type="submit"
               disabled={isLoading}
@@ -132,7 +161,7 @@ const LoginPage = () => {
                 <div className="w-6 h-6 border-3 border-white/30 border-t-white rounded-full animate-spin"></div>
               ) : (
                 <>
-                  <span>ເຂົ້າສູ່ລະບົບ</span>
+                  <span>ລົງທະບຽນ</span>
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </>
               )}
@@ -141,12 +170,12 @@ const LoginPage = () => {
 
           <div className="mt-8 pt-6 border-t border-gray-100 dark:border-gray-800 text-center">
             <p className="text-gray-500 dark:text-gray-400 text-sm">
-              ຍັງບໍ່ມີບັນຊີ?{" "}
+              ມີບັນຊີແລ້ວບໍ?{" "}
               <Link
-                href="/register"
+                href="/login"
                 className="text-teal-600 font-bold hover:underline"
               >
-                ລົງທະບຽນໃໝ່
+                ເຂົ້າສູ່ລະບົບ
               </Link>
             </p>
           </div>
@@ -161,4 +190,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default RegisterPage;
