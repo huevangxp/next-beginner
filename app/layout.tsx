@@ -32,9 +32,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="lo">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-50`}
+        className={`${geistSans.variable} ${geistMono.variable} ${notoLaos.variable} antialiased bg-gray-50 font-[family-name:var(--font-noto-lao)]`}
       >
         <div className="flex min-h-screen">
           {/* Sidebar */}
