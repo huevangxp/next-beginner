@@ -44,14 +44,46 @@ const LoginPage = () => {
     <div className="min-h-screen bg-white dark:bg-gray-950 flex items-center justify-center p-0 md:p-6 relative overflow-hidden">
       {/* Background Decorative Elements */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
-                <p className="text-2xl font-bold text-teal-600">99.9%</p>
-                <p className="text-xs text-gray-500 font-bold uppercase tracking-wider">
+        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-teal-500/5 rounded-full blur-[120px]"></div>
+        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-blue-500/5 rounded-full blur-[120px]"></div>
+      </div>
+
+      <div className="w-full max-w-6xl bg-white dark:bg-gray-900 rounded-none md:rounded-[40px] shadow-2xl border border-gray-100 dark:border-gray-800 overflow-hidden flex flex-col md:flex-row min-h-[700px] relative z-10">
+        {/* Left Side: Illustration */}
+        <div className="hidden md:flex md:w-1/2 relative items-center justify-center overflow-hidden border-r border-gray-50 dark:border-gray-800">
+          <img
+            src="/images/auth-illustration.png"
+            alt="Auth Illustration"
+            className="absolute inset-0 w-full h-full object-cover opacity-90"
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-teal-600/20 to-blue-600/20 backdrop-blur-[2px]"></div>
+
+          <div className="relative z-10 text-center space-y-8 animate-in fade-in slide-in-from-left-8 duration-1000 p-12">
+            <div className="w-24 h-24 bg-white/90 dark:bg-gray-800/90 backdrop-blur-xl rounded-3xl shadow-2xl flex items-center justify-center mx-auto transform rotate-12 hover:rotate-0 transition-transform duration-500 border border-white/50">
+              <LayoutDashboard className="w-12 h-12 text-teal-600" />
+            </div>
+            <div className="space-y-4">
+              <h2 className="text-4xl font-black text-white tracking-tight leading-tight drop-shadow-lg">
+                ຈັດການທຸລະກິດ <br />
+                <span className="text-teal-300">ຢ່າງມືອາຊີບ</span>
+              </h2>
+              <p className="text-white/80 text-lg max-w-md mx-auto leading-relaxed drop-shadow-md">
+                ລະບົບຈັດການຫຼັງບ້ານທີ່ທັນສະໄໝ ພ້ອມເຄື່ອງມືທີ່ຄົບຄັນ
+                ເພື່ອຊ່ວຍໃຫ້ທຸລະກິດຂອງທ່ານເຕີບໂຕ.
+              </p>
+            </div>
+
+            {/* Stats Preview */}
+            <div className="grid grid-cols-2 gap-4 pt-8">
+              <div className="bg-white/20 dark:bg-gray-800/20 backdrop-blur-md p-4 rounded-2xl border border-white/30 shadow-sm">
+                <p className="text-2xl font-bold text-white">99.9%</p>
+                <p className="text-xs text-white/60 font-bold uppercase tracking-wider">
                   Uptime
                 </p>
               </div>
-              <div className="bg-white/60 dark:bg-gray-800/60 backdrop-blur-md p-4 rounded-2xl border border-white/50 shadow-sm">
-                <p className="text-2xl font-bold text-blue-600">24/7</p>
-                <p className="text-xs text-gray-500 font-bold uppercase tracking-wider">
+              <div className="bg-white/20 dark:bg-gray-800/20 backdrop-blur-md p-4 rounded-2xl border border-white/30 shadow-sm">
+                <p className="text-2xl font-bold text-white">24/7</p>
+                <p className="text-xs text-white/60 font-bold uppercase tracking-wider">
                   Support
                 </p>
               </div>
