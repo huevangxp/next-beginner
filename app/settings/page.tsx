@@ -15,6 +15,7 @@ import {
   ChevronRight,
   Eye,
   EyeOff,
+  CheckCircle2,
 } from "lucide-react";
 import { useAppContext } from "../context/AppContext";
 
@@ -76,6 +77,7 @@ const SettingsPage = () => {
 
         {/* Content Area */}
         <div className="flex-1 space-y-6">
+          {/* General Tab */}
           {activeTab === "general" && (
             <div className="bg-white dark:bg-gray-900 rounded-[32px] border border-gray-100 dark:border-gray-800 shadow-sm overflow-hidden">
               <div className="p-8 md:p-10 space-y-8">
@@ -148,6 +150,63 @@ const SettingsPage = () => {
             </div>
           )}
 
+          {/* Profile Tab */}
+          {activeTab === "profile" && (
+            <div className="bg-white dark:bg-gray-900 rounded-[32px] border border-gray-100 dark:border-gray-800 shadow-sm overflow-hidden">
+              <div className="p-8 md:p-10 space-y-8">
+                <div className="flex items-center gap-6 pb-8 border-b border-gray-50 dark:border-gray-800">
+                  <div className="relative">
+                    <div className="w-24 h-24 rounded-full bg-teal-100 dark:bg-teal-900/30 flex items-center justify-center text-teal-700 dark:text-teal-400 font-bold text-3xl border-4 border-white dark:border-gray-800 shadow-sm">
+                      {user?.username?.charAt(0).toUpperCase() || "A"}
+                    </div>
+                    <button className="absolute bottom-0 right-0 p-2 bg-white dark:bg-gray-700 rounded-full shadow-md border border-gray-100 dark:border-gray-600 text-teal-600">
+                      <Settings className="w-4 h-4" />
+                    </button>
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-bold text-gray-800 dark:text-white">
+                      {user?.username || "Admin User"}
+                    </h3>
+                    <p className="text-gray-500">
+                      {user?.role || "Administrator"}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <label className="text-sm font-bold text-gray-700 dark:text-gray-300">
+                      ຊື່ຜູ້ໃຊ້
+                    </label>
+                    <input
+                      type="text"
+                      defaultValue={user?.username}
+                      className="w-full px-5 py-4 bg-gray-50 dark:bg-gray-800 border-none rounded-2xl focus:ring-2 focus:ring-teal-500/20 outline-none transition-all dark:text-white"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-sm font-bold text-gray-700 dark:text-gray-300">
+                      ອີເມວ
+                    </label>
+                    <input
+                      type="email"
+                      defaultValue="admin@example.com"
+                      className="w-full px-5 py-4 bg-gray-50 dark:bg-gray-800 border-none rounded-2xl focus:ring-2 focus:ring-teal-500/20 outline-none transition-all dark:text-white"
+                    />
+                  </div>
+                </div>
+
+                <div className="pt-4">
+                  <button className="w-full md:w-auto px-8 py-4 bg-teal-600 hover:bg-teal-700 text-white rounded-2xl font-bold shadow-lg shadow-teal-100 dark:shadow-none transition-all flex items-center justify-center gap-2">
+                    <Save className="w-5 h-5" />
+                    <span>ບັນທຶກຂໍ້ມູນ</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Security Tab */}
           {activeTab === "security" && (
             <div className="bg-white dark:bg-gray-900 rounded-[32px] border border-gray-100 dark:border-gray-800 shadow-sm overflow-hidden">
               <div className="p-8 md:p-10 space-y-8">
@@ -217,6 +276,21 @@ const SettingsPage = () => {
                     className="w-full py-4 bg-teal-600 hover:bg-teal-700 text-white rounded-2xl font-bold shadow-lg shadow-teal-100 dark:shadow-none transition-all flex items-center justify-center gap-2"
                   >
                     <Save className="w-5 h-5" />
+                    <span>ອັບເດດລະຫັດຜ່ານ</span>
+                  </button>
+                </form>
+              </div>
+            </div>
+          )}
+
+          {/* Notifications Tab */}
+          {activeTab === "notifications" && (
+            <div className="bg-white dark:bg-gray-900 rounded-[32px] border border-gray-100 dark:border-gray-800 shadow-sm overflow-hidden">
+              <div className="p-8 md:p-10 space-y-8">
+                <div className="flex items-center gap-4 pb-6 border-b border-gray-50 dark:border-gray-800">
+                  <div className="w-12 h-12 rounded-2xl bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center text-blue-600">
+                    <Bell className="w-6 h-6" />
+                  </div>
                   <div>
                     <h3 className="text-xl font-bold text-gray-800 dark:text-white">
                       ການແຈ້ງເຕືອນ
@@ -262,7 +336,9 @@ const SettingsPage = () => {
                       </div>
                       <button
                         className={`w-12 h-6 rounded-full transition-all relative ${
-                          item.enabled ? "bg-teal-600" : "bg-gray-300 dark:bg-gray-700"
+                          item.enabled
+                            ? "bg-teal-600"
+                            : "bg-gray-300 dark:bg-gray-700"
                         }`}
                       >
                         <div
