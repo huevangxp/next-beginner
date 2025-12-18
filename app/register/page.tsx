@@ -47,7 +47,7 @@ const RegisterPage = () => {
   return (
     <div className="min-h-screen bg-white dark:bg-gray-950 flex items-center justify-center p-0 md:p-6 relative overflow-hidden">
       {/* Background Decorative Elements */}
-      <Image
+      <img
         src="/assets/images/auth.png"
         alt="Auth Illustration"
         fill
