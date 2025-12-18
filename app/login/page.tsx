@@ -51,7 +51,11 @@ const LoginPage = () => {
       <div className="w-full max-w-6xl bg-white dark:bg-gray-900 rounded-none md:rounded-[40px] shadow-2xl border border-gray-100 dark:border-gray-800 overflow-hidden flex flex-col md:flex-row min-h-[700px] relative z-10">
         {/* Left Side: Illustration */}
         <div className="hidden md:flex md:w-1/2 relative items-center justify-center overflow-hidden border-r border-gray-50 dark:border-gray-800">
-          <img src="/images/auth.png" alt="Auth Illustration" />
+          <img
+            src="/images/auth.png"
+            alt="Auth Illustration"
+            className="absolute inset-0 w-full h-full object-cover opacity-90"
+          />
           <div className="absolute inset-0 bg-gradient-to-br from-teal-600/20 to-blue-600/20 backdrop-blur-[2px]"></div>
 
           <div className="relative z-10 text-center space-y-8 animate-in fade-in slide-in-from-left-8 duration-1000 p-12">
