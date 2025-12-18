@@ -16,7 +16,7 @@ import FinancialChart from "./components/FinancialChart";
 const DashboardPage = () => {
   const stats = [
     {
-      title: "Total Revenue",
+      title: "ລາຍຮັບທັງໝົດ",
       value: "$45,231.89",
       change: "+20.1%",
       isPositive: true,
@@ -25,7 +25,7 @@ const DashboardPage = () => {
       bg: "bg-emerald-50",
     },
     {
-      title: "Active Users",
+      title: "ຜູ້ໃຊ້ງານ",
       value: "+2,350",
       change: "+180.1%",
       isPositive: true,
@@ -34,7 +34,7 @@ const DashboardPage = () => {
       bg: "bg-blue-50",
     },
     {
-      title: "New Orders",
+      title: "ຄຳສັ່ງຊື້ໃໝ່",
       value: "+12,234",
       change: "+19%",
       isPositive: true,
@@ -43,7 +43,7 @@ const DashboardPage = () => {
       bg: "bg-teal-50",
     },
     {
-      title: "Growth Rate",
+      title: "ອັດຕາການເຕີບໂຕ",
       value: "24.5%",
       change: "-4.5%",
       isPositive: false,
@@ -57,29 +57,29 @@ const DashboardPage = () => {
     {
       id: 1,
       user: "Alex Morgan",
-      action: "Purchased Wireless Headphones",
-      time: "2 mins ago",
+      action: "ຊື້ຫູຟັງໄຮ້ສາຍ",
+      time: "2 ນາທີກ່ອນ",
       amount: "$59.99",
     },
     {
       id: 2,
       user: "Sarah Chen",
-      action: "Updated profile picture",
-      time: "15 mins ago",
+      action: "ອັບເດດຮູບໂປຣໄຟລ໌",
+      time: "15 ນາທີກ່ອນ",
       amount: null,
     },
     {
       id: 3,
       user: "James Wilson",
-      action: "New subscription: Pro Plan",
-      time: "1 hour ago",
+      action: "ສະໝັກສະມາຊິກໃໝ່: Pro Plan",
+      time: "1 ຊົ່ວໂມງກ່ອນ",
       amount: "$199.00",
     },
     {
       id: 4,
       user: "Elena Rodriguez",
-      action: "Purchased Smart Watch",
-      time: "3 hours ago",
+      action: "ຊື້ໂມງອັດສະລິຍະ",
+      time: "3 ຊົ່ວໂມງກ່ອນ",
       amount: "$129.99",
     },
   ];
@@ -89,20 +89,18 @@ const DashboardPage = () => {
       {/* Welcome Section */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-gray-800">
-            Dashboard Overview
-          </h1>
+          <h1 className="text-3xl font-bold text-gray-800">ພາບລວມລະບົບ</h1>
           <p className="text-gray-500 mt-1">
-            Welcome back, Admin! Here's what's happening today.
+            ຍິນດີຕ້ອນຮັບ, ຜູ້ດູແລລະບົບ! ນີ້ແມ່ນສິ່ງທີ່ເກີດຂຶ້ນໃນມື້ນີ້.
           </p>
         </div>
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 rounded-xl text-sm font-medium text-gray-600 shadow-sm">
             <Clock className="w-4 h-4" />
-            <span>Last updated: 5 mins ago</span>
+            <span>ອັບເດດຫຼ້າສຸດ: 5 ນາທີກ່ອນ</span>
           </div>
           <button className="px-4 py-2 bg-teal-600 text-white rounded-xl text-sm font-bold hover:bg-teal-700 transition-all shadow-lg shadow-teal-100">
-            Download Report
+            ດາວໂຫຼດລາຍງານ
           </button>
         </div>
       </div>
@@ -149,9 +147,9 @@ const DashboardPage = () => {
         {/* Recent Activity Table */}
         <div className="lg:col-span-2 bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
           <div className="p-6 border-b border-gray-50 flex items-center justify-between">
-            <h2 className="text-lg font-bold text-gray-800">Recent Activity</h2>
+            <h2 className="text-lg font-bold text-gray-800">ກິດຈະກຳຫຼ້າສຸດ</h2>
             <button className="text-teal-600 text-sm font-bold hover:underline">
-              View all
+              ເບິ່ງທັງໝົດ
             </button>
           </div>
           <div className="overflow-x-auto">
@@ -159,16 +157,16 @@ const DashboardPage = () => {
               <thead>
                 <tr className="bg-gray-50/50">
                   <th className="px-6 py-4 text-xs font-bold text-gray-400 uppercase tracking-wider">
-                    User
+                    ຜູ້ໃຊ້
                   </th>
                   <th className="px-6 py-4 text-xs font-bold text-gray-400 uppercase tracking-wider">
-                    Action
+                    ກິດຈະກຳ
                   </th>
                   <th className="px-6 py-4 text-xs font-bold text-gray-400 uppercase tracking-wider">
-                    Time
+                    ເວລາ
                   </th>
                   <th className="px-6 py-4 text-xs font-bold text-gray-400 uppercase tracking-wider">
-                    Amount
+                    ຈຳນວນ
                   </th>
                 </tr>
               </thead>
@@ -207,29 +205,27 @@ const DashboardPage = () => {
         {/* Quick Actions / Summary */}
         <div className="space-y-6">
           <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
-            <h2 className="text-lg font-bold text-gray-800 mb-4">
-              Quick Actions
-            </h2>
+            <h2 className="text-lg font-bold text-gray-800 mb-4">ຈັດການດ່ວນ</h2>
             <div className="grid grid-cols-2 gap-3">
               <button className="p-4 bg-teal-50 text-teal-700 rounded-xl hover:bg-teal-100 transition-all flex flex-col items-center gap-2">
                 <Plus className="w-5 h-5" />
-                <span className="text-xs font-bold">Add Product</span>
+                <span className="text-xs font-bold">ເພີ່ມສິນຄ້າ</span>
               </button>
               <button className="p-4 bg-blue-50 text-blue-700 rounded-xl hover:bg-blue-100 transition-all flex flex-col items-center gap-2">
                 <Users className="w-5 h-5" />
-                <span className="text-xs font-bold">Add User</span>
+                <span className="text-xs font-bold">ເພີ່ມຜູ້ໃຊ້</span>
               </button>
             </div>
           </div>
 
           <div className="bg-gradient-to-br from-gray-800 to-gray-900 p-6 rounded-2xl text-white relative overflow-hidden shadow-xl">
             <div className="relative z-10">
-              <h3 className="font-bold text-lg mb-2">Pro Plan Upgrade</h3>
+              <h3 className="font-bold text-lg mb-2">ອັບເກຣດ Pro Plan</h3>
               <p className="text-gray-400 text-sm mb-6">
-                Get access to advanced analytics and unlimited products.
+                ເຂົ້າເຖິງການວິເຄາະຂັ້ນສູງ ແລະ ສິນຄ້າບໍ່ຈຳກັດ.
               </p>
               <button className="w-full py-3 bg-teal-500 hover:bg-teal-600 text-white rounded-xl font-bold transition-all">
-                Upgrade Now
+                ອັບເກຣດດຽວນີ້
               </button>
             </div>
             <div className="absolute top-0 right-0 -mr-8 -mt-8 w-32 h-32 bg-teal-500/10 rounded-full blur-2xl"></div>
