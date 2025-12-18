@@ -23,7 +23,7 @@ const Sidebar = () => {
       icon: Layers,
       children: [
         { name: "ປະເພດສິນຄ້າ", href: "/product-type", icon: Layers },
-        { name: "ປະເພດສິດ", href: "/roles", icon: Layers },
+        { name: "ປະເພດສິດ", href: "/roles", icon: ShieldCheck },
       ],
     },
     { name: "ສິນຄ້າ", href: "/product", icon: ShoppingBag },
