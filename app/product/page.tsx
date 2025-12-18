@@ -1,10 +1,26 @@
 "use client";
 
-import React from "react";
-import { ShoppingBag, Plus, Filter, Search } from "lucide-react";
+import React, { useState, useEffect } from "react";
+import {
+  ShoppingBag,
+  Plus,
+  Filter,
+  Search,
+  Edit2,
+  Trash2,
+  DollarSign,
+  Box,
+  Layers,
+} from "lucide-react";
 import Link from "next/link";
 
 const ProductPage = () => {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const products = [
     {
       id: 1,
@@ -36,20 +52,22 @@ const ProductPage = () => {
     },
   ];
 
+  if (!mounted) return null;
+
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 animate-in fade-in duration-500">
       {/* Page Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-800 dark:text-white">
+          <h1 className="text-3xl font-bold text-gray-800 dark:text-white">
             ສິນຄ້າ
           </h1>
-          <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">
+          <p className="text-gray-500 dark:text-gray-400 mt-1">
             ຈັດການສາງສິນຄ້າ ແລະ ລາຍການສິນຄ້າຂອງທ່ານ
           </p>
         </div>
         <Link href="/product/create">
-          <button className="flex items-center gap-2 bg-teal-600 hover:bg-teal-700 text-white px-5 py-2.5 rounded-xl font-semibold transition-all shadow-lg shadow-teal-100">
+          <button className="flex items-center gap-2 bg-teal-600 hover:bg-teal-700 text-white px-6 py-3 rounded-2xl font-bold transition-all shadow-lg shadow-teal-100 dark:shadow-none active:scale-95">
             <Plus className="w-5 h-5" />
             <span>ເພີ່ມສິນຄ້າ</span>
           </button>
@@ -57,21 +75,21 @@ const ProductPage = () => {
       </div>
 
       {/* Filters & Search */}
-      <div className="bg-white dark:bg-gray-900 p-4 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm flex flex-col md:flex-row gap-4 items-center justify-between">
+      <div className="bg-white dark:bg-gray-900 p-4 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm flex flex-col md:flex-row gap-4 items-center justify-between">
         <div className="relative w-full md:w-96">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
           <input
             type="text"
-            placeholder="ຄົນຫາສິນຄ້າ..."
-            className="w-full pl-10 pr-4 py-2 bg-gray-50 dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 transition-all dark:text-white"
+            placeholder="ຄົ້ນຫາສິນຄ້າ..."
+            className="w-full pl-11 pr-4 py-3 bg-gray-50 dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-2xl text-sm focus:outline-none focus:ring-4 focus:ring-teal-500/10 focus:border-teal-500 transition-all dark:text-white"
           />
         </div>
-        <div className="flex items-center gap-2 w-full md:w-auto">
-          <button className="flex-1 md:flex-none flex items-center justify-center gap-2 px-4 py-2 border border-gray-200 dark:border-gray-700 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all">
+        <div className="flex items-center gap-3 w-full md:w-auto">
+          <button className="flex-1 md:flex-none flex items-center justify-center gap-2 px-5 py-3 border border-gray-100 dark:border-gray-700 rounded-2xl text-sm font-bold text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all">
             <Filter className="w-4 h-4" />
             <span>ກັ່ນຕອງ</span>
           </button>
-          <select className="flex-1 md:flex-none px-4 py-2 border border-gray-200 dark:border-gray-700 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none transition-all">
+          <select className="flex-1 md:flex-none px-5 py-3 border border-gray-100 dark:border-gray-700 rounded-2xl text-sm font-bold text-gray-600 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800 focus:outline-none transition-all appearance-none">
             <option>ທຸກໝວດໝູ່</option>
             <option>ເຄື່ອງເອເລັກໂຕຣນິກ</option>
             <option>ອຸປະກອນສວມໃສ່</option>
@@ -80,43 +98,91 @@ const ProductPage = () => {
         </div>
       </div>
 
-      {/* Product Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        {products.map((product) => (
-          <div
-            key={product.id}
-            className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 p-5 shadow-sm hover:shadow-md transition-all group"
-          >
-            <div className="aspect-square bg-gray-50 dark:bg-gray-800 rounded-xl mb-4 flex items-center justify-center group-hover:bg-teal-50 dark:group-hover:bg-teal-900/20 transition-colors">
-              <ShoppingBag className="w-12 h-12 text-gray-300 dark:text-gray-600 group-hover:text-teal-200 dark:group-hover:text-teal-500 transition-colors" />
-            </div>
-            <div className="space-y-1">
-              <span className="text-[10px] font-bold text-teal-600 uppercase tracking-wider bg-teal-50 dark:bg-teal-900/30 px-2 py-0.5 rounded-full">
-                {product.category}
-              </span>
-              <h3 className="font-bold text-gray-800 dark:text-white text-lg">
-                {product.name}
-              </h3>
-              <div className="flex items-center justify-between mt-4">
-                <span className="text-xl font-bold text-gray-900 dark:text-white">
-                  ${product.price}
-                </span>
-                <span
-                  className={`text-xs font-medium ${
-                    product.stock < 10
-                      ? "text-orange-500"
-                      : "text-gray-400 dark:text-gray-500"
-                  }`}
+      {/* Products Table */}
+      <div className="bg-white dark:bg-gray-900 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm overflow-hidden">
+        <div className="overflow-x-auto">
+          <table className="w-full text-left border-collapse">
+            <thead>
+              <tr className="bg-gray-50/50 dark:bg-gray-800/50">
+                <th className="px-8 py-5 text-xs font-bold text-gray-400 uppercase tracking-wider">
+                  ສິນຄ້າ
+                </th>
+                <th className="px-8 py-5 text-xs font-bold text-gray-400 uppercase tracking-wider">
+                  ໝວດໝູ່
+                </th>
+                <th className="px-8 py-5 text-xs font-bold text-gray-400 uppercase tracking-wider">
+                  ລາຄາ
+                </th>
+                <th className="px-8 py-5 text-xs font-bold text-gray-400 uppercase tracking-wider">
+                  ຈຳນວນໃນສາງ
+                </th>
+                <th className="px-8 py-5 text-xs font-bold text-gray-400 uppercase tracking-wider text-right">
+                  ຈັດການ
+                </th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-50 dark:divide-gray-800">
+              {products.map((product) => (
+                <tr
+                  key={product.id}
+                  className="hover:bg-gray-50/50 dark:hover:bg-gray-800/30 transition-colors group"
                 >
-                  ມີໃນສາງ {product.stock} ລາຍການ
-                </span>
-              </div>
-            </div>
-            <button className="w-full mt-6 py-2.5 bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-300 font-semibold rounded-xl hover:bg-teal-600 hover:text-white transition-all">
-              ແກ້ໄຂສິນຄ້າ
-            </button>
-          </div>
-        ))}
+                  <td className="px-8 py-5">
+                    <div className="flex items-center gap-4">
+                      <div className="w-12 h-12 rounded-2xl bg-teal-50 dark:bg-teal-900/20 flex items-center justify-center text-teal-600 dark:text-teal-400 font-bold text-lg border border-teal-100 dark:border-teal-900/30">
+                        <ShoppingBag className="w-6 h-6" />
+                      </div>
+                      <div>
+                        <p className="font-bold text-gray-800 dark:text-white">
+                          {product.name}
+                        </p>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">
+                          ID: #{product.id.toString().padStart(4, "0")}
+                        </p>
+                      </div>
+                    </div>
+                  </td>
+                  <td className="px-8 py-5">
+                    <div className="flex items-center gap-2 text-sm font-medium text-gray-600 dark:text-gray-300">
+                      <Layers className="w-4 h-4 text-teal-500" />
+                      {product.category}
+                    </div>
+                  </td>
+                  <td className="px-8 py-5">
+                    <div className="flex items-center gap-1 text-sm font-bold text-gray-800 dark:text-white">
+                      <DollarSign className="w-4 h-4 text-teal-500" />
+                      {product.price.toLocaleString()}
+                    </div>
+                  </td>
+                  <td className="px-8 py-5">
+                    <div className="flex items-center gap-2">
+                      <span
+                        className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-bold ${
+                          product.stock > 10
+                            ? "bg-emerald-50 text-emerald-600 dark:bg-emerald-900/20 dark:text-emerald-400"
+                            : "bg-orange-50 text-orange-600 dark:bg-orange-900/20 dark:text-orange-400"
+                        }`}
+                      >
+                        <Box className="w-3 h-3 mr-2" />
+                        {product.stock} ລາຍການ
+                      </span>
+                    </div>
+                  </td>
+                  <td className="px-8 py-5 text-right">
+                    <div className="flex items-center justify-end gap-2">
+                      <button className="p-2 text-gray-400 hover:text-teal-600 hover:bg-teal-50 dark:hover:bg-teal-900/20 rounded-xl transition-all">
+                        <Edit2 className="w-4 h-4" />
+                      </button>
+                      <button className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-xl transition-all">
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );
