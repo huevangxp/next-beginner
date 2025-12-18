@@ -13,15 +13,17 @@ import {
   Plus,
 } from "lucide-react";
 
-import FinancialChart from "./components/FinancialChart";
-import { useAppContext } from "./context/AppContext";
+import FinancialChart from "../components/FinancialChart";
+import { useTranslations } from "next-intl";
+import { Link } from "../../i18n/routing";
 
 const DashboardPage = () => {
-  const { t } = useAppContext();
+  const t = useTranslations("Dashboard");
+  const navT = useTranslations("Navigation");
 
   const stats = [
     {
-      title: t("total_revenue"),
+      title: t("stats.totalRevenue"),
       value: "$45,231.89",
       change: "+20.1%",
       isPositive: true,
@@ -30,7 +32,7 @@ const DashboardPage = () => {
       bg: "bg-emerald-50",
     },
     {
-      title: t("active_users"),
+      title: t("stats.activeUsers"),
       value: "+2,350",
       change: "+180.1%",
       isPositive: true,
@@ -39,7 +41,7 @@ const DashboardPage = () => {
       bg: "bg-blue-50",
     },
     {
-      title: t("new_orders"),
+      title: t("stats.newOrders"),
       value: "+12,234",
       change: "+19%",
       isPositive: true,
@@ -48,7 +50,7 @@ const DashboardPage = () => {
       bg: "bg-teal-50",
     },
     {
-      title: t("growth_rate"),
+      title: t("stats.growthRate"),
       value: "24.5%",
       change: "-4.5%",
       isPositive: false,
