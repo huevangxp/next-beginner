@@ -48,8 +48,10 @@ const RegisterPage = () => {
     <div className="min-h-screen bg-white dark:bg-gray-950 flex items-center justify-center p-0 md:p-6 relative overflow-hidden">
       {/* Background Decorative Elements */}
       <Image
-        src="~/assets/login.png"
+        src="/assets/login.png"
         alt="Auth Illustration"
+        width={500}
+        height={500}
         className="object-cover opacity-90 scale-x-[-1]"
       />
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
