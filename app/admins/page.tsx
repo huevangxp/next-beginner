@@ -14,8 +14,11 @@ import {
   CheckCircle2,
   XCircle,
   Download,
+  FileSpreadsheet,
+  FileText as FilePdf,
 } from "lucide-react";
 import Link from "next/link";
+import { exportToExcel, exportToPDF } from "../utils/exportUtils";
 
 const AdminsPage = () => {
   const [mounted, setMounted] = useState(false);
@@ -23,6 +26,44 @@ const AdminsPage = () => {
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  const handleDownloadExcel = () => {
+    const exportData = admins.map((admin) => ({
+      ID: admin.id,
+      ຊື່ຜູ້ດູແລ: admin.name,
+      ອີເມວ: admin.email,
+      ເບີໂທ: admin.phone,
+      ບົດບາດ: admin.role,
+      ສະຖານະ: admin.status,
+      ວັນທີເຂົ້າຮ່ວມ: admin.joinedDate,
+    }));
+    exportToExcel(exportData, "Admins_Report");
+  };
+
+  const handleDownloadPDF = () => {
+    const headers = [
+      "ID",
+      "ຊື່ຜູ້ດູແລ",
+      "ອີເມວ",
+      "ບົດບາດ",
+      "ສະຖານະ",
+      "ວັນທີເຂົ້າຮ່ວມ",
+    ];
+    const data = admins.map((admin) => [
+      admin.id,
+      admin.name,
+      admin.email,
+      admin.role,
+      admin.status === "active" ? "ເປີດໃຊ້ງານ" : "ປິດໃຊ້ງານ",
+      admin.joinedDate,
+    ]);
+    exportToPDF(
+      headers,
+      data,
+      "Admins_Report",
+      "ລາຍງານລາຍຊື່ຜູ້ດູແລລະບົບທັງໝົດ"
+    );
+  };
 
   const admins = [
     {
@@ -69,10 +110,28 @@ const AdminsPage = () => {
           </p>
         </div>
         <div className="flex items-center gap-3">
-          <button className="flex items-center gap-2 bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 text-gray-600 dark:text-gray-300 px-6 py-3 rounded-2xl font-bold transition-all shadow-sm hover:bg-gray-50 dark:hover:bg-gray-800">
-            <Download className="w-5 h-5" />
-            <span>ລາຍງານ</span>
-          </button>
+          <div className="relative group">
+            <button className="flex items-center gap-2 bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 text-gray-600 dark:text-gray-300 px-6 py-3 rounded-2xl font-bold transition-all shadow-sm hover:bg-gray-50 dark:hover:bg-gray-800">
+              <Download className="w-5 h-5" />
+              <span>ລາຍງານ</span>
+            </button>
+            <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-2xl shadow-xl py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-20">
+              <button
+                onClick={handleDownloadExcel}
+                className="w-full flex items-center gap-3 px-4 py-3 text-sm text-gray-600 dark:text-gray-300 hover:bg-teal-50 dark:hover:bg-teal-900/20 hover:text-teal-700 dark:hover:text-teal-400 transition-colors"
+              >
+                <FileSpreadsheet className="w-4 h-4" />
+                <span>Download Excel</span>
+              </button>
+              <button
+                onClick={handleDownloadPDF}
+                className="w-full flex items-center gap-3 px-4 py-3 text-sm text-gray-600 dark:text-gray-300 hover:bg-teal-50 dark:hover:bg-teal-900/20 hover:text-teal-700 dark:hover:text-teal-400 transition-colors"
+              >
+                <FilePdf className="w-4 h-4" />
+                <span>Download PDF</span>
+              </button>
+            </div>
+          </div>
           <Link href="/admins/create">
             <button className="flex items-center gap-2 bg-teal-600 hover:bg-teal-700 text-white px-6 py-3 rounded-2xl font-bold transition-all shadow-lg shadow-teal-100 dark:shadow-none active:scale-95">
               <Plus className="w-5 h-5" />
