@@ -10,7 +10,17 @@ export default function ClientLayout({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const isLoginPage = pathname === "/login";
+
+  if (!mounted) {
+    return <main>{children}</main>;
+  }
 
   if (isLoginPage) {
     return <main>{children}</main>;
