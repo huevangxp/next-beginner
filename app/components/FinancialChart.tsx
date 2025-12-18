@@ -11,19 +11,15 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-import { useTranslations } from "next-intl";
-
 const FinancialChart = () => {
-  const t = useTranslations("Chart");
-
   const data = [
-    { name: t("months.jan"), revenue: 4000, expenses: 2400 },
-    { name: t("months.feb"), revenue: 3000, expenses: 1398 },
-    { name: t("months.mar"), revenue: 2000, expenses: 9800 },
-    { name: t("months.apr"), revenue: 2780, expenses: 3908 },
-    { name: t("months.may"), revenue: 1890, expenses: 4800 },
-    { name: t("months.jun"), revenue: 2390, expenses: 3800 },
-    { name: t("months.jul"), revenue: 3490, expenses: 4300 },
+    { name: "ມັງກອນ", revenue: 4000, expenses: 2400 },
+    { name: "ກຸມພາ", revenue: 3000, expenses: 1398 },
+    { name: "ມີນາ", revenue: 2000, expenses: 9800 },
+    { name: "ເມສາ", revenue: 2780, expenses: 3908 },
+    { name: "ພຶດສະພາ", revenue: 1890, expenses: 4800 },
+    { name: "ມິຖຸນາ", revenue: 2390, expenses: 3800 },
+    { name: "ກໍລະກົດ", revenue: 3490, expenses: 4300 },
   ];
 
   return (
@@ -31,23 +27,23 @@ const FinancialChart = () => {
       <div className="flex items-center justify-between mb-8">
         <div>
           <h2 className="text-lg font-bold text-gray-800 dark:text-white">
-            {t("title")}
+            ຜົນການດຳເນີນງານທາງການເງິນ
           </h2>
           <p className="text-sm text-gray-500 dark:text-gray-400">
-            {t("description")}
+            ລາຍຮັບ ທຽບກັບ ລາຍຈ່າຍ (ລາຍເດືອນ)
           </p>
         </div>
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-2">
             <div className="w-3 h-3 rounded-full bg-teal-500"></div>
             <span className="text-xs font-medium text-gray-600 dark:text-gray-400">
-              {t("revenue")}
+              ລາຍຮັບ
             </span>
           </div>
           <div className="flex items-center gap-2">
             <div className="w-3 h-3 rounded-full bg-red-400"></div>
             <span className="text-xs font-medium text-gray-600 dark:text-gray-400">
-              {t("expenses")}
+              ລາຍຈ່າຍ
             </span>
           </div>
         </div>
