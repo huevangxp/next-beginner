@@ -48,7 +48,7 @@ const RegisterPage = () => {
     <div className="min-h-screen bg-white dark:bg-gray-950 flex items-center justify-center p-0 md:p-6 relative overflow-hidden">
       {/* Background Decorative Elements */}
       <img
-        src="~/assets/images/auth.png"
+        src="~/assets/images/image-login.png"
         alt="Auth Illustration"
         className="object-cover opacity-90 scale-x-[-1]"
       />
@@ -61,7 +61,7 @@ const RegisterPage = () => {
         {/* Right Side: Illustration */}
         <div className="hidden md:flex md:w-1/2 relative items-center justify-center overflow-hidden border-l border-gray-50 dark:border-gray-800">
           <Image
-            src="~/assets/images/test.png"
+            src="~/assets/images/image-login.png"
             alt="Auth Illustration"
             fill
             priority
