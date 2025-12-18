@@ -63,6 +63,9 @@ const RegisterPage = () => {
           <Image
             src="~/assets/images/auth.png"
             alt="Auth Illustration"
+            width={500}
+            height={500}
+            priority
             className="object-cover opacity-90 scale-x-[-1]"
           />
           <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 to-teal-600/20 backdrop-blur-[2px]"></div>
