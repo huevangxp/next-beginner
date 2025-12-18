@@ -16,21 +16,48 @@ export const exportElementToPDF = async (
   const element = document.getElementById(elementId);
   if (!element) return;
 
-  const canvas = await html2canvas(element, {
-    scale: 2,
-    useCORS: true,
-    logging: false,
-    backgroundColor: "#ffffff",
-  });
+  try {
+    const canvas = await html2canvas(element, {
+      scale: 2,
+      useCORS: true,
+      logging: false,
+      backgroundColor: "#ffffff",
+      onclone: (clonedDoc) => {
+        // Fix oklch colors by converting them to rgb for html2canvas
+        const clonedElement = clonedDoc.getElementById(elementId);
+        if (clonedElement) {
+          const allElements = clonedElement.getElementsByTagName("*");
+          for (let i = 0; i < allElements.length; i++) {
+            const el = allElements[i] as HTMLElement;
+            const computedStyle = window.getComputedStyle(el);
 
-  const imgData = canvas.toDataURL("image/png");
-  const pdf = new jsPDF("p", "mm", "a4");
-  const imgProps = pdf.getImageProperties(imgData);
-  const pdfWidth = pdf.internal.pageSize.getWidth();
-  const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+            // Convert color properties
+            if (computedStyle.color) {
+              el.style.color = computedStyle.color;
+            }
+            if (computedStyle.backgroundColor) {
+              el.style.backgroundColor = computedStyle.backgroundColor;
+            }
+            if (computedStyle.borderColor) {
+              el.style.borderColor = computedStyle.borderColor;
+            }
+          }
+        }
+      },
+    });
 
-  pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
-  pdf.save(`${fileName}.pdf`);
+    const imgData = canvas.toDataURL("image/png");
+    const pdf = new jsPDF("p", "mm", "a4");
+    const imgProps = pdf.getImageProperties(imgData);
+    const pdfWidth = pdf.internal.pageSize.getWidth();
+    const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+
+    pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+    pdf.save(`${fileName}.pdf`);
+  } catch (error) {
+    console.error("Error generating PDF:", error);
+    alert("ເກີດຂໍ້ຜິດພາດໃນການສ້າງ PDF. ກະລຸນາລອງໃໝ່ອີກຄັ້ງ.");
+  }
 };
 
 // Keep the old one for compatibility but it won't support Lao well without fonts
