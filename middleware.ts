@@ -2,10 +2,15 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 export function middleware(request: NextRequest) {
-  const user =
-    request.cookies.get("user") ||
-    request.headers.get("cookie")?.includes("user");
+  const user = request.cookies.get("user");
   const { pathname } = request.nextUrl;
+
+  // Handle old locale paths (e.g., /en/..., /lo/...)
+  const localePattern = /^\/(en|lo)(\/|$)/;
+  if (localePattern.test(pathname)) {
+    const newPathname = pathname.replace(localePattern, "/");
+    return NextResponse.redirect(new URL(newPathname, request.url));
+  }
 
   // If the user is not logged in and trying to access a protected route
   if (!user && pathname !== "/login") {
