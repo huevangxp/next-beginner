@@ -53,7 +53,7 @@ const CreateProductPage = () => {
   }
 
   return (
-    <div className="max-w-ຢຂxl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+    <div className="max-w-10xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
