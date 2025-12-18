@@ -11,6 +11,7 @@ import {
   Clock,
   Plus,
 } from "lucide-react";
+import Link from "next/link";
 
 import FinancialChart from "./components/FinancialChart";
 
@@ -218,14 +219,18 @@ const DashboardPage = () => {
               ຈັດການດ່ວນ
             </h2>
             <div className="grid grid-cols-2 gap-3">
-              <button className="p-4 bg-teal-50 dark:bg-teal-900/20 text-teal-700 dark:text-teal-400 rounded-xl hover:bg-teal-100 dark:hover:bg-teal-900/30 transition-all flex flex-col items-center gap-2">
-                <Plus className="w-5 h-5" />
-                <span className="text-xs font-bold">ເພີ່ມສິນຄ້າ</span>
-              </button>
-              <button className="p-4 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400 rounded-xl hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-all flex flex-col items-center gap-2">
-                <Users className="w-5 h-5" />
-                <span className="text-xs font-bold">ເພີ່ມຜູ້ໃຊ້</span>
-              </button>
+              <Link href="/product/create" className="contents">
+                <button className="p-4 bg-teal-50 dark:bg-teal-900/20 text-teal-700 dark:text-teal-400 rounded-xl hover:bg-teal-100 dark:hover:bg-teal-900/30 transition-all flex flex-col items-center gap-2 w-full">
+                  <Plus className="w-5 h-5" />
+                  <span className="text-xs font-bold">ເພີ່ມສິນຄ້າ</span>
+                </button>
+              </Link>
+              <Link href="/users/create" className="contents">
+                <button className="p-4 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400 rounded-xl hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-all flex flex-col items-center gap-2 w-full">
+                  <Users className="w-5 h-5" />
+                  <span className="text-xs font-bold">ເພີ່ມຜູ້ໃຊ້</span>
+                </button>
+              </Link>
             </div>
           </div>
 
