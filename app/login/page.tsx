@@ -50,17 +50,6 @@ const LoginPage = () => {
 
       <div className="w-full max-w-md relative z-10">
         {/* Logo Section */}
-        <div className="flex flex-col items-center mb-8 animate-in fade-in slide-in-from-top-4 duration-700">
-          <div className="w-16 h-16 bg-gradient-to-br from-teal-500 to-teal-700 rounded-2xl flex items-center justify-center shadow-2xl shadow-teal-500/20 mb-4">
-            <LayoutDashboard className="text-white w-8 h-8" />
-          </div>
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white tracking-tight">
-            ຍິນດີຕ້ອນຮັບຄືນ
-          </h1>
-          <p className="text-gray-500 dark:text-gray-400 mt-2">
-            ກະລຸນາເຂົ້າສູ່ລະບົບເພື່ອຈັດການລະບົບຂອງທ່ານ
-          </p>
-        </div>
 
         {/* Login Card */}
         <div className="bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl p-8 rounded-[32px] border border-white dark:border-gray-800 shadow-2xl animate-in fade-in zoom-in-95 duration-500">
