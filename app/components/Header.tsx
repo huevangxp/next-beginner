@@ -11,8 +11,11 @@ import {
   ChevronDown,
 } from "lucide-react";
 
+import { useAppContext } from "../context/AppContext";
+
 const Header = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const { t } = useAppContext();
 
   return (
     <header className="bg-white border-b border-gray-200 h-20 flex items-center justify-between px-8 sticky top-0 z-10 shadow-sm">
@@ -37,7 +40,7 @@ const Header = () => {
           <Search className="w-4 h-4 text-gray-400" />
           <input
             type="text"
-            placeholder="ຄົ້ນຫາ..."
+            placeholder={t("search")}
             className="bg-transparent border-none focus:ring-0 text-sm ml-2 w-full text-gray-600 placeholder:text-gray-400"
           />
         </div>
@@ -68,7 +71,7 @@ const Header = () => {
             <div className="absolute right-0 mt-3 w-56 bg-white border border-gray-100 rounded-2xl shadow-xl py-2 animate-in fade-in slide-in-from-top-2 duration-200">
               <div className="px-4 py-2 border-b border-gray-50 mb-1">
                 <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider">
-                  ເມນູການຕັ້ງຄ່າ
+                  {t("settings")}
                 </p>
               </div>
 
@@ -77,7 +80,7 @@ const Header = () => {
                 className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-gray-600 hover:bg-teal-50 hover:text-teal-700 transition-colors"
               >
                 <User className="w-4 h-4" />
-                <span>ຂໍ້ມູນສ່ວນຕົວ</span>
+                <span>{t("profile")}</span>
               </Link>
 
               <Link
@@ -85,14 +88,14 @@ const Header = () => {
                 className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-gray-600 hover:bg-teal-50 hover:text-teal-700 transition-colors"
               >
                 <Settings className="w-4 h-4" />
-                <span>ການຕັ້ງຄ່າ</span>
+                <span>{t("settings")}</span>
               </Link>
 
               <div className="h-px bg-gray-50 my-1"></div>
 
               <button className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition-colors">
                 <LogOut className="w-4 h-4" />
-                <span>ອອກຈາກລະບົບ</span>
+                <span>{t("logout")}</span>
               </button>
             </div>
           )}
