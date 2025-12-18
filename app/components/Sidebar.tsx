@@ -1,8 +1,6 @@
 "use client";
 
 import React from "react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
 import {
   Home,
   ShoppingBag,
@@ -10,15 +8,15 @@ import {
   User,
   Settings,
 } from "lucide-react";
-
-import { useAppContext } from "../context/AppContext";
+import { useTranslations } from "next-intl";
+import { Link } from "../../i18n/routing";
 
 const Sidebar = () => {
   const pathname = usePathname();
-  const { t } = useAppContext();
+  const t = useTranslations("Navigation");
 
   const menuItems = [
-    { name: t("dashboard"), href: "/", icon: Home },
+    { name: t("home"), href: "/", icon: Home },
     { name: t("products"), href: "/product", icon: ShoppingBag },
     { name: t("profile"), href: "/profile", icon: User },
     { name: t("settings"), href: "/settings", icon: Settings },
