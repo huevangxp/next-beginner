@@ -13,6 +13,7 @@ import Link from "next/link";
 
 import { useAppContext } from "../context/AppContext";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 const Header = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -29,6 +30,13 @@ const Header = () => {
       <div className="flex items-center gap-8">
         {/* Logo & Title */}
         <div className="flex items-center gap-3">
+          <Image
+            src="/logo.png"
+            alt="Logo"
+            width={40}
+            height={40}
+            className="w-10 h-10 rounded-full"
+          />
           {/* <div className="w-10 h-10 bg-gradient-to-br from-teal-500 to-teal-700 rounded-xl flex items-center justify-center shadow-lg shadow-teal-100 dark:shadow-none">
             <span className="text-white font-bold text-xl">L</span>
           </div> */}
