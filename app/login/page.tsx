@@ -51,7 +51,7 @@ const LoginPage = () => {
 
       <div className="w-full max-w-6xl bg-white dark:bg-gray-900 rounded-none md:rounded-[40px] shadow-2xl border border-gray-100 dark:border-gray-800 overflow-hidden flex flex-col md:flex-row min-h-[700px] relative z-10">
         {/* Left Side: Illustration */}
-        <div className="md:flex md:w-1/2 relative items-center justify-center overflow-hidden border-r border-gray-50 dark:border-gray-800">
+        <div>
           <Image
             src="/assets/images/auth.png"
             alt="Auth Illustration"
