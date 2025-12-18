@@ -11,6 +11,7 @@ const Sidebar = () => {
   const menuItems = [
     { name: "Dashboard", href: "/", icon: Home },
     { name: "Product", href: "/product", icon: ShoppingBag },
+    { name: "Profile", href: "/profile", icon: User },
   ];
 
   return (
