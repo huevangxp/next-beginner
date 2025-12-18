@@ -217,23 +217,6 @@ const SettingsPage = () => {
                     className="w-full py-4 bg-teal-600 hover:bg-teal-700 text-white rounded-2xl font-bold shadow-lg shadow-teal-100 dark:shadow-none transition-all flex items-center justify-center gap-2"
                   >
                     <Save className="w-5 h-5" />
-                    <span>ອັບເດດລະຫັດຜ່ານ</span>
-                  </button>
-                </form>
-              </div>
-            </div>
-          )}
-
-            </div>
-          )}
-
-          {activeTab === "notifications" && (
-            <div className="bg-white dark:bg-gray-900 rounded-[32px] border border-gray-100 dark:border-gray-800 shadow-sm overflow-hidden">
-              <div className="p-8 md:p-10 space-y-8">
-                <div className="flex items-center gap-4 pb-6 border-b border-gray-50 dark:border-gray-800">
-                  <div className="w-12 h-12 rounded-2xl bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center text-blue-600">
-                    <Bell className="w-6 h-6" />
-                  </div>
                   <div>
                     <h3 className="text-xl font-bold text-gray-800 dark:text-white">
                       ການແຈ້ງເຕືອນ
