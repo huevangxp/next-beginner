@@ -8,6 +8,7 @@ import {
   ArrowDownRight,
   Clock,
   MoreVertical,
+  Plus,
 } from "lucide-react";
 
 const DashboardPage = () => {
