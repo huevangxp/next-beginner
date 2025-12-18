@@ -8,19 +8,17 @@ import {
   User,
   Settings,
 } from "lucide-react";
-import { useTranslations } from "next-intl";
 import { usePathname } from "next/navigation";
-import { Link } from "../../i18n/routing";
+import Link from "next/link";
 
 const Sidebar = () => {
   const pathname = usePathname();
-  const t = useTranslations("Navigation");
 
   const menuItems = [
-    { name: t("home"), href: "/", icon: Home },
-    { name: t("products"), href: "/product", icon: ShoppingBag },
-    { name: t("profile"), href: "/profile", icon: User },
-    { name: t("settings"), href: "/settings", icon: Settings },
+    { name: "ໜ້າຫຼັກ", href: "/", icon: Home },
+    { name: "ສິນຄ້າ", href: "/product", icon: ShoppingBag },
+    { name: "ໂປຣໄຟລ໌", href: "/profile", icon: User },
+    { name: "ຕັ້ງຄ່າ", href: "/settings", icon: Settings },
   ];
 
   return (
@@ -70,12 +68,12 @@ const Sidebar = () => {
       <div className="p-4 border-t border-gray-100">
         <div className="bg-gray-50 rounded-2xl p-4">
           <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">
-            {t("system_status")}
+            ສະຖານະລະບົບ
           </p>
           <div className="flex items-center gap-2">
             <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
             <span className="text-sm text-gray-600 font-medium text-teal-600">
-              {t("online")}
+              ອອນລາຍ
             </span>
           </div>
         </div>
