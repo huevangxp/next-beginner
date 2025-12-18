@@ -20,20 +20,19 @@ export default function ClientLayout({
   const publicRoutes = ["/login", "/register"];
   const isPublicPage = publicRoutes.includes(pathname);
 
-  if (!mounted) {
-    return <main>{children}</main>;
-  }
-
+  // For public pages, we want a simple layout that is stable across server/client
   if (isPublicPage) {
     return <main>{children}</main>;
   }
 
-  return (
-    <div className="flex min-h-screen">
-      {/* Sidebar */}
-      <Sidebar />
+  // For protected pages, we only render the full layout after mounting to avoid hydration issues with the sidebar/header
+  if (!mounted) {
+    return <div className="min-h-screen bg-gray-50 dark:bg-gray-950" />;
+  }
 
-      {/* Main Content */}
+  return (
+    <div className="flex min-h-screen bg-gray-50 dark:bg-gray-950">
+      <Sidebar />
       <div className="flex-1 flex flex-col">
         <Header />
         <main className="p-8 flex-1">
