@@ -23,6 +23,13 @@ const ProductPage = () => {
     setMounted(true);
   }, []);
 
+  const handleDelete = (id: number) => {
+    if (window.confirm("ທ່ານແນ່ໃຈບໍ່ວ່າຕ້ອງການລຶບສິນຄ້ານີ້?")) {
+      // In a real app, you would call an API here
+      console.log("Deleting product:", id);
+    }
+  };
+
   const products = [
     {
       id: 1,
@@ -198,7 +205,10 @@ const ProductPage = () => {
                       <button className="p-2 text-gray-400 hover:text-teal-600 hover:bg-teal-50 dark:hover:bg-teal-900/20 rounded-xl transition-all">
                         <Edit2 className="w-4 h-4" />
                       </button>
-                      <button className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-xl transition-all">
+                      <button
+                        onClick={() => handleDelete(product.id)}
+                        className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-xl transition-all"
+                      >
                         <Trash2 className="w-4 h-4" />
                       </button>
                     </div>
