@@ -20,12 +20,7 @@ import Link from "next/link";
 
 const OrdersPage = () => {
   const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  const orders = [
+  const [orderList, setOrderList] = useState([
     {
       id: "ORD-001",
       customer: "ສົມພອນ ໄຊຍະວົງ",
@@ -58,7 +53,19 @@ const OrdersPage = () => {
       status: "cancelled",
       items: 1,
     },
-  ];
+  ]);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const handleStatusUpdate = (id: string, newStatus: string) => {
+    setOrderList((prev) =>
+      prev.map((order) =>
+        order.id === id ? { ...order, status: newStatus } : order
+      )
+    );
+  };
 
   if (!mounted) return null;
 
@@ -71,29 +78,38 @@ const OrdersPage = () => {
             ລາຍການສັ່ງຊື້
           </h1>
           <p className="text-gray-500 dark:text-gray-400 mt-1">
-            ຈັດການ ແລະ ຕິດຕາມລາຍການສັ່ງຊື້ສິນຄ້າທັງໝົດ
+            ຈັດການ ແລະ ຕິດຕາມລາຍການສັ່ງຊື້ຈາກລູກຄ້າ
           </p>
         </div>
-        <Link href="/orders/create">
-          <button className="flex items-center gap-2 bg-teal-600 hover:bg-teal-700 text-white px-6 py-3 rounded-2xl font-bold transition-all shadow-lg shadow-teal-100 dark:shadow-none active:scale-95">
-            <Plus className="w-5 h-5" />
-            <span>ສ້າງລາຍການສັ່ງຊື້</span>
-          </button>
-        </Link>
       </div>
 
       {/* Stats Overview */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {[
-          { label: "ທັງໝົດ", value: "128", icon: ShoppingCart, color: "blue" },
-          { label: "ກຳລັງດຳເນີນການ", value: "12", icon: Clock, color: "amber" },
+          {
+            label: "ທັງໝົດ",
+            value: orderList.length,
+            icon: ShoppingCart,
+            color: "blue",
+          },
+          {
+            label: "ລໍຖ້າການຢືນຢັນ",
+            value: orderList.filter((o) => o.status === "pending").length,
+            icon: Clock,
+            color: "amber",
+          },
           {
             label: "ສຳເລັດແລ້ວ",
-            value: "110",
+            value: orderList.filter((o) => o.status === "completed").length,
             icon: CheckCircle2,
             color: "emerald",
           },
-          { label: "ຍົກເລີກ", value: "6", icon: XCircle, color: "red" },
+          {
+            label: "ຍົກເລີກ",
+            value: orderList.filter((o) => o.status === "cancelled").length,
+            icon: XCircle,
+            color: "red",
+          },
         ].map((stat, i) => (
           <div
             key={i}
@@ -166,7 +182,7 @@ const OrdersPage = () => {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-50 dark:divide-gray-800">
-              {orders.map((order) => (
+              {orderList.map((order) => (
                 <tr
                   key={order.id}
                   className="hover:bg-gray-50/50 dark:hover:bg-gray-800/30 transition-colors group"
@@ -238,11 +254,38 @@ const OrdersPage = () => {
                   </td>
                   <td className="px-8 py-5 text-right">
                     <div className="flex items-center justify-end gap-2">
-                      <button className="p-2 text-gray-400 hover:text-teal-600 hover:bg-teal-50 dark:hover:bg-teal-900/20 rounded-xl transition-all">
-                        <Edit2 className="w-4 h-4" />
-                      </button>
-                      <button className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-xl transition-all">
-                        <Trash2 className="w-4 h-4" />
+                      {order.status === "pending" && (
+                        <>
+                          <button
+                            onClick={() =>
+                              handleStatusUpdate(order.id, "processing")
+                            }
+                            className="px-3 py-1.5 text-xs font-bold bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition-all shadow-sm"
+                          >
+                            ຢືນຢັນ
+                          </button>
+                          <button
+                            onClick={() =>
+                              handleStatusUpdate(order.id, "cancelled")
+                            }
+                            className="px-3 py-1.5 text-xs font-bold bg-red-50 text-red-600 rounded-lg hover:bg-red-100 transition-all"
+                          >
+                            ຍົກເລີກ
+                          </button>
+                        </>
+                      )}
+                      {order.status === "processing" && (
+                        <button
+                          onClick={() =>
+                            handleStatusUpdate(order.id, "completed")
+                          }
+                          className="px-3 py-1.5 text-xs font-bold bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-all shadow-sm"
+                        >
+                          ສຳເລັດ
+                        </button>
+                      )}
+                      <button className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-xl transition-all">
+                        <ChevronRight className="w-4 h-4" />
                       </button>
                     </div>
                   </td>
