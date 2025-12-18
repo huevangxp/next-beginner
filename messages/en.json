@@ -77,5 +77,33 @@
     "stock": "In Stock",
     "items": "items",
     "edit": "Edit Product"
+  },
+  "Profile": {
+    "title": "Manage Profile",
+    "description": "Manage your personal information",
+    "tabs": {
+      "personal": "Personal Info",
+      "security": "Security",
+      "notifications": "Notifications"
+    },
+    "form": {
+      "fullName": "Full Name",
+      "email": "Email Address",
+      "phone": "Phone Number",
+      "address": "Address",
+      "about": "About Me",
+      "saveChanges": "Save Changes"
+    },
+    "security": {
+      "title": "Password & Security",
+      "description": "Update your password and protect your account.",
+      "currentPassword": "Current Password",
+      "newPassword": "New Password",
+      "confirmPassword": "Confirm New Password",
+      "updateButton": "Update Password",
+      "deleteAccount": "Delete Account",
+      "deleteDesc": "Once you delete your account, there is no going back. Please be certain.",
+      "deleteButton": "Delete"
+    }
   }
 }
