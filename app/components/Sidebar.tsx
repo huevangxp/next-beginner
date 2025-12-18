@@ -11,14 +11,17 @@ import {
   Settings,
 } from "lucide-react";
 
+import { useAppContext } from "../context/AppContext";
+
 const Sidebar = () => {
   const pathname = usePathname();
+  const { t } = useAppContext();
 
   const menuItems = [
-    { name: "ໜ້າຫຼັກ", href: "/", icon: Home },
-    { name: "ສິນຄ້າ", href: "/product", icon: ShoppingBag },
-    { name: "ຂໍ້ມູນສ່ວນຕົວ", href: "/profile", icon: User },
-    { name: "ການຕັ້ງຄ່າ", href: "/settings", icon: Settings },
+    { name: t("dashboard"), href: "/", icon: Home },
+    { name: t("products"), href: "/product", icon: ShoppingBag },
+    { name: t("profile"), href: "/profile", icon: User },
+    { name: t("settings"), href: "/settings", icon: Settings },
   ];
 
   return (
@@ -68,12 +71,12 @@ const Sidebar = () => {
       <div className="p-4 border-t border-gray-100">
         <div className="bg-gray-50 rounded-2xl p-4">
           <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">
-            ສະຖານະລະບົບ
+            {t("system_status")}
           </p>
           <div className="flex items-center gap-2">
             <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
             <span className="text-sm text-gray-600 font-medium text-teal-600">
-              ກຳລັງເຮັດວຽກ
+              {t("online")}
             </span>
           </div>
         </div>
