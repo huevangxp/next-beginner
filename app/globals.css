@@ -1,5 +1,5 @@
 @import "tailwindcss";
  
 body {
-  font-family: "Khmer OS", Helvetica, sans-serif;
+  font-family: var(--font-noto-lao), "Noto Sans Lao", sans-serif;
 }
