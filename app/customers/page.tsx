@@ -16,45 +16,45 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 
-const UsersPage = () => {
+const CustomersPage = () => {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  const users = [
+  const customers = [
     {
       id: 1,
-      name: "Admin User",
-      email: "admin@example.com",
-      role: "Administrator",
+      name: "ສົມພອນ ໄຊຍະວົງ",
+      email: "somphone@example.com",
+      role: "VIP Customer",
       status: "Active",
-      phone: "+856 20 000-0000",
+      phone: "+856 20 5555 6666",
     },
     {
       id: 2,
-      name: "Sarah Chen",
-      email: "sarah@example.com",
-      role: "Editor",
+      name: "ນາງ ແກ້ວມະນີ",
+      email: "keo@example.com",
+      role: "Regular Customer",
       status: "Active",
-      phone: "+856 20 111-1111",
+      phone: "+856 20 7777 8888",
     },
     {
       id: 3,
-      name: "James Wilson",
-      email: "james@example.com",
-      role: "Viewer",
+      name: "ທ້າວ ສົມສັກ",
+      email: "somsak@example.com",
+      role: "Regular Customer",
       status: "Inactive",
-      phone: "+856 20 222-2222",
+      phone: "+856 20 9999 0000",
     },
     {
       id: 4,
-      name: "Elena Rodriguez",
-      email: "elena@example.com",
-      role: "Editor",
+      name: "ນາງ ມາລີ",
+      email: "maly@example.com",
+      role: "VIP Customer",
       status: "Active",
-      phone: "+856 20 333-3333",
+      phone: "+856 20 1111 2222",
     },
   ];
 
@@ -66,10 +66,10 @@ const UsersPage = () => {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <h1 className="text-3xl font-bold text-gray-800 dark:text-white">
-            ຈັດການຜູ້ໃຊ້ງານ
+            ລາຍຊື່ລູກຄ້າ
           </h1>
           <p className="text-gray-500 dark:text-gray-400 mt-1">
-            ຈັດການບັນຊີຜູ້ໃຊ້ ແລະ ສິດການເຂົ້າເຖິງລະບົບ
+            ຈັດການຂໍ້ມູນລູກຄ້າ ແລະ ປະຫວັດການສັ່ງຊື້
           </p>
         </div>
         <div className="flex items-center gap-3">
@@ -77,10 +77,10 @@ const UsersPage = () => {
             <Download className="w-5 h-5" />
             <span>ລາຍງານ</span>
           </button>
-          <Link href="/users/create">
+          <Link href="/customers/create">
             <button className="flex items-center gap-2 bg-teal-600 hover:bg-teal-700 text-white px-6 py-3 rounded-2xl font-bold transition-all shadow-lg shadow-teal-100 dark:shadow-none active:scale-95">
               <Plus className="w-5 h-5" />
-              <span>ເພີ່ມຜູ້ໃຊ້ໃໝ່</span>
+              <span>ເພີ່ມລູກຄ້າໃໝ່</span>
             </button>
           </Link>
         </div>
@@ -92,7 +92,7 @@ const UsersPage = () => {
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
           <input
             type="text"
-            placeholder="ຄົ້ນຫາຜູ້ໃຊ້ງານ..."
+            placeholder="ຄົ້ນຫາລູກຄ້າ..."
             className="w-full pl-11 pr-4 py-3 bg-gray-50 dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-2xl text-sm focus:outline-none focus:ring-4 focus:ring-teal-500/10 focus:border-teal-500 transition-all dark:text-white"
           />
         </div>
@@ -102,25 +102,24 @@ const UsersPage = () => {
             <span>ກັ່ນຕອງ</span>
           </button>
           <select className="flex-1 md:flex-none px-5 py-3 border border-gray-100 dark:border-gray-700 rounded-2xl text-sm font-bold text-gray-600 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800 focus:outline-none transition-all appearance-none">
-            <option>ທຸກບົດບາດ</option>
-            <option>Administrator</option>
-            <option>Editor</option>
-            <option>Viewer</option>
+            <option>ທຸກປະເພດ</option>
+            <option>VIP Customer</option>
+            <option>Regular Customer</option>
           </select>
         </div>
       </div>
 
-      {/* Users Table */}
+      {/* Customers Table */}
       <div className="bg-white dark:bg-gray-900 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
               <tr className="bg-gray-50/50 dark:bg-gray-800/50">
                 <th className="px-8 py-5 text-xs font-bold text-gray-400 uppercase tracking-wider">
-                  ຜູ້ໃຊ້
+                  ລູກຄ້າ
                 </th>
                 <th className="px-8 py-5 text-xs font-bold text-gray-400 uppercase tracking-wider">
-                  ບົດບາດ
+                  ປະເພດ
                 </th>
                 <th className="px-8 py-5 text-xs font-bold text-gray-400 uppercase tracking-wider">
                   ສະຖານະ
@@ -134,22 +133,22 @@ const UsersPage = () => {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-50 dark:divide-gray-800">
-              {users.map((user) => (
+              {customers.map((customer) => (
                 <tr
-                  key={user.id}
+                  key={customer.id}
                   className="hover:bg-gray-50/50 dark:hover:bg-gray-800/30 transition-colors group"
                 >
                   <td className="px-8 py-5">
                     <div className="flex items-center gap-4">
                       <div className="w-12 h-12 rounded-2xl bg-teal-50 dark:bg-teal-900/20 flex items-center justify-center text-teal-600 dark:text-teal-400 font-bold text-lg border border-teal-100 dark:border-teal-900/30">
-                        {user.name.charAt(0)}
+                        {customer.name.charAt(0)}
                       </div>
                       <div>
                         <p className="font-bold text-gray-800 dark:text-white">
-                          {user.name}
+                          {customer.name}
                         </p>
                         <p className="text-xs text-gray-500 dark:text-gray-400">
-                          {user.email}
+                          {customer.email}
                         </p>
                       </div>
                     </div>
@@ -157,36 +156,38 @@ const UsersPage = () => {
                   <td className="px-8 py-5">
                     <div className="flex items-center gap-2 text-sm font-medium text-gray-600 dark:text-gray-300">
                       <Shield className="w-4 h-4 text-teal-500" />
-                      {user.role}
+                      {customer.role}
                     </div>
                   </td>
                   <td className="px-8 py-5">
                     <span
                       className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-bold ${
-                        user.status === "Active"
+                        customer.status === "Active"
                           ? "bg-emerald-50 text-emerald-600 dark:bg-emerald-900/20 dark:text-emerald-400"
                           : "bg-gray-100 text-gray-500 dark:bg-gray-800 dark:text-gray-400"
                       }`}
                     >
                       <span
                         className={`w-1.5 h-1.5 rounded-full mr-2 ${
-                          user.status === "Active"
+                          customer.status === "Active"
                             ? "bg-emerald-500"
                             : "bg-gray-400"
                         }`}
                       />
-                      {user.status === "Active" ? "ກຳລັງໃຊ້ງານ" : "ປິດໃຊ້ງານ"}
+                      {customer.status === "Active"
+                        ? "ກຳລັງໃຊ້ງານ"
+                        : "ປິດໃຊ້ງານ"}
                     </span>
                   </td>
                   <td className="px-8 py-5">
                     <div className="space-y-1">
                       <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
                         <Phone className="w-3 h-3" />
-                        {user.phone}
+                        {customer.phone}
                       </div>
                       <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
                         <Mail className="w-3 h-3" />
-                        {user.email}
+                        {customer.email}
                       </div>
                     </div>
                   </td>
@@ -210,4 +211,4 @@ const UsersPage = () => {
   );
 };
 
-export default UsersPage;
+export default CustomersPage;
