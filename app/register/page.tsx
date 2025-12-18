@@ -56,13 +56,13 @@ const RegisterPage = () => {
       <div className="w-full max-w-6xl bg-white dark:bg-gray-900 rounded-none md:rounded-[40px] shadow-2xl border border-gray-100 dark:border-gray-800 overflow-hidden flex flex-col md:flex-row-reverse min-h-[700px] relative z-10">
         {/* Right Side: Illustration */}
         <div className="md:flex md:w-1/2 relative items-center justify-center overflow-hidden border-l border-gray-50 dark:border-gray-800">
-          <Image
+          {/* <Image
             src="/auth.png"
             alt="Auth Illustration"
             fill
             priority
             className="object-cover opacity-90 scale-x-[-1]"
-          />
+          /> */}
           <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 to-teal-600/20 backdrop-blur-[2px]"></div>
 
           <div className="relative z-10 text-center space-y-8 animate-in fade-in slide-in-from-right-8 duration-1000 p-12">
