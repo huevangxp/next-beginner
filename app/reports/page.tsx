@@ -85,15 +85,15 @@ const ReportsPage = () => {
       ],
     },
     {
-      title: "ລາຍງານຜູ້ໃຊ້ງານ",
-      desc: "ຈຳນວນຜູ້ໃຊ້ ແລະ ການເຄື່ອນໄຫວ",
+      title: "ລາຍງານລູກຄ້າ",
+      desc: "ຈຳນວນລູກຄ້າ ແລະ ການເຄື່ອນໄຫວ",
       value: "850",
       unit: "ຄົນ",
       trend: "+5.2%",
       trendUp: true,
       icon: Users,
       color: "#9333ea", // purple-600
-      href: "/users",
+      href: "/customers",
       data: [
         { name: "W1", val: 10 },
         { name: "W2", val: 25 },
@@ -164,8 +164,8 @@ const ReportsPage = () => {
     },
     {
       id: 2,
-      type: "User",
-      title: "New User Registered",
+      type: "Customer",
+      title: "New Customer Registered",
       time: "15 mins ago",
       status: "success",
     },
