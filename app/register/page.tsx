@@ -61,7 +61,7 @@ const RegisterPage = () => {
         {/* Right Side: Illustration */}
         <div className="hidden md:flex md:w-1/2 relative items-center justify-center overflow-hidden border-l border-gray-50 dark:border-gray-800">
           <Image
-            src="~/assets/images/login.png"
+            src="~/assets/images/auth.png"
             alt="Auth Illustration"
             fill
             priority
