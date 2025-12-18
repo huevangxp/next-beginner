@@ -174,6 +174,11 @@ const CreateProductPage = () => {
                   ໝວດໝູ່
                 </label>
                 <div className="relative">
+                  <select className="w-full px-5 py-4 bg-[#f8fafc] dark:bg-gray-800 border-none rounded-2xl focus:ring-2 focus:ring-[#009688]/20 outline-none transition-all dark:text-white appearance-none cursor-pointer">
+                    <option value="electronics">ເຄື່ອງເອເລັກໂຕຣນິກ</option>
+                    <option value="wearables">ອຸປະກອນສວມໃສ່</option>
+                    <option value="accessories">ອຸປະກອນເສີມ</option>
+                  </select>
                   <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
                 </div>
               </div>
