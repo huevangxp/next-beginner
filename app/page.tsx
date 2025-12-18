@@ -11,6 +11,8 @@ import {
   Plus,
 } from "lucide-react";
 
+import FinancialChart from "./components/FinancialChart";
+
 const DashboardPage = () => {
   const stats = [
     {
