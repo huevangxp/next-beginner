@@ -29,9 +29,9 @@ const Header = () => {
       <div className="flex items-center gap-8">
         {/* Logo & Title */}
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-gradient-to-br from-teal-500 to-teal-700 rounded-xl flex items-center justify-center shadow-lg shadow-teal-100 dark:shadow-none">
+          {/* <div className="w-10 h-10 bg-gradient-to-br from-teal-500 to-teal-700 rounded-xl flex items-center justify-center shadow-lg shadow-teal-100 dark:shadow-none">
             <span className="text-white font-bold text-xl">L</span>
-          </div>
+          </div> */}
           <div>
             <h1 className="text-lg font-bold text-gray-800 dark:text-white leading-none">
               ອັດຕະຫຼາດລະບົບຄົວເຫຼືອ
