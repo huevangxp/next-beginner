@@ -22,7 +22,7 @@ const Sidebar = () => {
             <LayoutDashboard className="text-white w-6 h-6" />
           </div>
           <span className="text-xl font-bold text-gray-800 tracking-tight">
-            ລະບົບຄົວເຫຼືອ
+            Admin Panel
           </span>
         </div>
       </div>
