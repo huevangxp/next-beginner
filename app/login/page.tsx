@@ -65,7 +65,7 @@ const LoginPage = () => {
             alt="Auth Illustration"
             width={500}
             height={500}
-            className="absolute inset-0 w-full h-full object-cover opacity-90"
+            className="absolute inset-0 object-cover opacity-90 scale-x-[-1]"
           />
           <div className="absolute inset-0 bg-gradient-to-br from-teal-600/20 to-blue-600/20 backdrop-blur-[2px]"></div>
 
