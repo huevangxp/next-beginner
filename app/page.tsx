@@ -16,6 +16,13 @@ import Link from "next/link";
 import FinancialChart from "./components/FinancialChart";
 
 const DashboardPage = () => {
+  const [mounted, setMounted] = React.useState(false);
+
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
   const stats = [
     {
       title: "ລາຍຮັບທັງໝົດ",
