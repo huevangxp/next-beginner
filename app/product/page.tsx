@@ -12,6 +12,7 @@ import {
   Box,
   Layers,
   Download,
+  Tag,
 } from "lucide-react";
 import Link from "next/link";
 
@@ -29,6 +30,7 @@ const ProductPage = () => {
       price: 59.99,
       category: "ເຄື່ອງເອເລັກໂຕຣນິກ",
       stock: 12,
+      promotion: "LAONEWYEAR",
     },
     {
       id: 2,
@@ -36,6 +38,7 @@ const ProductPage = () => {
       price: 129.99,
       category: "ອຸປະກອນສວມໃສ່",
       stock: 8,
+      promotion: null,
     },
     {
       id: 3,
@@ -43,6 +46,7 @@ const ProductPage = () => {
       price: 39.99,
       category: "ເຄື່ອງເອເລັກໂຕຣນິກ",
       stock: 25,
+      promotion: "WELCOME",
     },
     {
       id: 4,
@@ -50,6 +54,7 @@ const ProductPage = () => {
       price: 24.99,
       category: "ອຸປະກອນເສີມ",
       stock: 15,
+      promotion: null,
     },
   ];
 
@@ -123,6 +128,9 @@ const ProductPage = () => {
                 <th className="px-8 py-5 text-xs font-bold text-gray-400 uppercase tracking-wider">
                   ຈຳນວນໃນສາງ
                 </th>
+                <th className="px-8 py-5 text-xs font-bold text-gray-400 uppercase tracking-wider">
+                  ໂປຣໂມຊັ່ນ
+                </th>
                 <th className="px-8 py-5 text-xs font-bold text-gray-400 uppercase tracking-wider text-right">
                   ຈັດການ
                 </th>
@@ -174,6 +182,16 @@ const ProductPage = () => {
                         {product.stock} ລາຍການ
                       </span>
                     </div>
+                  </td>
+                  <td className="px-8 py-5">
+                    {product.promotion ? (
+                      <span className="inline-flex items-center px-3 py-1 rounded-full text-[10px] font-bold bg-teal-50 text-teal-600 border border-teal-100">
+                        <Tag className="w-3 h-3 mr-1.5" />
+                        {product.promotion}
+                      </span>
+                    ) : (
+                      <span className="text-xs text-gray-400">-</span>
+                    )}
                   </td>
                   <td className="px-8 py-5 text-right">
                     <div className="flex items-center justify-end gap-2">
