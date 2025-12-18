@@ -43,17 +43,11 @@ export const exportToExcel = (data: any[], filename: string) => {
   }
 };
 
-/**
- * Export HTML element to PDF
- * @param elementId - ID of the HTML element to export
- * @param filename - Name of the file (without extension)
- * @param options - Optional configuration for PDF export
- */
 export const exportElementToPDF = async (
   elementId: string,
   filename: string,
   options?: {
-    orientation?: "portrait";
+    orientation?: "portrait" | "landscape";
     format?: "a4";
     margin?: number;
   }
@@ -66,51 +60,56 @@ export const exportElementToPDF = async (
       return;
     }
 
-    // Clone the element to avoid modifying the original
-    const clonedElement = element.cloneNode(true) as HTMLElement;
-    clonedElement.style.position = "absolute";
-    clonedElement.style.left = "-9999px";
-    clonedElement.style.top = "0";
-    document.body.appendChild(clonedElement);
-
-    // Force color computation for all elements
-    const allElements = clonedElement.querySelectorAll("*");
-    allElements.forEach((el) => {
-      const htmlEl = el as HTMLElement;
-      const computedStyle = window.getComputedStyle(htmlEl);
-
-      // Force RGB/RGBA colors instead of oklch
-      if (
-        computedStyle.backgroundColor &&
-        computedStyle.backgroundColor !== "rgba(0, 0, 0, 0)"
-      ) {
-        htmlEl.style.backgroundColor = computedStyle.backgroundColor;
-      }
-      if (computedStyle.color) {
-        htmlEl.style.color = computedStyle.color;
-      }
-      if (computedStyle.borderColor) {
-        htmlEl.style.borderColor = computedStyle.borderColor;
-      }
-    });
-
-    // Wait a bit for styles to apply
-    await new Promise((resolve) => setTimeout(resolve, 100));
-
-    // Create canvas from HTML element
-    const canvas = await html2canvas(clonedElement, {
+    // Render the element to a canvas with onclone callback to fix colors
+    const canvas = await html2canvas(element, {
       scale: 2, // Higher quality
       useCORS: true,
       logging: false,
       backgroundColor: "#ffffff",
-      windowWidth: clonedElement.scrollWidth,
-      windowHeight: clonedElement.scrollHeight,
+      windowWidth: element.scrollWidth,
+      windowHeight: element.scrollHeight,
+      onclone: (clonedDoc) => {
+        // Find the cloned element in the cloned document
+        const clonedElement = clonedDoc.getElementById(elementId);
+        if (!clonedElement) return;
+
+        // Function to convert all computed styles to inline RGB styles
+        const convertToInlineStyles = (el: HTMLElement) => {
+          const computedStyle = window.getComputedStyle(el);
+
+          // Convert background color
+          const bgColor = computedStyle.backgroundColor;
+          if (
+            bgColor &&
+            bgColor !== "rgba(0, 0, 0, 0)" &&
+            bgColor !== "transparent"
+          ) {
+            el.style.backgroundColor = bgColor;
+          }
+
+          // Convert text color
+          const textColor = computedStyle.color;
+          if (textColor) {
+            el.style.color = textColor;
+          }
+
+          // Convert border color
+          const borderColor = computedStyle.borderColor;
+          if (borderColor) {
+            el.style.borderColor = borderColor;
+          }
+        };
+
+        // Apply to the cloned element and all its children
+        convertToInlineStyles(clonedElement as HTMLElement);
+        const allElements = clonedElement.querySelectorAll("*");
+        allElements.forEach((el) => {
+          convertToInlineStyles(el as HTMLElement);
+        });
+      },
     });
 
-    // Remove cloned element
-    document.body.removeChild(clonedElement);
-
-    // Get image data
+    // Get image data from the canvas
     const imgData = canvas.toDataURL("image/png");
 
     // Create PDF with specified or default options
@@ -134,25 +133,22 @@ export const exportElementToPDF = async (
     const pdfRatio = pdfWidth / pdfHeight;
 
     let finalWidth, finalHeight;
-
     if (imgRatio > pdfRatio) {
-      // Image is wider than PDF page
       finalWidth = pdfWidth;
       finalHeight = pdfWidth / imgRatio;
     } else {
-      // Image is taller than PDF page
       finalHeight = pdfHeight;
       finalWidth = pdfHeight * imgRatio;
     }
 
-    // Center the image
+    // Center the image in the PDF
     const imgX = (pdf.internal.pageSize.getWidth() - finalWidth) / 2;
-    const imgY = margin;
+    const imgY = (pdf.internal.pageSize.getHeight() - finalHeight) / 2;
 
-    // Add image to PDF
+    // Add the image to the PDF
     pdf.addImage(imgData, "PNG", imgX, imgY, finalWidth, finalHeight);
 
-    // Save the PDF
+    // Save the PDF file
     pdf.save(`${filename}.pdf`);
 
     console.log("PDF exported successfully");

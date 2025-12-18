@@ -40,10 +40,6 @@ const InventoryPage = () => {
     exportToExcel(exportData, "Inventory_Report");
   };
 
-  const handleDownloadPDF = () => {
-    exportElementToPDF("inventory-table", "Inventory_Report");
-  };
-
   const inventoryItems = [
     {
       id: 1,
@@ -119,13 +115,6 @@ const InventoryPage = () => {
               >
                 <FileSpreadsheet className="w-4 h-4" />
                 <span>Download Excel</span>
-              </button>
-              <button
-                onClick={handleDownloadPDF}
-                className="w-full flex items-center gap-3 px-4 py-3 text-sm text-gray-600 dark:text-gray-300 hover:bg-teal-50 dark:hover:bg-teal-900/20 hover:text-teal-700 dark:hover:text-teal-400 transition-colors"
-              >
-                <FilePdf className="w-4 h-4" />
-                <span>Download PDF</span>
               </button>
             </div>
           </div>

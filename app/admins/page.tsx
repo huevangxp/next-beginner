@@ -18,7 +18,7 @@ import {
   FileText as FilePdf,
 } from "lucide-react";
 import Link from "next/link";
-import { exportToExcel, exportToPDF } from "../utils/exportUtils";
+import { exportToExcel, exportElementToPDF } from "../utils/exportUtils";
 
 const AdminsPage = () => {
   const [mounted, setMounted] = useState(false);
@@ -38,31 +38,6 @@ const AdminsPage = () => {
       ວັນທີເຂົ້າຮ່ວມ: admin.joinedDate,
     }));
     exportToExcel(exportData, "Admins_Report");
-  };
-
-  const handleDownloadPDF = () => {
-    const headers = [
-      "ID",
-      "ຊື່ຜູ້ດູແລ",
-      "ອີເມວ",
-      "ບົດບາດ",
-      "ສະຖານະ",
-      "ວັນທີເຂົ້າຮ່ວມ",
-    ];
-    const data = admins.map((admin) => [
-      admin.id,
-      admin.name,
-      admin.email,
-      admin.role,
-      admin.status === "active" ? "ເປີດໃຊ້ງານ" : "ປິດໃຊ້ງານ",
-      admin.joinedDate,
-    ]);
-    exportToPDF(
-      headers,
-      data,
-      "Admins_Report",
-      "ລາຍງານລາຍຊື່ຜູ້ດູແລລະບົບທັງໝົດ"
-    );
   };
 
   const admins = [
@@ -123,13 +98,6 @@ const AdminsPage = () => {
                 <FileSpreadsheet className="w-4 h-4" />
                 <span>Download Excel</span>
               </button>
-              <button
-                onClick={handleDownloadPDF}
-                className="w-full flex items-center gap-3 px-4 py-3 text-sm text-gray-600 dark:text-gray-300 hover:bg-teal-50 dark:hover:bg-teal-900/20 hover:text-teal-700 dark:hover:text-teal-400 transition-colors"
-              >
-                <FilePdf className="w-4 h-4" />
-                <span>Download PDF</span>
-              </button>
             </div>
           </div>
           <Link href="/admins/create">
@@ -160,7 +128,10 @@ const AdminsPage = () => {
       </div>
 
       {/* Admins Table */}
-      <div className="bg-white dark:bg-gray-900 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm overflow-hidden">
+      <div
+        id="admins-table"
+        className="bg-white dark:bg-gray-900 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm overflow-hidden"
+      >
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>

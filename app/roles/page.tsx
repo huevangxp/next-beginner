@@ -17,7 +17,7 @@ import {
   FileText as FilePdf,
 } from "lucide-react";
 import Link from "next/link";
-import { exportToExcel, exportToPDF } from "../utils/exportUtils";
+import { exportToExcel, exportElementToPDF } from "../utils/exportUtils";
 
 const RolesPage = () => {
   const [mounted, setMounted] = useState(false);
@@ -36,18 +36,6 @@ const RolesPage = () => {
       ສິດທິ: role.permissions.join(", "),
     }));
     exportToExcel(exportData, "Roles_Report");
-  };
-
-  const handleDownloadPDF = () => {
-    const headers = ["ID", "ປະເພດສິດ", "ຄຳອະທິບາຍ", "ຈຳນວນຜູ້ໃຊ້", "ສະຖານະ"];
-    const data = roles.map((role) => [
-      role.id,
-      role.name,
-      role.description,
-      role.userCount,
-      role.status === "active" ? "ເປີດໃຊ້ງານ" : "ປິດໃຊ້ງານ",
-    ]);
-    exportToPDF(headers, data, "Roles_Report", "ລາຍງານປະເພດສິດທັງໝົດ");
   };
 
   const roles = [
@@ -113,13 +101,6 @@ const RolesPage = () => {
                 <FileSpreadsheet className="w-4 h-4" />
                 <span>Download Excel</span>
               </button>
-              <button
-                onClick={handleDownloadPDF}
-                className="w-full flex items-center gap-3 px-4 py-3 text-sm text-gray-600 dark:text-gray-300 hover:bg-teal-50 dark:hover:bg-teal-900/20 hover:text-teal-700 dark:hover:text-teal-400 transition-colors"
-              >
-                <FilePdf className="w-4 h-4" />
-                <span>Download PDF</span>
-              </button>
             </div>
           </div>
           <Link href="/roles/create">
@@ -150,7 +131,10 @@ const RolesPage = () => {
       </div>
 
       {/* Roles Table */}
-      <div className="bg-white dark:bg-gray-900 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm overflow-hidden">
+      <div
+        id="roles-table"
+        className="bg-white dark:bg-gray-900 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm overflow-hidden"
+      >
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
