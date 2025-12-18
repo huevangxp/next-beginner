@@ -1,7 +1,14 @@
 "use client";
 
 import React, { useState } from "react";
-import { Settings, User, LogOut, Bell, Search } from "lucide-react";
+import {
+  Settings,
+  User,
+  LogOut,
+  Bell,
+  Search,
+  ChevronDown,
+} from "lucide-react";
 import Link from "next/link";
 
 import { useAppContext } from "../context/AppContext";
