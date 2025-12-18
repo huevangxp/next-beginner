@@ -24,7 +24,7 @@ const ProfilePage = () => {
   ];
 
   return (
-    <div className="max-w-2xl mx-auto space-y-8">
+    <div className="max-w-10xl mx-auto space-y-8">
       {/* Header */}
       <div>
         <h1 className="text-3xl font-bold text-gray-800">Account Settings</h1>
