@@ -17,8 +17,8 @@ const Sidebar = () => {
 
   const menuItems = [
     { name: "ໜ້າຫຼັກ", href: "/", icon: Home },
-    { name: "ສິນຄ້າ", href: "/product", icon: ShoppingBag },
     { name: "ປະເພດສິນຄ້າ", href: "/product-type", icon: Layers },
+    { name: "ສິນຄ້າ", href: "/product", icon: ShoppingBag },
     { name: "ຜູ້ໃຊ້ງານ", href: "/users", icon: User },
     // { name: "ໂປຣໄຟລ໌", href: "/profile", icon: User },
     // { name: "ຕັ້ງຄ່າ", href: "/settings", icon: Settings },
