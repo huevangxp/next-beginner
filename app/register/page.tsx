@@ -65,6 +65,8 @@ const RegisterPage = () => {
           <Image
             src="../auth.png"
             alt="Auth Illustration"
+            width={500}
+            height={500}
             className="absolute inset-0 w-full h-full object-cover opacity-90 scale-x-[-1]"
           />
           {/* <img
