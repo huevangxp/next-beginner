@@ -52,6 +52,7 @@ const RegisterPage = () => {
         alt="Auth Illustration"
         width={500}
         height={500}
+        priority
         className="object-cover opacity-90 scale-x-[-1]"
       />
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
