@@ -11,11 +11,12 @@ import {
   ChevronDown,
 } from "lucide-react";
 
-import { useAppContext } from "../context/AppContext";
+import { useTranslations } from "next-intl";
+import { Link } from "../../i18n/routing";
 
 const Header = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const { t } = useAppContext();
+  const t = useTranslations("Navigation");
 
   return (
     <header className="bg-white border-b border-gray-200 h-20 flex items-center justify-between px-8 sticky top-0 z-10 shadow-sm">
