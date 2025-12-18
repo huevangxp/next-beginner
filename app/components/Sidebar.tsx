@@ -61,7 +61,7 @@ const Sidebar = () => {
       <div className="p-4 border-t border-gray-100">
         <div className="bg-gray-50 rounded-2xl p-4">
           <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">
-            System Status
+            ສະຖານະລະບົບ
           </p>
           <div className="flex items-center gap-2">
             <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
