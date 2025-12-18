@@ -55,7 +55,7 @@ const CreateUserPage = () => {
 
   return (
     <div className="min-h-screen bg-[#f8fafc] dark:bg-gray-950 p-4 md:p-8 animate-in fade-in duration-500">
-      <div className="max-w-10xl mx-auto space-y-6">
+      <div className="  mx-auto space-y-8">
         {/* Header */}
         <div className="flex items-start gap-4 mb-8">
           <Link
