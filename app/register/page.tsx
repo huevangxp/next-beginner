@@ -54,7 +54,7 @@ const RegisterPage = () => {
         {/* Right Side: Illustration */}
         <div className="hidden md:flex md:w-1/2 relative items-center justify-center overflow-hidden border-l border-gray-50 dark:border-gray-800">
           <img
-            src="/images/auth-illustration.png"
+            src="/images/auth.png"
             alt="Auth Illustration"
             className="absolute inset-0 w-full h-full object-cover opacity-90 scale-x-[-1]"
           />
