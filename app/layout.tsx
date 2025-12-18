@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Noto_Sans_Lao } from "next/font/google";
 import "./globals.css";
 import Header from "./components/Header";
 
@@ -11,6 +11,12 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+const notoLaos = Noto_Sans_Lao({
+  variable: "--font-noto-lao",
+  subsets: ["lao"],
+  weight: ["400", "700"],
 });
 
 export const metadata: Metadata = {
