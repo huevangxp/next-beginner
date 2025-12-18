@@ -8,6 +8,7 @@ import {
   User,
   Settings,
   Layers,
+  ShieldCheck,
 } from "lucide-react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
@@ -16,10 +17,10 @@ const Sidebar = () => {
   const pathname = usePathname();
 
   const menuItems = [
-    { name: "ໜ້າຫຼັກ", href: "/", icon: Home },
     { name: "ປະເພດສິນຄ້າ", href: "/product-type", icon: Layers },
     { name: "ສິນຄ້າ", href: "/product", icon: ShoppingBag },
     { name: "ຜູ້ໃຊ້ງານ", href: "/users", icon: User },
+    { name: "ຜູ້ດູແລລະບົບ", href: "/admins", icon: ShieldCheck },
   ];
 
   return (
