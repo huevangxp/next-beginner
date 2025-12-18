@@ -1,6 +1,8 @@
 "use client";
 
-import { useAppContext } from "../context/AppContext";
+import { useAppContext } from "../../context/AppContext";
+import { useTranslations, useLocale } from "next-intl";
+import { useRouter, usePathname } from "../../../i18n/routing";
 import {
   Settings,
   Globe,
@@ -18,7 +20,15 @@ import {
 } from "lucide-react";
 
 const SettingsPage = () => {
-  const { theme, setTheme, language, setLanguage, t } = useAppContext();
+  const { theme, setTheme } = useAppContext();
+  const t = useTranslations("Settings");
+  const locale = useLocale();
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const handleLanguageChange = (newLocale: string) => {
+    router.replace(pathname, { locale: newLocale as any });
+  };
 
   return (
     <div className="max-w-5xl mx-auto space-y-8">
