@@ -18,9 +18,9 @@ const ProfilePage = () => {
   const [activeTab, setActiveTab] = useState("personal");
 
   const tabs = [
-    { id: "personal", name: "Personal Info", icon: User },
-    { id: "security", name: "Security", icon: Shield },
-    { id: "notifications", name: "Notifications", icon: Bell },
+    { id: "personal", name: "ຂໍ້ມູນສ່ວນຕົວ", icon: User },
+    { id: "security", name: "ຄວາມປອດໄພ", icon: Shield },
+    { id: "notifications", name: "ການແຈ້ງເຕືອນ", icon: Bell },
   ];
 
   return (
@@ -81,7 +81,7 @@ const ProfilePage = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <label className="text-sm font-bold text-gray-700 ml-1">
-                      Full Name
+                      ຊື່ເຕັມ
                     </label>
                     <div className="relative">
                       <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
@@ -94,7 +94,7 @@ const ProfilePage = () => {
                   </div>
                   <div className="space-y-2">
                     <label className="text-sm font-bold text-gray-700 ml-1">
-                      Email Address
+                      ທີ່ຢູ່ອີເມວ
                     </label>
                     <div className="relative">
                       <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
@@ -107,26 +107,26 @@ const ProfilePage = () => {
                   </div>
                   <div className="space-y-2">
                     <label className="text-sm font-bold text-gray-700 ml-1">
-                      Phone Number
+                      ເບີໂທລະສັບ
                     </label>
                     <div className="relative">
                       <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
                       <input
                         type="tel"
-                        defaultValue="+1 (555) 000-0000"
+                        defaultValue="+856 20 000-0000"
                         className="w-full pl-11 pr-4 py-3 bg-gray-50 border border-gray-100 rounded-xl focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 outline-none transition-all"
                       />
                     </div>
                   </div>
                   <div className="space-y-2">
                     <label className="text-sm font-bold text-gray-700 ml-1">
-                      Location
+                      ທີ່ຢູ່
                     </label>
                     <div className="relative">
                       <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
                       <input
                         type="text"
-                        defaultValue="San Francisco, CA"
+                        defaultValue="ນະຄອນຫຼວງວຽງຈັນ, ລາວ"
                         className="w-full pl-11 pr-4 py-3 bg-gray-50 border border-gray-100 rounded-xl focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 outline-none transition-all"
                       />
                     </div>
@@ -135,11 +135,11 @@ const ProfilePage = () => {
 
                 <div className="space-y-2">
                   <label className="text-sm font-bold text-gray-700 ml-1">
-                    Bio
+                    ກ່ຽວກັບຂ້ອຍ
                   </label>
                   <textarea
                     rows={4}
-                    defaultValue="Passionate about building modern web applications with Next.js and Tailwind CSS."
+                    defaultValue="ມີຄວາມມັກໃນການສ້າງເວັບໄຊທ໌ທີ່ທັນສະໄໝດ້ວຍ Next.js ແລະ Tailwind CSS."
                     className="w-full px-4 py-3 bg-gray-50 border border-gray-100 rounded-xl focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 outline-none transition-all resize-none"
                   />
                 </div>
@@ -147,7 +147,7 @@ const ProfilePage = () => {
                 <div className="flex justify-end pt-4">
                   <button className="flex items-center gap-2 bg-teal-600 text-white px-8 py-3 rounded-xl font-bold hover:bg-teal-700 transition-all shadow-lg shadow-teal-100">
                     <Save className="w-5 h-5" />
-                    <span>Save Changes</span>
+                    <span>ບັນທຶກການປ່ຽນແປງ</span>
                   </button>
                 </div>
               </div>
@@ -158,17 +158,17 @@ const ProfilePage = () => {
             <div className="bg-white rounded-3xl border border-gray-100 shadow-sm p-8 space-y-8 animate-in fade-in slide-in-from-right-4 duration-300">
               <div>
                 <h3 className="text-xl font-bold text-gray-800">
-                  Password & Security
+                  ລະຫັດຜ່ານ ແລະ ຄວາມປອດໄພ
                 </h3>
                 <p className="text-gray-500 text-sm">
-                  Update your password and secure your account.
+                  ອັບເດດລະຫັດຜ່ານ ແລະ ປົກປ້ອງບັນຊີຂອງທ່ານ.
                 </p>
               </div>
 
               <div className="space-y-6 max-w-md">
                 <div className="space-y-2">
                   <label className="text-sm font-bold text-gray-700 ml-1">
-                    Current Password
+                    ລະຫັດຜ່ານປັດຈຸບັນ
                   </label>
                   <div className="relative">
                     <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
@@ -181,7 +181,7 @@ const ProfilePage = () => {
                 </div>
                 <div className="space-y-2">
                   <label className="text-sm font-bold text-gray-700 ml-1">
-                    New Password
+                    ລະຫັດຜ່ານໃໝ່
                   </label>
                   <div className="relative">
                     <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
@@ -194,7 +194,7 @@ const ProfilePage = () => {
                 </div>
                 <div className="space-y-2">
                   <label className="text-sm font-bold text-gray-700 ml-1">
-                    Confirm New Password
+                    ຢືນຢັນລະຫັດຜ່ານໃໝ່
                   </label>
                   <div className="relative">
                     <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
@@ -206,20 +206,20 @@ const ProfilePage = () => {
                   </div>
                 </div>
                 <button className="w-full py-3 bg-gray-900 text-white rounded-xl font-bold hover:bg-black transition-all">
-                  Update Password
+                  ອັບເດດລະຫັດຜ່ານ
                 </button>
               </div>
 
               <div className="pt-8 border-t border-gray-50">
                 <div className="flex items-center justify-between p-4 bg-red-50 rounded-2xl border border-red-100">
                   <div>
-                    <h4 className="font-bold text-red-800">Delete Account</h4>
+                    <h4 className="font-bold text-red-800">ລຶບບັນຊີ</h4>
                     <p className="text-red-600 text-sm">
-                      Once you delete your account, there is no going back.
+                      ເມື່ອທ່ານລຶບບັນຊີແລ້ວ, ຈະບໍ່ສາມາດກູ້ຄືນໄດ້.
                     </p>
                   </div>
                   <button className="px-4 py-2 bg-red-600 text-white rounded-xl text-sm font-bold hover:bg-red-700 transition-all">
-                    Delete
+                    ລຶບ
                   </button>
                 </div>
               </div>
@@ -229,25 +229,25 @@ const ProfilePage = () => {
           {activeTab === "notifications" && (
             <div className="bg-white rounded-3xl border border-gray-100 shadow-sm p-8 animate-in fade-in slide-in-from-right-4 duration-300">
               <h3 className="text-xl font-bold text-gray-800 mb-6">
-                Notification Preferences
+                ການຕັ້ງຄ່າການແຈ້ງເຕືອນ
               </h3>
               <div className="space-y-4">
                 {[
                   {
-                    title: "Email Notifications",
-                    desc: "Receive weekly reports and updates via email.",
+                    title: "ການແຈ້ງເຕືອນຜ່ານອີເມວ",
+                    desc: "ຮັບລາຍງານປະຈຳອາທິດ ແລະ ການອັບເດດຜ່ານອີເມວ.",
                   },
                   {
-                    title: "Push Notifications",
-                    desc: "Get instant alerts on your desktop or mobile.",
+                    title: "ການແຈ້ງເຕືອນແບບ Push",
+                    desc: "ຮັບການແຈ້ງເຕືອນທັນທີໃນຄອມພິວເຕີ ຫຼື ມືຖື.",
                   },
                   {
-                    title: "Product Updates",
-                    desc: "News about new features and improvements.",
+                    title: "ການອັບເດດສິນຄ້າ",
+                    desc: "ຂ່າວສານກ່ຽວກັບຄຸນສົມບັດໃໝ່ ແລະ ການປັບປຸງ.",
                   },
                   {
-                    title: "Security Alerts",
-                    desc: "Important notifications about your account security.",
+                    title: "ການແຈ້ງເຕືອນຄວາມປອດໄພ",
+                    desc: "ການແຈ້ງເຕືອນທີ່ສຳຄັນກ່ຽວກັບຄວາມປອດໄພຂອງບັນຊີ.",
                   },
                 ].map((item, i) => (
                   <div
