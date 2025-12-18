@@ -17,6 +17,7 @@ const Sidebar = () => {
   const pathname = usePathname();
 
   const menuItems = [
+    { name: "ໜ້າຫຼັກ", href: "/", icon: Home },
     { name: "ປະເພດສິນຄ້າ", href: "/product-type", icon: Layers },
     { name: "ສິນຄ້າ", href: "/product", icon: ShoppingBag },
     { name: "ຜູ້ໃຊ້ງານ", href: "/users", icon: User },
