@@ -11,6 +11,7 @@ import {
   ShieldCheck,
   ChevronDown,
   ShoppingCart,
+  BarChart3,
 } from "lucide-react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
@@ -40,6 +41,7 @@ const Sidebar = () => {
     { name: "ລາຍການສັ່ງຊື້", href: "/orders", icon: ShoppingCart },
     { name: "ຜູ້ໃຊ້ງານ", href: "/users", icon: User },
     { name: "ຜູ້ດູແລລະບົບ", href: "/admins", icon: ShieldCheck },
+    { name: "ລາຍງານ", href: "/reports", icon: BarChart3 },
   ];
 
   return (
