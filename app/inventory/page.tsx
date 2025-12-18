@@ -15,7 +15,10 @@ import {
   Edit2,
   Box,
   XCircle,
+  FileSpreadsheet,
+  FileText as FilePdf,
 } from "lucide-react";
+import { exportToExcel, exportToPDF } from "../utils/exportUtils";
 
 const InventoryPage = () => {
   const [mounted, setMounted] = useState(false);
@@ -23,6 +26,43 @@ const InventoryPage = () => {
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  const handleDownloadExcel = () => {
+    const exportData = inventoryItems.map((item) => ({
+      ID: item.id,
+      ຊື່ສິນຄ້າ: item.name,
+      ໝວດໝູ່: item.category,
+      ຈຳນວນຄົງເຫຼືອ: item.stock,
+      ລະດັບຕໍ່າສຸດ: item.minStock,
+      ສະຖານະ: item.status,
+      ອັບເດດຫຼ້າສຸດ: item.lastUpdate,
+    }));
+    exportToExcel(exportData, "Inventory_Report");
+  };
+
+  const handleDownloadPDF = () => {
+    const headers = [
+      "ID",
+      "ຊື່ສິນຄ້າ",
+      "ໝວດໝູ່",
+      "ຄົງເຫຼືອ",
+      "ຕໍ່າສຸດ",
+      "ສະຖານະ",
+    ];
+    const data = inventoryItems.map((item) => [
+      item.id,
+      item.name,
+      item.category,
+      item.stock,
+      item.minStock,
+      item.status === "ok"
+        ? "ປົກກະຕິ"
+        : item.status === "low"
+        ? "ໃກ້ໝົດ"
+        : "ໝົດສະຕັອກ",
+    ]);
+    exportToPDF(headers, data, "Inventory_Report", "ລາຍງານສາງສິນຄ້າທັງໝົດ");
+  };
 
   const inventoryItems = [
     {
@@ -87,10 +127,28 @@ const InventoryPage = () => {
           </p>
         </div>
         <div className="flex items-center gap-3">
-          <button className="flex items-center gap-2 bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 text-gray-600 dark:text-gray-300 px-6 py-3 rounded-2xl font-bold transition-all shadow-sm hover:bg-gray-50 dark:hover:bg-gray-800">
-            <Download className="w-5 h-5" />
-            <span>ສົ່ງອອກ</span>
-          </button>
+          <div className="relative group">
+            <button className="flex items-center gap-2 bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 text-gray-600 dark:text-gray-300 px-6 py-3 rounded-2xl font-bold transition-all shadow-sm hover:bg-gray-50 dark:hover:bg-gray-800">
+              <Download className="w-5 h-5" />
+              <span>ສົ່ງອອກ</span>
+            </button>
+            <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-2xl shadow-xl py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-20">
+              <button
+                onClick={handleDownloadExcel}
+                className="w-full flex items-center gap-3 px-4 py-3 text-sm text-gray-600 dark:text-gray-300 hover:bg-teal-50 dark:hover:bg-teal-900/20 hover:text-teal-700 dark:hover:text-teal-400 transition-colors"
+              >
+                <FileSpreadsheet className="w-4 h-4" />
+                <span>Download Excel</span>
+              </button>
+              <button
+                onClick={handleDownloadPDF}
+                className="w-full flex items-center gap-3 px-4 py-3 text-sm text-gray-600 dark:text-gray-300 hover:bg-teal-50 dark:hover:bg-teal-900/20 hover:text-teal-700 dark:hover:text-teal-400 transition-colors"
+              >
+                <FilePdf className="w-4 h-4" />
+                <span>Download PDF</span>
+              </button>
+            </div>
+          </div>
           <button className="flex items-center gap-2 bg-teal-600 hover:bg-teal-700 text-white px-6 py-3 rounded-2xl font-bold transition-all shadow-lg shadow-teal-100 dark:shadow-none active:scale-95">
             <Plus className="w-5 h-5" />
             <span>ເພີ່ມສະຕັອກ</span>
