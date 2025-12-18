@@ -11,7 +11,7 @@ const Sidebar = () => {
   const menuItems = [
     { name: "ໜ້າຫຼັກ", href: "/", icon: Home },
     { name: "ສິນຄ້າ", href: "/product", icon: ShoppingBag },
-    { name: "ຂໍ້ມູນສ່ວນຕົວ", href: "/profile", icon: User },
+    // { name: "ຂໍ້ມູນສ່ວນຕົວ", href: "/profile", icon: User },
   ];
 
   return (
