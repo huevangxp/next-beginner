@@ -16,6 +16,7 @@ import {
   ChevronRight,
   Package,
 } from "lucide-react";
+import Link from "next/link";
 
 const ReportsPage = () => {
   const [mounted, setMounted] = useState(false);
