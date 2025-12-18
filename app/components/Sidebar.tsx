@@ -44,7 +44,7 @@ const Sidebar = () => {
     { name: "ລາຍການສັ່ງຊື້", href: "/orders", icon: ShoppingCart },
     { name: "ສາງສິນຄ້າ", href: "/inventory", icon: PackageSearch },
     { name: "ໂປຣໂມຊັ່ນ", href: "/promotions", icon: Tag },
-    { name: "ຜູ້ໃຊ້ງານ", href: "/users", icon: User },
+    { name: "ລູກຄ້າ", href: "/customers", icon: User },
     { name: "ຜູ້ດູແລລະບົບ", href: "/admins", icon: ShieldCheck },
     { name: "ລາຍງານ", href: "/reports", icon: BarChart3 },
     { name: "ການແຈ້ງເຕືອນ", href: "/notifications", icon: Bell },
