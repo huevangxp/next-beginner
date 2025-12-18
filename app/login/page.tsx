@@ -11,6 +11,7 @@ import {
   LayoutDashboard,
   ArrowRight,
 } from "lucide-react";
+import Link from "next/link";
 
 const LoginPage = () => {
   const [username, setUsername] = useState("");
