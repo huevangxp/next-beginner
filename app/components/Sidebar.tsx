@@ -10,6 +10,7 @@ import {
   Layers,
   ShieldCheck,
   ChevronDown,
+  ShoppingCart,
 } from "lucide-react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
@@ -36,6 +37,7 @@ const Sidebar = () => {
       ],
     },
     { name: "ສິນຄ້າ", href: "/product", icon: ShoppingBag },
+    { name: "ລາຍການສັ່ງຊື້", href: "/orders", icon: ShoppingCart },
     { name: "ຜູ້ໃຊ້ງານ", href: "/users", icon: User },
     { name: "ຜູ້ດູແລລະບົບ", href: "/admins", icon: ShieldCheck },
   ];
