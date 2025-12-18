@@ -31,7 +31,7 @@ const ProfilePage = () => {
           ຈັດການຂໍ້ມູນສ່ວນຕົວ
         </h1>
         <p className="text-gray-500 mt-1">
-          Manage your profile information and security preferences.
+          ການຈັດການຂໍ້ມູນສ່ວນຕົວຂໍ້ມູນຂອງທ່ານ
         </p>
       </div>
 
