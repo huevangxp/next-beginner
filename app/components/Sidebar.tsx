@@ -12,6 +12,9 @@ import {
   ChevronDown,
   ShoppingCart,
   BarChart3,
+  Tag,
+  PackageSearch,
+  Bell,
 } from "lucide-react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
@@ -39,9 +42,12 @@ const Sidebar = () => {
     },
     { name: "ສິນຄ້າ", href: "/product", icon: ShoppingBag },
     { name: "ລາຍການສັ່ງຊື້", href: "/orders", icon: ShoppingCart },
+    { name: "ສາງສິນຄ້າ", href: "/inventory", icon: PackageSearch },
+    { name: "ໂປຣໂມຊັ່ນ", href: "/promotions", icon: Tag },
     { name: "ຜູ້ໃຊ້ງານ", href: "/users", icon: User },
     { name: "ຜູ້ດູແລລະບົບ", href: "/admins", icon: ShieldCheck },
     { name: "ລາຍງານ", href: "/reports", icon: BarChart3 },
+    { name: "ການແຈ້ງເຕືອນ", href: "/notifications", icon: Bell },
   ];
 
   return (
