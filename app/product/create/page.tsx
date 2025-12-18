@@ -16,6 +16,7 @@ import {
   Upload,
   ChevronDown,
   Image as ImageIcon,
+  Tag,
 } from "lucide-react";
 import Link from "next/link";
 
@@ -173,10 +174,21 @@ const CreateProductPage = () => {
                   ໝວດໝູ່
                 </label>
                 <div className="relative">
+                  <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
+                </div>
+              </div>
+
+              {/* Promotion */}
+              <div className="space-y-2">
+                <label className="text-sm font-bold text-[#0f172a] dark:text-gray-300 flex items-center gap-2">
+                  <Tag className="w-4 h-4 text-[#009688]" />
+                  ໂປຣໂມຊັ່ນ
+                </label>
+                <div className="relative">
                   <select className="w-full px-5 py-4 bg-[#f8fafc] dark:bg-gray-800 border-none rounded-2xl focus:ring-2 focus:ring-[#009688]/20 outline-none transition-all dark:text-white appearance-none cursor-pointer">
-                    <option value="electronics">ເຄື່ອງເອເລັກໂຕຣນິກ</option>
-                    <option value="wearables">ອຸປະກອນສວມໃສ່</option>
-                    <option value="accessories">ອຸປະກອນເສີມ</option>
+                    <option value="">ບໍ່ມີໂປຣໂມຊັ່ນ</option>
+                    <option value="LAONEWYEAR">ປີໃໝ່ລາວ 2024 (20%)</option>
+                    <option value="WELCOME">ລູກຄ້າໃໝ່ (10%)</option>
                   </select>
                   <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
                 </div>
