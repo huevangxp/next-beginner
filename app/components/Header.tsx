@@ -80,10 +80,13 @@ const Header = () => {
                 <span>ຂໍ້ມູນສ່ວນຕົວ</span>
               </Link>
 
-              <button className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-gray-600 hover:bg-teal-50 hover:text-teal-700 transition-colors">
+              <Link
+                href="/settings"
+                className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-gray-600 hover:bg-teal-50 hover:text-teal-700 transition-colors"
+              >
                 <Settings className="w-4 h-4" />
                 <span>ການຕັ້ງຄ່າ</span>
-              </button>
+              </Link>
 
               <div className="h-px bg-gray-50 my-1"></div>
 
