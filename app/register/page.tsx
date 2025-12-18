@@ -51,23 +51,25 @@ const RegisterPage = () => {
       </div>
 
       <div className="w-full max-w-6xl bg-white dark:bg-gray-900 rounded-none md:rounded-[40px] shadow-2xl border border-gray-100 dark:border-gray-800 overflow-hidden flex flex-col md:flex-row-reverse min-h-[700px] relative z-10">
-        {/* Right Side: Illustration (Flipped for Register) */}
-        <div className="hidden md:flex md:w-1/2 bg-gradient-to-br from-blue-500/10 to-teal-500/10 relative items-center justify-center p-12 overflow-hidden border-l border-gray-50 dark:border-gray-800">
-          <div className="absolute inset-0 opacity-40">
-            <div className="absolute top-20 right-20 w-64 h-64 bg-blue-400 rounded-full blur-[100px] animate-pulse"></div>
-            <div className="absolute bottom-20 left-20 w-64 h-64 bg-teal-400 rounded-full blur-[100px] animate-pulse delay-700"></div>
-          </div>
+        {/* Right Side: Illustration */}
+        <div className="hidden md:flex md:w-1/2 relative items-center justify-center overflow-hidden border-l border-gray-50 dark:border-gray-800">
+          <img
+            src="/images/auth-illustration.png"
+            alt="Auth Illustration"
+            className="absolute inset-0 w-full h-full object-cover opacity-90 scale-x-[-1]"
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 to-teal-600/20 backdrop-blur-[2px]"></div>
 
-          <div className="relative z-10 text-center space-y-8 animate-in fade-in slide-in-from-right-8 duration-1000">
-            <div className="w-24 h-24 bg-white dark:bg-gray-800 rounded-3xl shadow-2xl flex items-center justify-center mx-auto transform -rotate-12 hover:rotate-0 transition-transform duration-500">
+          <div className="relative z-10 text-center space-y-8 animate-in fade-in slide-in-from-right-8 duration-1000 p-12">
+            <div className="w-24 h-24 bg-white/90 dark:bg-gray-800/90 backdrop-blur-xl rounded-3xl shadow-2xl flex items-center justify-center mx-auto transform -rotate-12 hover:rotate-0 transition-transform duration-500 border border-white/50">
               <User className="w-12 h-12 text-blue-600" />
             </div>
             <div className="space-y-4">
-              <h2 className="text-4xl font-black text-gray-900 dark:text-white tracking-tight leading-tight">
+              <h2 className="text-4xl font-black text-white tracking-tight leading-tight drop-shadow-lg">
                 ເລີ່ມຕົ້ນການເດີນທາງ <br />
-                <span className="text-blue-600">ໄປພ້ອມກັບພວກເຮົາ</span>
+                <span className="text-blue-300">ໄປພ້ອມກັບພວກເຮົາ</span>
               </h2>
-              <p className="text-gray-500 dark:text-gray-400 text-lg max-w-md mx-auto leading-relaxed">
+              <p className="text-white/80 text-lg max-w-md mx-auto leading-relaxed drop-shadow-md">
                 ສ້າງບັນຊີຂອງທ່ານໃນມື້ນີ້
                 ເພື່ອເຂົ້າເຖິງເຄື່ອງມືການຈັດການທີ່ດີທີ່ສຸດ ແລະ
                 ເພີ່ມປະສິດທິພາບໃຫ້ກັບທຸລະກິດຂອງທ່ານ.
@@ -76,19 +78,19 @@ const RegisterPage = () => {
 
             {/* Features List */}
             <div className="flex flex-col gap-3 max-w-xs mx-auto pt-4">
-              <div className="flex items-center gap-3 bg-white/60 dark:bg-gray-800/60 backdrop-blur-md p-3 rounded-xl border border-white/50 shadow-sm text-left">
-                <div className="w-8 h-8 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center text-blue-600">
+              <div className="flex items-center gap-3 bg-white/20 dark:bg-gray-800/20 backdrop-blur-md p-3 rounded-xl border border-white/30 shadow-sm text-left">
+                <div className="w-8 h-8 bg-blue-100/20 rounded-lg flex items-center justify-center text-white font-bold">
                   ✓
                 </div>
-                <p className="text-sm font-bold text-gray-700 dark:text-gray-300">
+                <p className="text-sm font-bold text-white">
                   ຈັດການສິນຄ້າບໍ່ຈຳກັດ
                 </p>
               </div>
-              <div className="flex items-center gap-3 bg-white/60 dark:bg-gray-800/60 backdrop-blur-md p-3 rounded-xl border border-white/50 shadow-sm text-left">
-                <div className="w-8 h-8 bg-teal-100 dark:bg-teal-900/30 rounded-lg flex items-center justify-center text-teal-600">
+              <div className="flex items-center gap-3 bg-white/20 dark:bg-gray-800/20 backdrop-blur-md p-3 rounded-xl border border-white/30 shadow-sm text-left">
+                <div className="w-8 h-8 bg-teal-100/20 rounded-lg flex items-center justify-center text-white font-bold">
                   ✓
                 </div>
-                <p className="text-sm font-bold text-gray-700 dark:text-gray-300">
+                <p className="text-sm font-bold text-white">
                   ລາຍງານການຂາຍລະອຽດ
                 </p>
               </div>
