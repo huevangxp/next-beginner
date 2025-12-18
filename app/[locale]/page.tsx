@@ -65,14 +65,14 @@ const DashboardPage = () => {
       id: 1,
       user: "Alex Morgan",
       action: "ຊື້ຫູຟັງໄຮ້ສາຍ",
-      time: `2 ${t("minutes_ago")}`,
+      time: `2 ${t("minutesAgo")}`,
       amount: "$59.99",
     },
     {
       id: 2,
       user: "Sarah Chen",
       action: "ອັບເດດຮູບໂປຣໄຟລ໌",
-      time: `15 ${t("minutes_ago")}`,
+      time: `15 ${t("minutesAgo")}`,
       amount: null,
     },
     {
@@ -97,21 +97,21 @@ const DashboardPage = () => {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <h1 className="text-3xl font-bold text-gray-800 dark:text-white">
-            {t("dashboard")}
+            {t("title")}
           </h1>
           <p className="text-gray-500 dark:text-gray-400 mt-1">
-            {t("welcome")}, Admin! {t("manage_settings")}
+            {t("welcome")} {t("description")}
           </p>
         </div>
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 shadow-sm">
             <Clock className="w-4 h-4" />
             <span>
-              {t("last_updated")}: 5 {t("minutes_ago")}
+              {t("lastUpdated")}: 5 {t("minutesAgo")}
             </span>
           </div>
           <button className="px-4 py-2 bg-teal-600 text-white rounded-xl text-sm font-bold hover:bg-teal-700 transition-all shadow-lg shadow-teal-100">
-            {t("download_report")}
+            {t("downloadReport")}
           </button>
         </div>
       </div>
@@ -163,10 +163,10 @@ const DashboardPage = () => {
         <div className="lg:col-span-2 bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm overflow-hidden">
           <div className="p-6 border-b border-gray-50 dark:border-gray-800 flex items-center justify-between">
             <h2 className="text-lg font-bold text-gray-800 dark:text-white">
-              {t("recent_activity")}
+              {t("recentActivity.title")}
             </h2>
             <button className="text-teal-600 text-sm font-bold hover:underline">
-              {t("view_all")}
+              {t("recentActivity.viewAll")}
             </button>
           </div>
           <div className="overflow-x-auto">
@@ -174,16 +174,16 @@ const DashboardPage = () => {
               <thead>
                 <tr className="bg-gray-50/50 dark:bg-gray-800/50">
                   <th className="px-6 py-4 text-xs font-bold text-gray-400 uppercase tracking-wider">
-                    {t("user")}
+                    {t("recentActivity.user")}
                   </th>
                   <th className="px-6 py-4 text-xs font-bold text-gray-400 uppercase tracking-wider">
-                    {t("activity")}
+                    {t("recentActivity.activity")}
                   </th>
                   <th className="px-6 py-4 text-xs font-bold text-gray-400 uppercase tracking-wider">
-                    {t("time")}
+                    {t("recentActivity.time")}
                   </th>
                   <th className="px-6 py-4 text-xs font-bold text-gray-400 uppercase tracking-wider">
-                    {t("amount")}
+                    {t("recentActivity.amount")}
                   </th>
                 </tr>
               </thead>
@@ -223,26 +223,32 @@ const DashboardPage = () => {
         <div className="space-y-6">
           <div className="bg-white dark:bg-gray-900 p-6 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm">
             <h2 className="text-lg font-bold text-gray-800 dark:text-white mb-4">
-              {t("quick_actions")}
+              {t("quickActions.title")}
             </h2>
             <div className="grid grid-cols-2 gap-3">
               <button className="p-4 bg-teal-50 dark:bg-teal-900/20 text-teal-700 dark:text-teal-400 rounded-xl hover:bg-teal-100 dark:hover:bg-teal-900/30 transition-all flex flex-col items-center gap-2">
                 <Plus className="w-5 h-5" />
-                <span className="text-xs font-bold">{t("add_product")}</span>
+                <span className="text-xs font-bold">
+                  {t("quickActions.addProduct")}
+                </span>
               </button>
               <button className="p-4 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400 rounded-xl hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-all flex flex-col items-center gap-2">
                 <Users className="w-5 h-5" />
-                <span className="text-xs font-bold">{t("add_user")}</span>
+                <span className="text-xs font-bold">
+                  {t("quickActions.addUser")}
+                </span>
               </button>
             </div>
           </div>
 
           <div className="bg-gradient-to-br from-gray-800 to-gray-900 p-6 rounded-2xl text-white relative overflow-hidden shadow-xl">
             <div className="relative z-10">
-              <h3 className="font-bold text-lg mb-2">{t("upgrade_pro")}</h3>
-              <p className="text-gray-400 text-sm mb-6">{t("pro_desc")}</p>
+              <h3 className="font-bold text-lg mb-2">{t("upgrade.title")}</h3>
+              <p className="text-gray-400 text-sm mb-6">
+                {t("upgrade.description")}
+              </p>
               <button className="w-full py-3 bg-teal-500 hover:bg-teal-600 text-white rounded-xl font-bold transition-all">
-                {t("upgrade_now")}
+                {t("upgrade.button")}
               </button>
             </div>
             <div className="absolute top-0 right-0 -mr-8 -mt-8 w-32 h-32 bg-teal-500/10 rounded-full blur-2xl"></div>
