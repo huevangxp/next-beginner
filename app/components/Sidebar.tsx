@@ -18,17 +18,38 @@ import {
 } from "lucide-react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const Sidebar = () => {
   const pathname = usePathname();
   const [openMenus, setOpenMenus] = useState<string[]>([]);
+  const [notifications, setNotifications] = useState<any[]>([]);
 
   const toggleMenu = (name: string) => {
     setOpenMenus((prev) =>
       prev.includes(name) ? prev.filter((i) => i !== name) : [...prev, name]
     );
   };
+
+  // Fetch all notifications (including unread), order by newest, and store locally
+  useEffect(() => {
+    fetch("/api/notifications")
+      .then((res) => res.json())
+      .then((data) => {
+        const ordered = data.sort(
+          (a: any, b: any) =>
+            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        );
+        setNotifications(ordered);
+        // Persist to localStorage for later use
+        localStorage.setItem("notifications", JSON.stringify(ordered));
+      })
+      .catch(() => {
+        // If the fetch fails, try to load from localStorage
+        const stored = localStorage.getItem("notifications");
+        if (stored) setNotifications(JSON.parse(stored));
+      });
+  }, []);
 
   const menuItems = [
     { name: "ໜ້າຫຼັກ", href: "/", icon: Home },
@@ -156,6 +177,25 @@ const Sidebar = () => {
           );
         })}
       </nav>
+
+      {/* Notifications List */}
+      {notifications.length > 0 && (
+        <div className="p-4 border-t border-gray-100 dark:border-gray-800">
+          <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            All Notifications
+          </h3>
+          <ul className="space-y-1">
+            {notifications.map((n) => (
+              <li
+                key={n.id}
+                className="text-xs text-gray-600 dark:text-gray-400"
+              >
+                {n.title}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
 
       <div className="p-4 border-t border-gray-100">
         <div className="bg-gray-50 rounded-2xl p-4">
