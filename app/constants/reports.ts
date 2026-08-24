@@ -3,6 +3,7 @@ import {
   TrendingUp,
   Users,
   Layers,
+  ShieldCheck,
 } from "lucide-react";
 
 export interface ReportWeeklyDataPoint {
@@ -21,6 +22,14 @@ export interface ReportCardItem {
   color: string;
   href: string;
   data: { name: string; val: number }[];
+}
+
+export interface ReportRecentActivityItem {
+  id: number;
+  type: string;
+  title: string;
+  time: string;
+  status: "pending" | "success" | "info" | "warning";
 }
 
 export interface CategoryDistributionItem {
@@ -102,20 +111,85 @@ export const REPORTS_CARDS_MOCK_DATA: ReportCardItem[] = [
   },
   {
     title: "ປະເພດສິນຄ້າ",
-    desc: "ຈຳນວນໝວດໝູ່ສິນຄ້າທັງໝົດ",
-    value: "18",
+    desc: "ການແບ່ງໝວດໝູ່ສິນຄ້າ",
+    value: "24",
     unit: "ໝວດ",
     trend: "0%",
     trendUp: true,
     icon: Layers,
-    color: "#f59e0b",
+    color: "#ea580c",
     href: "/product-type",
     data: [
-      { name: "W1", val: 15 },
-      { name: "W2", val: 16 },
-      { name: "W3", val: 18 },
-      { name: "W4", val: 18 },
+      { name: "W1", val: 5 },
+      { name: "W2", val: 5 },
+      { name: "W3", val: 8 },
+      { name: "W4", val: 8 },
     ],
+  },
+  {
+    title: "ຜູ້ດູແລລະບົບ",
+    desc: "ການຈັດການສິດ ແລະ ຜູ້ດູແລ",
+    value: "12",
+    unit: "ຄົນ",
+    trend: "+1",
+    trendUp: true,
+    icon: ShieldCheck,
+    color: "#dc2626",
+    href: "/admins",
+    data: [
+      { name: "W1", val: 2 },
+      { name: "W2", val: 2 },
+      { name: "W3", val: 3 },
+      { name: "W4", val: 3 },
+    ],
+  },
+  {
+    title: "ປະເພດສິດ",
+    desc: "ບົດບາດ ແລະ ການກຳນົດສິດ",
+    value: "6",
+    unit: "ບົດບາດ",
+    trend: "ຄົງທີ່",
+    trendUp: true,
+    icon: ShieldCheck,
+    color: "#4f46e5",
+    href: "/roles",
+    data: [
+      { name: "W1", val: 4 },
+      { name: "W2", val: 4 },
+      { name: "W3", val: 4 },
+      { name: "W4", val: 4 },
+    ],
+  },
+];
+
+export const REPORTS_RECENT_ACTIVITY: ReportRecentActivityItem[] = [
+  {
+    id: 1,
+    type: "Order",
+    title: "New Order #ORD-005",
+    time: "2 mins ago",
+    status: "pending",
+  },
+  {
+    id: 2,
+    type: "Customer",
+    title: "New Customer Registered",
+    time: "15 mins ago",
+    status: "success",
+  },
+  {
+    id: 3,
+    type: "Product",
+    title: "iPhone 15 Pro stock updated",
+    time: "1 hour ago",
+    status: "info",
+  },
+  {
+    id: 4,
+    type: "Admin",
+    title: "Admin role changed for Keo",
+    time: "3 hours ago",
+    status: "warning",
   },
 ];
 
