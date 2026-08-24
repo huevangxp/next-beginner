@@ -16,40 +16,19 @@ import {
   Gift,
   Zap,
   FileSpreadsheet,
-  FileText as FilePdf,
   Download,
 } from "lucide-react";
 import Link from "next/link";
-import { exportToExcel, exportElementToPDF } from "../utils/exportUtils";
+import { exportToExcel } from "../utils/exportUtils";
 
 const PromotionsPage = () => {
   const [mounted, setMounted] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [statusFilter, setStatusFilter] = useState("all");
 
   useEffect(() => {
     setMounted(true);
   }, []);
-
-  const handleDownloadExcel = () => {
-    const exportData = promotions.map((promo) => ({
-      ID: promo.id,
-      ຊື່ໂປຣໂມຊັ່ນ: promo.name,
-      ລະຫັດ: promo.code,
-      ສ່ວນຫຼຸດ: promo.discount,
-      ປະເພດ: promo.type,
-      ວັນທີເລີ່ມ: promo.startDate,
-      ວັນທີສິ້ນສຸດ: promo.endDate,
-      ການນຳໃຊ້: promo.usage,
-      ສະຖານະ: promo.status,
-    }));
-    exportToExcel(exportData, "Promotions_Report");
-  };
-
-  const handleDelete = (id: number) => {
-    if (window.confirm("ທ່ານແນ່ໃຈບໍ່ວ່າຕ້ອງການລຶບໂປຣໂມຊັ່ນນີ້?")) {
-      // In a real app, you would call an API here
-      console.log("Deleting promo:", id);
-    }
-  };
 
   const promotions = [
     {
@@ -87,198 +66,197 @@ const PromotionsPage = () => {
     },
   ];
 
+  const handleDownloadExcel = () => {
+    const exportData = promotions.map((promo) => ({
+      ID: promo.id,
+      ຊື່ໂປຣໂມຊັ່ນ: promo.name,
+      ລະຫັດ: promo.code,
+      ສ່ວນຫຼຸດ: promo.discount,
+      ປະເພດ: promo.type,
+      ວັນທີເລີ່ມ: promo.startDate,
+      ວັນທີສິ້ນສຸດ: promo.endDate,
+      ການນຳໃຊ້: promo.usage,
+      ສະຖານະ: promo.status,
+    }));
+    exportToExcel(exportData, "Promotions_Report");
+  };
+
+  const handleDelete = (id: number) => {
+    if (window.confirm("ທ່ານແນ່ໃຈບໍ່ວ່າຕ້ອງການລຶບໂປຣໂມຊັ່ນນີ້?")) {
+      console.log("Deleting promo:", id);
+    }
+  };
+
+  const filteredPromos = promotions.filter((p) => {
+    const matchesSearch =
+      p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      p.code.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesStatus = statusFilter === "all" || p.status === statusFilter;
+    return matchesSearch && matchesStatus;
+  });
+
   if (!mounted) return null;
 
   return (
-    <div className="space-y-8 animate-in fade-in duration-500">
+    <div className="space-y-6 animate-in fade-in duration-500">
       {/* Page Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-gray-800 dark:text-white">
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white tracking-tight">
             ໂປຣໂມຊັ່ນ (Promotions)
           </h1>
-          <p className="text-gray-500 dark:text-gray-400 mt-1">
-            ຈັດການຄູປອງສ່ວນຫຼຸດ ແລະ ແຄມເປນການຕະຫຼາດ
+          <p className="text-gray-500 dark:text-gray-400 text-xs sm:text-sm mt-0.5">
+            ສ້າງ ແລະ ຈັດການຄູປອງສ່ວນຫຼຸດ, ໂຄ້ດໂປຣໂມຊັ່ນທັງໝົດ
           </p>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2.5">
           <div className="relative group">
-            <button className="flex items-center gap-2 bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 text-gray-600 dark:text-gray-300 px-6 py-3 rounded-2xl font-bold transition-all shadow-sm hover:bg-gray-50 dark:hover:bg-gray-800">
-              <Download className="w-5 h-5" />
+            <button className="flex items-center gap-1.5 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 text-gray-700 dark:text-gray-300 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all shadow-sm hover:bg-gray-50 dark:hover:bg-gray-800 cursor-pointer">
+              <Download className="w-4 h-4 text-teal-600" />
               <span>ລາຍງານ</span>
             </button>
-            <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-2xl shadow-xl py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-20">
+            <div className="absolute right-0 mt-1.5 w-44 bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-xl shadow-xl py-1 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-20">
               <button
                 onClick={handleDownloadExcel}
-                className="w-full flex items-center gap-3 px-4 py-3 text-sm text-gray-600 dark:text-gray-300 hover:bg-teal-50 dark:hover:bg-teal-900/20 hover:text-teal-700 dark:hover:text-teal-400 transition-colors"
+                className="w-full flex items-center gap-2 px-3.5 py-2 text-xs text-gray-600 dark:text-gray-300 hover:bg-teal-50 dark:hover:bg-teal-900/20 hover:text-teal-700 dark:hover:text-teal-400 transition-colors cursor-pointer"
               >
-                <FileSpreadsheet className="w-4 h-4" />
-                <span>Download Excel</span>
+                <FileSpreadsheet className="w-3.5 h-3.5 text-emerald-600" />
+                <span>Export to Excel</span>
               </button>
             </div>
           </div>
           <Link href="/promotions/create">
-            <button className="flex items-center gap-2 bg-teal-600 hover:bg-teal-700 text-white px-6 py-3 rounded-2xl font-bold transition-all shadow-lg shadow-teal-100 dark:shadow-none active:scale-95">
-              <Plus className="w-5 h-5" />
+            <button className="flex items-center gap-1.5 bg-gradient-to-r from-teal-600 to-teal-700 hover:from-teal-700 hover:to-teal-800 text-white px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all shadow-md shadow-teal-600/20 active:scale-[0.98] cursor-pointer">
+              <Plus className="w-4 h-4" />
               <span>ສ້າງໂປຣໂມຊັ່ນ</span>
             </button>
           </Link>
         </div>
       </div>
 
-      {/* Quick Stats */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-        <div className="bg-white dark:bg-gray-900 p-6 rounded-[32px] border border-gray-100 dark:border-gray-800 shadow-sm flex items-center gap-4">
-          <div className="w-12 h-12 rounded-2xl bg-teal-50 dark:bg-teal-900/20 flex items-center justify-center text-teal-600">
-            <Percent className="w-6 h-6" />
-          </div>
-          <div>
-            <p className="text-xs text-gray-400 font-bold uppercase">
-              ກຳລັງໃຊ້ງານ
-            </p>
-            <h3 className="text-xl font-bold text-gray-800 dark:text-white">
-              5 ແຄມເປນ
-            </h3>
-          </div>
-        </div>
-        <div className="bg-white dark:bg-gray-900 p-6 rounded-[32px] border border-gray-100 dark:border-gray-800 shadow-sm flex items-center gap-4">
-          <div className="w-12 h-12 rounded-2xl bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center text-blue-600">
-            <Gift className="w-6 h-6" />
-          </div>
-          <div>
-            <p className="text-xs text-gray-400 font-bold uppercase">
-              ຄູປອງທັງໝົດ
-            </p>
-            <h3 className="text-xl font-bold text-gray-800 dark:text-white">
-              128 ລະຫັດ
-            </h3>
-          </div>
-        </div>
-        <div className="bg-white dark:bg-gray-900 p-6 rounded-[32px] border border-gray-100 dark:border-gray-800 shadow-sm flex items-center gap-4">
-          <div className="w-12 h-12 rounded-2xl bg-orange-50 dark:bg-orange-900/20 flex items-center justify-center text-orange-600">
-            <Zap className="w-6 h-6" />
-          </div>
-          <div>
-            <p className="text-xs text-gray-400 font-bold uppercase">
-              Flash Sale
-            </p>
-            <h3 className="text-xl font-bold text-gray-800 dark:text-white">
-              ມີມື້ນີ້
-            </h3>
-          </div>
-        </div>
-      </div>
-
-      {/* Filters */}
-      <div className="bg-white dark:bg-gray-900 p-4 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm flex flex-col md:flex-row gap-4 items-center justify-between">
-        <div className="relative w-full md:w-96">
-          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+      {/* Filters & Search */}
+      <div className="bg-white dark:bg-gray-900 p-3.5 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm flex flex-col sm:flex-row gap-3 items-center justify-between">
+        <div className="relative w-full sm:w-80">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
           <input
             type="text"
-            placeholder="ຄົ້ນຫາໂປຣໂມຊັ່ນ ຫຼື ລະຫັດ..."
-            className="w-full pl-11 pr-4 py-3 bg-gray-50 dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-2xl text-sm focus:outline-none focus:ring-4 focus:ring-teal-500/10 focus:border-teal-500 transition-all dark:text-white"
+            placeholder="ຄົ້ນຫາໂປຣໂມຊັ່ນ ຫຼື ໂຄ້ດ..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="w-full pl-9 pr-3 py-2 bg-gray-50 dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700 rounded-xl text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-600 transition-all dark:text-white placeholder:text-gray-400"
           />
         </div>
-        <button className="px-5 py-3 border border-gray-100 dark:border-gray-700 rounded-2xl text-sm font-bold text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all flex items-center gap-2">
-          <Filter className="w-4 h-4" />
-          <span>ກັ່ນຕອງ</span>
-        </button>
+        <div className="flex items-center gap-2.5 w-full sm:w-auto">
+          <select
+            value={statusFilter}
+            onChange={(e) => setStatusFilter(e.target.value)}
+            className="w-full sm:w-auto px-3 py-2 border border-gray-200 dark:border-gray-700 rounded-xl text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300 bg-gray-50 dark:bg-gray-800/60 focus:outline-none focus:ring-2 focus:ring-teal-500/20 transition-all cursor-pointer"
+          >
+            <option value="all">ທຸກສະຖານະ</option>
+            <option value="active">ກຳລັງໃຊ້ງານ</option>
+            <option value="expired">ໝົດອາຍຸ</option>
+          </select>
+        </div>
       </div>
 
       {/* Promotions Table */}
       <div
         id="promotions-table"
-        className="bg-white dark:bg-gray-900 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm overflow-hidden"
+        className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm overflow-hidden"
       >
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="bg-gray-50/50 dark:bg-gray-800/50">
-                <th className="px-8 py-5 text-xs font-bold text-gray-400 uppercase tracking-wider">
+              <tr className="bg-gray-50/80 dark:bg-gray-800/50">
+                <th className="px-5 py-3 text-[11px] font-bold text-gray-400 uppercase tracking-wider">
                   ໂປຣໂມຊັ່ນ
                 </th>
-                <th className="px-8 py-5 text-xs font-bold text-gray-400 uppercase tracking-wider">
-                  ລະຫັດຄູປອງ
+                <th className="px-5 py-3 text-[11px] font-bold text-gray-400 uppercase tracking-wider">
+                  ລະຫັດ / ໂຄ້ດ
                 </th>
-                <th className="px-8 py-5 text-xs font-bold text-gray-400 uppercase tracking-wider">
+                <th className="px-5 py-3 text-[11px] font-bold text-gray-400 uppercase tracking-wider">
                   ສ່ວນຫຼຸດ
                 </th>
-                <th className="px-8 py-5 text-xs font-bold text-gray-400 uppercase tracking-wider">
+                <th className="px-5 py-3 text-[11px] font-bold text-gray-400 uppercase tracking-wider">
                   ໄລຍະເວລາ
                 </th>
-                <th className="px-8 py-5 text-xs font-bold text-gray-400 uppercase tracking-wider">
-                  ການນຳໃຊ້
-                </th>
-                <th className="px-8 py-5 text-xs font-bold text-gray-400 uppercase tracking-wider">
+                <th className="px-5 py-3 text-[11px] font-bold text-gray-400 uppercase tracking-wider">
                   ສະຖານະ
                 </th>
-                <th className="px-8 py-5 text-xs font-bold text-gray-400 uppercase tracking-wider text-right">
+                <th className="px-5 py-3 text-[11px] font-bold text-gray-400 uppercase tracking-wider text-right">
                   ຈັດການ
                 </th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-50 dark:divide-gray-800">
-              {promotions.map((promo) => (
+            <tbody className="divide-y divide-gray-100 dark:divide-gray-800 text-xs sm:text-sm">
+              {filteredPromos.map((promo) => (
                 <tr
                   key={promo.id}
-                  className="hover:bg-gray-50/50 dark:hover:bg-gray-800/30 transition-colors group"
+                  className="hover:bg-gray-50/70 dark:hover:bg-gray-800/30 transition-colors group"
                 >
-                  <td className="px-8 py-5">
-                    <div className="flex items-center gap-4">
-                      <div className="w-10 h-10 rounded-xl bg-teal-50 dark:bg-teal-900/20 flex items-center justify-center text-teal-600">
-                        <Tag className="w-5 h-5" />
+                  <td className="px-5 py-3.5">
+                    <div className="flex items-center gap-3">
+                      <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-teal-500 to-teal-700 flex items-center justify-center text-white font-bold text-sm shadow-sm">
+                        <Tag className="w-4 h-4" />
                       </div>
-                      <span className="font-bold text-gray-800 dark:text-white">
-                        {promo.name}
-                      </span>
+                      <div>
+                        <p className="font-bold text-gray-900 dark:text-white">
+                          {promo.name}
+                        </p>
+                        <p className="text-[11px] text-gray-400">
+                          ໃຊ້ແລ້ວ: {promo.usage}
+                        </p>
+                      </div>
                     </div>
                   </td>
-                  <td className="px-8 py-5">
-                    <span className="px-3 py-1 bg-gray-100 dark:bg-gray-800 rounded-lg text-xs font-mono font-bold text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                  <td className="px-5 py-3.5">
+                    <span className="font-mono text-xs font-bold px-2 py-1 bg-gray-100 dark:bg-gray-800 text-teal-700 dark:text-teal-300 rounded-lg border border-gray-200 dark:border-gray-700">
                       {promo.code}
                     </span>
                   </td>
-                  <td className="px-8 py-5">
-                    <span className="font-bold text-teal-600">
+                  <td className="px-5 py-3.5">
+                    <span className="font-bold text-teal-600 dark:text-teal-400">
                       {promo.discount}
                     </span>
                   </td>
-                  <td className="px-8 py-5">
-                    <div className="space-y-1">
-                      <div className="flex items-center gap-2 text-[10px] text-gray-400">
-                        <Calendar className="w-3 h-3" /> {promo.startDate}
-                      </div>
-                      <div className="flex items-center gap-2 text-[10px] text-gray-400">
-                        <Clock className="w-3 h-3" /> {promo.endDate}
-                      </div>
+                  <td className="px-5 py-3.5 text-gray-500 dark:text-gray-400 text-xs">
+                    <div className="flex items-center gap-1.5">
+                      <Calendar className="w-3.5 h-3.5 text-gray-400" />
+                      <span>
+                        {promo.startDate} - {promo.endDate}
+                      </span>
                     </div>
                   </td>
-                  <td className="px-8 py-5 text-sm text-gray-500">
-                    {promo.usage}
-                  </td>
-                  <td className="px-8 py-5">
+                  <td className="px-5 py-3.5">
                     <span
-                      className={`inline-flex items-center px-3 py-1 rounded-full text-[10px] font-bold ${
+                      className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-semibold border ${
                         promo.status === "active"
-                          ? "bg-emerald-50 text-emerald-600"
-                          : "bg-red-50 text-red-600"
+                          ? "bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-400 border-emerald-200 dark:border-emerald-900/30"
+                          : "bg-rose-50 text-rose-700 dark:bg-rose-950/40 dark:text-rose-400 border-rose-200 dark:border-rose-900/30"
                       }`}
                     >
+                      <span
+                        className={`w-1.5 h-1.5 rounded-full ${
+                          promo.status === "active"
+                            ? "bg-emerald-500"
+                            : "bg-rose-500"
+                        }`}
+                      ></span>
                       {promo.status === "active" ? "ກຳລັງໃຊ້ງານ" : "ໝົດອາຍຸ"}
                     </span>
                   </td>
-                  <td className="px-8 py-5 text-right">
-                    <div className="flex items-center justify-end gap-2">
+                  <td className="px-5 py-3.5 text-right">
+                    <div className="flex items-center justify-end gap-1.5">
                       <Link href={`/promotions/${promo.id}/edit`}>
-                        <button className="p-2 text-gray-400 hover:text-teal-600 hover:bg-teal-50 dark:hover:bg-teal-900/20 rounded-xl transition-all">
-                          <Edit2 className="w-4 h-4" />
+                        <button className="p-1.5 text-gray-400 hover:text-teal-600 hover:bg-teal-50 dark:hover:bg-teal-900/20 rounded-lg transition-all cursor-pointer">
+                          <Edit2 className="w-3.5 h-3.5" />
                         </button>
                       </Link>
                       <button
                         onClick={() => handleDelete(promo.id)}
-                        className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-xl transition-all"
+                        className="p-1.5 text-gray-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-all cursor-pointer"
                       >
-                        <Trash2 className="w-4 h-4" />
+                        <Trash2 className="w-3.5 h-3.5" />
                       </button>
                     </div>
                   </td>
