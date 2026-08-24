@@ -15,6 +15,7 @@ import {
   Settings,
 } from "lucide-react";
 import Link from "next/link";
+import { PERMISSION_MODULES } from "../../constants";
 
 const CreateRolePage = () => {
   const router = useRouter();
@@ -26,32 +27,7 @@ const CreateRolePage = () => {
     setMounted(true);
   }, []);
 
-  const permissionModules = [
-    {
-      id: "products",
-      name: "ຈັດການສິນຄ້າ",
-      icon: ShoppingBag,
-      perms: ["ເບິ່ງ", "ເພີ່ມ", "ແກ້ໄຂ", "ລຶບ"],
-    },
-    {
-      id: "orders",
-      name: "ຈັດການລາຍການສັ່ງຊື້",
-      icon: ShoppingCart,
-      perms: ["ເບິ່ງ", "ຢືນຢັນ", "ຍົກເລີກ", "ສຳເລັດ"],
-    },
-    {
-      id: "users",
-      name: "ຈັດການຜູ້ໃຊ້",
-      icon: Users,
-      perms: ["ເບິ່ງ", "ເພີ່ມ", "ແກ້ໄຂ", "ລຶບ"],
-    },
-    {
-      id: "settings",
-      name: "ຕັ້ງຄ່າລະບົບ",
-      icon: Settings,
-      perms: ["ເບິ່ງ", "ແກ້ໄຂ"],
-    },
-  ];
+  const permissionModules = PERMISSION_MODULES;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
