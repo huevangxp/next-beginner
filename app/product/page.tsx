@@ -4,25 +4,25 @@ import React, { useState, useEffect } from "react";
 import {
   ShoppingBag,
   Plus,
-  Filter,
   Search,
   Edit2,
   Trash2,
-  DollarSign,
   Box,
   Layers,
   Download,
   Tag,
   FileSpreadsheet,
-  FileText as FilePdf,
 } from "lucide-react";
 import Link from "next/link";
 import { exportToExcel } from "../utils/exportUtils";
+import Pagination from "../components/Pagination";
 
 const ProductPage = () => {
   const [mounted, setMounted] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("all");
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5;
 
   useEffect(() => {
     setMounted(true);
@@ -39,7 +39,8 @@ const ProductPage = () => {
       id: 1,
       name: "ຫູຟັງໄຮ້ສາຍ Sony WH-1000XM5",
       price: 59.99,
-      category: "ເຄື່ອງເອເລັກໂຕຣນິກ",
+      category: "electronics",
+      categoryName: "ເຄື່ອງເອເລັກໂຕຣນິກ",
       stock: 12,
       promotion: "LAONEWYEAR",
     },
@@ -47,7 +48,8 @@ const ProductPage = () => {
       id: 2,
       name: "ໂມງອັດສະລິຍະ Apple Watch Series 9",
       price: 129.99,
-      category: "ອຸປະກອນສວມໃສ່",
+      category: "wearables",
+      categoryName: "ອຸປະກອນສວມໃສ່",
       stock: 8,
       promotion: null,
     },
@@ -55,7 +57,8 @@ const ProductPage = () => {
       id: 3,
       name: "ລຳໂພງບລູທູດ JBL Flip 6",
       price: 39.99,
-      category: "ເຄື່ອງເອເລັກໂຕຣນິກ",
+      category: "electronics",
+      categoryName: "ເຄື່ອງເອເລັກໂຕຣນິກ",
       stock: 25,
       promotion: "WELCOME",
     },
@@ -63,18 +66,70 @@ const ProductPage = () => {
       id: 4,
       name: "ເມົາສ໌ເກມມິ່ງ Logitech G Pro X",
       price: 24.99,
-      category: "ອຸປະກອນເສີມ",
+      category: "accessories",
+      categoryName: "ອຸປະກອນເສີມ",
       stock: 15,
+      promotion: null,
+    },
+    {
+      id: 5,
+      name: "ຄີບອດ Keychron K2 Pro Wireless",
+      price: 89.99,
+      category: "accessories",
+      categoryName: "ອຸປະກອນເສີມ",
+      stock: 6,
+      promotion: "WELCOME",
+    },
+    {
+      id: 6,
+      name: "iPad Air M2 11-inch 128GB",
+      price: 599.0,
+      category: "electronics",
+      categoryName: "ເຄື່ອງເອເລັກໂຕຣນິກ",
+      stock: 10,
+      promotion: null,
+    },
+    {
+      id: 7,
+      name: "ສາຍຮັດຂໍ້ມື Garmin Forerunner 265",
+      price: 449.99,
+      category: "wearables",
+      categoryName: "ອຸປະກອນສວມໃສ່",
+      stock: 4,
+      promotion: "LAONEWYEAR",
+    },
+    {
+      id: 8,
+      name: "ແຜ່ນຮອງເມົາສ໌ SteelSeries QcK Prism",
+      price: 19.99,
+      category: "accessories",
+      categoryName: "ອຸປະກອນເສີມ",
+      stock: 30,
       promotion: null,
     },
   ];
 
+  const filteredProducts = products.filter((p) => {
+    const matchesSearch =
+      p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      p.id.toString().includes(searchQuery);
+    const matchesCategory =
+      categoryFilter === "all" || p.category === categoryFilter;
+    return matchesSearch && matchesCategory;
+  });
+
+  const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
+  const paginatedProducts = filteredProducts.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
+
   const handleDownloadExcel = () => {
-    const exportData = products.map((p) => ({
+    const exportData = filteredProducts.map((p) => ({
       ID: p.id,
       ຊື່ສິນຄ້າ: p.name,
       ລາຄາ: p.price,
-      ໝວດໝູ່: p.category,
+      ໝວດໝູ່: p.categoryName,
       ຈຳນວນໃນສາງ: p.stock,
       ໂປຣໂມຊັ່ນ: p.promotion || "-",
     }));
@@ -128,14 +183,20 @@ const ProductPage = () => {
             type="text"
             placeholder="ຄົ້ນຫາສິນຄ້າ..."
             value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            onChange={(e) => {
+              setSearchQuery(e.target.value);
+              setCurrentPage(1);
+            }}
             className="w-full pl-9 pr-3 py-2 bg-gray-50 dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700 rounded-xl text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-600 transition-all dark:text-white placeholder:text-gray-400"
           />
         </div>
         <div className="flex items-center gap-2.5 w-full sm:w-auto">
           <select
             value={categoryFilter}
-            onChange={(e) => setCategoryFilter(e.target.value)}
+            onChange={(e) => {
+              setCategoryFilter(e.target.value);
+              setCurrentPage(1);
+            }}
             className="w-full sm:w-auto px-3 py-2 border border-gray-200 dark:border-gray-700 rounded-xl text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300 bg-gray-50 dark:bg-gray-800/60 focus:outline-none focus:ring-2 focus:ring-teal-500/20 transition-all cursor-pointer"
           >
             <option value="all">ທຸກໝວດໝູ່</option>
@@ -176,7 +237,7 @@ const ProductPage = () => {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100 dark:divide-gray-800 text-xs sm:text-sm">
-              {products.map((product) => (
+              {paginatedProducts.map((product) => (
                 <tr
                   key={product.id}
                   className="hover:bg-gray-50/70 dark:hover:bg-gray-800/30 transition-colors group"
@@ -199,7 +260,7 @@ const ProductPage = () => {
                   <td className="px-5 py-3.5">
                     <div className="flex items-center gap-1.5 font-medium text-gray-600 dark:text-gray-300">
                       <Layers className="w-3.5 h-3.5 text-teal-600" />
-                      <span>{product.category}</span>
+                      <span>{product.categoryName}</span>
                     </div>
                   </td>
                   <td className="px-5 py-3.5">
@@ -246,7 +307,23 @@ const ProductPage = () => {
               ))}
             </tbody>
           </table>
+
+          {filteredProducts.length === 0 && (
+            <div className="py-16 text-center text-gray-400">
+              <p className="text-sm">ບໍ່ພົບຂໍ້ມູນສິນຄ້າທີ່ຄົ້ນຫາ</p>
+            </div>
+          )}
         </div>
+
+        {/* Pagination */}
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          totalItems={filteredProducts.length}
+          itemsPerPage={itemsPerPage}
+          onPageChange={(page) => setCurrentPage(page)}
+          itemLabel="ສິນຄ້າ"
+        />
       </div>
     </div>
   );
