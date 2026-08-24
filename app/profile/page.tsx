@@ -11,7 +11,6 @@ import {
   Save,
   CheckCircle2,
   Calendar,
-  Lock,
   Smartphone,
   Check,
 } from "lucide-react";
@@ -36,7 +35,7 @@ const ProfilePage = () => {
   if (!mounted) return null;
 
   return (
-    <div className="max-w-4xl mx-auto space-y-6 animate-in fade-in duration-500 pb-12">
+    <div className="space-y-6 animate-in fade-in duration-500 pb-8">
       {/* Page Header */}
       <div>
         <h1 className="text-2xl font-bold text-gray-900 dark:text-white tracking-tight">
