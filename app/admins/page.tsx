@@ -269,9 +269,11 @@ const AdminsPage = () => {
                   </td>
                   <td className="px-5 py-3.5 text-right">
                     <div className="flex items-center justify-end gap-1.5">
-                      <button className="p-1.5 text-gray-400 hover:text-teal-600 hover:bg-teal-50 dark:hover:bg-teal-900/20 rounded-lg transition-all cursor-pointer">
-                        <Edit2 className="w-3.5 h-3.5" />
-                      </button>
+                      <Link href={`/admins/${admin.id}/edit`}>
+                        <button className="p-1.5 text-gray-400 hover:text-teal-600 hover:bg-teal-50 dark:hover:bg-teal-900/20 rounded-lg transition-all cursor-pointer" title="ແກ້ໄຂ">
+                          <Edit2 className="w-3.5 h-3.5" />
+                        </button>
+                      </Link>
                       <button className="p-1.5 text-gray-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-all cursor-pointer">
                         <Trash2 className="w-3.5 h-3.5" />
                       </button>
