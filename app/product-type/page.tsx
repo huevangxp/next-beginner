@@ -5,20 +5,19 @@ import {
   Layers,
   Plus,
   Search,
-  Filter,
   Edit2,
   Trash2,
-  FileText,
-  CheckCircle2,
-  XCircle,
   Download,
   Box,
 } from "lucide-react";
 import Link from "next/link";
+import Pagination from "../components/Pagination";
 
 const ProductTypePage = () => {
   const [mounted, setMounted] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5;
 
   useEffect(() => {
     setMounted(true);
@@ -53,11 +52,39 @@ const ProductTypePage = () => {
       status: "active",
       count: 5,
     },
+    {
+      id: 5,
+      name: "ເກມ ແລະ ບັນເທີງ",
+      description: "ເຄື່ອງຫຼິ້ນເກມ ແລະ ອຸປະກອນບັນເທີງ",
+      status: "active",
+      count: 14,
+    },
+    {
+      id: 6,
+      name: "ອຸປະກອນເຄືອຂ່າຍ (Network)",
+      description: "Router, Switch ແລະ ອຸປະກອນ Wi-Fi",
+      status: "active",
+      count: 9,
+    },
+    {
+      id: 7,
+      name: "ກ້ອງ ແລະ ອຸປະກອນຖ່າຍຮູບ",
+      description: "ກ້ອງດິຈິຕອນ, ເລນ ແລະ ຂາຕັ້ງກ້ອງ",
+      status: "inactive",
+      count: 3,
+    },
   ];
 
-  const filteredTypes = productTypes.filter((type) =>
-    type.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    type.description.toLowerCase().includes(searchQuery.toLowerCase())
+  const filteredTypes = productTypes.filter(
+    (type) =>
+      type.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      type.description.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  const totalPages = Math.ceil(filteredTypes.length / itemsPerPage);
+  const paginatedTypes = filteredTypes.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
   );
 
   const handleDelete = (id: number) => {
@@ -102,7 +129,10 @@ const ProductTypePage = () => {
             type="text"
             placeholder="ຄົ້ນຫາປະເພດສິນຄ້າ..."
             value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            onChange={(e) => {
+              setSearchQuery(e.target.value);
+              setCurrentPage(1);
+            }}
             className="w-full pl-9 pr-3 py-2 bg-gray-50 dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700 rounded-xl text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-600 transition-all dark:text-white placeholder:text-gray-400"
           />
         </div>
@@ -135,7 +165,7 @@ const ProductTypePage = () => {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100 dark:divide-gray-800 text-xs sm:text-sm">
-              {filteredTypes.map((type) => (
+              {paginatedTypes.map((type) => (
                 <tr
                   key={type.id}
                   className="hover:bg-gray-50/70 dark:hover:bg-gray-800/30 transition-colors group"
@@ -199,7 +229,23 @@ const ProductTypePage = () => {
               ))}
             </tbody>
           </table>
+
+          {filteredTypes.length === 0 && (
+            <div className="py-16 text-center text-gray-400">
+              <p className="text-sm">ບໍ່ພົບຂໍ້ມູນປະເພດສິນຄ້າທີ່ຄົ້ນຫາ</p>
+            </div>
+          )}
         </div>
+
+        {/* Pagination */}
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          totalItems={filteredTypes.length}
+          itemsPerPage={itemsPerPage}
+          onPageChange={(page) => setCurrentPage(page)}
+          itemLabel="ປະເພດສິນຄ້າ"
+        />
       </div>
     </div>
   );
