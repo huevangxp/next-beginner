@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import {
   Home,
   ShoppingBag,
@@ -15,41 +15,20 @@ import {
   Tag,
   PackageSearch,
   Bell,
+  Sparkles,
 } from "lucide-react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { useState, useEffect } from "react";
 
 const Sidebar = () => {
   const pathname = usePathname();
-  const [openMenus, setOpenMenus] = useState<string[]>([]);
-  const [notifications, setNotifications] = useState<any[]>([]);
+  const [openMenus, setOpenMenus] = useState<string[]>(["ປະເພດ"]);
 
   const toggleMenu = (name: string) => {
     setOpenMenus((prev) =>
       prev.includes(name) ? prev.filter((i) => i !== name) : [...prev, name]
     );
   };
-
-  // Fetch all notifications (including unread), order by newest, and store locally
-  useEffect(() => {
-    fetch("/api/notifications")
-      .then((res) => res.json())
-      .then((data) => {
-        const ordered = data.sort(
-          (a: any, b: any) =>
-            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-        );
-        setNotifications(ordered);
-        // Persist to localStorage for later use
-        localStorage.setItem("notifications", JSON.stringify(ordered));
-      })
-      .catch(() => {
-        // If the fetch fails, try to load from localStorage
-        const stored = localStorage.getItem("notifications");
-        if (stored) setNotifications(JSON.parse(stored));
-      });
-  }, []);
 
   const menuItems = [
     { name: "ໜ້າຫຼັກ", href: "/", icon: Home },
@@ -72,19 +51,26 @@ const Sidebar = () => {
   ];
 
   return (
-    <aside className="w-64 bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 min-h-screen flex flex-col shadow-sm transition-colors duration-300">
-      <div className="p-6 border-b border-gray-100 dark:border-gray-800">
+    <aside className="w-64 bg-white dark:bg-gray-900 border-r border-gray-100 dark:border-gray-800 min-h-screen flex flex-col shadow-sm transition-colors duration-300">
+      {/* Brand Header */}
+      <div className="p-5 border-b border-gray-100 dark:border-gray-800">
         <div className="flex items-center gap-3">
-          <div className="bg-teal-600 p-2 rounded-lg shadow-lg shadow-teal-100 dark:shadow-none">
-            <LayoutDashboard className="text-white w-6 h-6" />
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-teal-600 via-teal-700 to-teal-800 flex items-center justify-center shadow-md shadow-teal-600/20 text-white">
+            <LayoutDashboard className="w-5 h-5" />
           </div>
-          <span className="text-xl font-bold text-gray-800 dark:text-white tracking-tight">
-            Admin Panel
-          </span>
+          <div>
+            <span className="text-base font-black text-gray-900 dark:text-white tracking-tight block">
+              Admin Panel
+            </span>
+            <span className="text-[11px] text-teal-600 dark:text-teal-400 font-semibold flex items-center gap-1">
+              <Sparkles className="w-3 h-3" /> Next Gen
+            </span>
+          </div>
         </div>
       </div>
 
-      <nav className="flex-1 p-4 space-y-1 overflow-y-auto">
+      {/* Navigation */}
+      <nav className="flex-1 p-3.5 space-y-1 overflow-y-auto">
         {menuItems.map((item) => {
           const Icon = item.icon;
           const hasChildren = item.children && item.children.length > 0;
@@ -95,28 +81,27 @@ const Sidebar = () => {
             item.children?.some((child) => pathname === child.href);
 
           return (
-            <div key={item.name} className="space-y-1">
+            <div key={item.name} className="space-y-0.5">
               {hasChildren ? (
                 <button
+                  type="button"
                   onClick={() => toggleMenu(item.name)}
-                  className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 group ${
+                  className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all group cursor-pointer ${
                     isChildActive
-                      ? "bg-teal-50/50 dark:bg-teal-900/10 text-teal-700 dark:text-teal-400"
-                      : "text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-teal-600 dark:hover:text-teal-400"
+                      ? "bg-teal-50 dark:bg-teal-950/40 text-teal-700 dark:text-teal-400"
+                      : "text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800/60 hover:text-teal-600 dark:hover:text-teal-400"
                   }`}
                 >
                   <Icon
-                    className={`w-5 h-5 transition-colors ${
+                    className={`w-4 h-4 transition-colors ${
                       isChildActive
                         ? "text-teal-600 dark:text-teal-400"
-                        : "text-gray-400 group-hover:text-teal-500"
+                        : "text-gray-400 group-hover:text-teal-600"
                     }`}
                   />
-                  <span className="font-medium flex-1 text-left">
-                    {item.name}
-                  </span>
+                  <span className="flex-1 text-left">{item.name}</span>
                   <ChevronDown
-                    className={`w-4 h-4 transition-transform duration-200 ${
+                    className={`w-3.5 h-3.5 transition-transform duration-200 text-gray-400 ${
                       isOpen ? "rotate-180" : ""
                     }`}
                   />
@@ -124,29 +109,29 @@ const Sidebar = () => {
               ) : (
                 <Link
                   href={item.href || "#"}
-                  className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 group ${
+                  className={`flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all group ${
                     isActive
-                      ? "bg-teal-50 dark:bg-teal-900/20 text-teal-700 dark:text-teal-400 shadow-sm"
-                      : "text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-teal-600 dark:hover:text-teal-400"
+                      ? "bg-gradient-to-r from-teal-600 to-teal-700 text-white shadow-md shadow-teal-600/20"
+                      : "text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800/60 hover:text-teal-600 dark:hover:text-teal-400"
                   }`}
                 >
                   <Icon
-                    className={`w-5 h-5 transition-colors ${
+                    className={`w-4 h-4 transition-colors ${
                       isActive
-                        ? "text-teal-600 dark:text-teal-400"
-                        : "text-gray-400 group-hover:text-teal-500"
+                        ? "text-white"
+                        : "text-gray-400 group-hover:text-teal-600"
                     }`}
                   />
-                  <span className="font-medium">{item.name}</span>
+                  <span>{item.name}</span>
                   {isActive && (
-                    <div className="ml-auto w-1.5 h-1.5 rounded-full bg-teal-600 dark:bg-teal-400" />
+                    <div className="ml-auto w-1.5 h-1.5 rounded-full bg-white/90" />
                   )}
                 </Link>
               )}
 
               {/* Dropdown Children */}
               {hasChildren && isOpen && (
-                <div className="ml-4 pl-4 border-l border-gray-100 dark:border-gray-800 space-y-1 animate-in slide-in-from-top-2 duration-200">
+                <div className="ml-3.5 pl-3.5 border-l-2 border-teal-100 dark:border-teal-900/40 space-y-0.5 my-1 animate-in slide-in-from-top-1 duration-200">
                   {item.children?.map((child) => {
                     const ChildIcon = child.icon;
                     const isChildActive = pathname === child.href;
@@ -154,20 +139,20 @@ const Sidebar = () => {
                       <Link
                         key={child.name}
                         href={child.href}
-                        className={`flex items-center gap-3 px-4 py-2.5 rounded-xl transition-all duration-200 group ${
+                        className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-all group ${
                           isChildActive
-                            ? "text-teal-700 dark:text-teal-400 font-bold"
-                            : "text-gray-500 dark:text-gray-500 hover:text-teal-600 dark:hover:text-teal-400"
+                            ? "text-teal-700 dark:text-teal-400 bg-teal-50/70 dark:bg-teal-950/40 font-bold"
+                            : "text-gray-500 dark:text-gray-400 hover:text-teal-600 dark:hover:text-teal-400 hover:bg-gray-50 dark:hover:bg-gray-800/40"
                         }`}
                       >
                         <ChildIcon
-                          className={`w-4 h-4 ${
+                          className={`w-3.5 h-3.5 ${
                             isChildActive
                               ? "text-teal-600 dark:text-teal-400"
-                              : "text-gray-400 group-hover:text-teal-500"
+                              : "text-gray-400 group-hover:text-teal-600"
                           }`}
                         />
-                        <span className="text-sm">{child.name}</span>
+                        <span>{child.name}</span>
                       </Link>
                     );
                   })}
@@ -178,35 +163,20 @@ const Sidebar = () => {
         })}
       </nav>
 
-      {/* Notifications List */}
-      {notifications.length > 0 && (
-        <div className="p-4 border-t border-gray-100 dark:border-gray-800">
-          <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-            All Notifications
-          </h3>
-          <ul className="space-y-1">
-            {notifications.map((n) => (
-              <li
-                key={n.id}
-                className="text-xs text-gray-600 dark:text-gray-400"
-              >
-                {n.title}
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
-
-      <div className="p-4 border-t border-gray-100">
-        <div className="bg-gray-50 rounded-2xl p-4">
-          <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">
+      {/* System Status Footer */}
+      <div className="p-3.5 border-t border-gray-100 dark:border-gray-800">
+        <div className="bg-gray-50/80 dark:bg-gray-800/50 rounded-xl p-3 border border-gray-100 dark:border-gray-800/80">
+          <p className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-1">
             ສະຖານະລະບົບ
           </p>
-          <div className="flex items-center gap-2">
-            <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-            <span className="text-sm text-gray-600 font-medium text-teal-600">
-              ອອນລາຍ
-            </span>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-1.5">
+              <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              <span className="text-xs text-emerald-700 dark:text-emerald-400 font-bold">
+                ອອນລາຍປົກກະຕິ
+              </span>
+            </div>
+            <span className="text-[10px] text-gray-400 font-mono">v2.4.0</span>
           </div>
         </div>
       </div>
