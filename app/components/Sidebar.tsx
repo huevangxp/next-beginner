@@ -90,19 +90,19 @@ const Sidebar = () => {
   ];
 
   return (
-    <aside className="w-64 bg-white dark:bg-gray-900 border-r border-gray-100 dark:border-gray-800 min-h-screen flex flex-col shadow-sm transition-colors duration-300">
-      {/* Brand Header */}
-      <div className="p-5 border-b border-gray-100 dark:border-gray-800">
+    <aside className="w-64 bg-white dark:bg-slate-900 border-r border-gray-100 dark:border-slate-800 min-h-screen flex flex-col shadow-sm transition-colors duration-300">
+      {/* 3D Brand Header */}
+      <div className="p-5 border-b border-gray-100 dark:border-slate-800">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-teal-600 via-teal-700 to-teal-800 flex items-center justify-center shadow-md shadow-teal-600/20 text-white">
-            <LayoutDashboard className="w-5 h-5" />
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-teal-500 via-teal-600 to-teal-800 flex items-center justify-center shadow-lg shadow-teal-600/30 text-white icon-3d">
+            <LayoutDashboard className="w-5 h-5 drop-shadow-sm" />
           </div>
           <div>
             <span className="text-base font-black text-gray-900 dark:text-white tracking-tight block">
               Admin Panel
             </span>
             <span className="text-[11px] text-teal-600 dark:text-teal-400 font-semibold flex items-center gap-1">
-              <Sparkles className="w-3 h-3" /> Next Gen
+              <Sparkles className="w-3 h-3" /> Next Gen 3D
             </span>
           </div>
         </div>
@@ -136,7 +136,7 @@ const Sidebar = () => {
                       className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all group cursor-pointer ${
                         isChildActive
                           ? "bg-teal-50 dark:bg-teal-950/40 text-teal-700 dark:text-teal-400"
-                          : "text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800/60 hover:text-teal-600 dark:hover:text-teal-400"
+                          : "text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-slate-800/60 hover:text-teal-600 dark:hover:text-teal-400"
                       }`}
                     >
                       <Icon
@@ -158,8 +158,8 @@ const Sidebar = () => {
                       href={item.href || "#"}
                       className={`flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all group ${
                         isActive
-                          ? "bg-gradient-to-r from-teal-600 to-teal-700 text-white shadow-md shadow-teal-600/20"
-                          : "text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800/60 hover:text-teal-600 dark:hover:text-teal-400"
+                          ? "bg-gradient-to-r from-teal-600 to-teal-700 text-white shadow-md shadow-teal-600/30 btn-3d"
+                          : "text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-slate-800/60 hover:text-teal-600 dark:hover:text-teal-400"
                       }`}
                     >
                       <Icon
@@ -176,7 +176,7 @@ const Sidebar = () => {
                           className={`px-1.5 py-0.2 rounded-full text-[10px] font-bold ${
                             isActive
                               ? "bg-white text-teal-700"
-                              : "bg-rose-500 text-white"
+                              : "bg-rose-500 text-white shadow-sm"
                           }`}
                         >
                           {item.badge}
@@ -202,7 +202,7 @@ const Sidebar = () => {
                             className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-all group ${
                               isChildActive
                                 ? "text-teal-700 dark:text-teal-400 bg-teal-50/70 dark:bg-teal-950/40 font-bold"
-                                : "text-gray-500 dark:text-gray-400 hover:text-teal-600 dark:hover:text-teal-400 hover:bg-gray-50 dark:hover:bg-gray-800/40"
+                                : "text-gray-500 dark:text-gray-400 hover:text-teal-600 dark:hover:text-teal-400 hover:bg-gray-50 dark:hover:bg-slate-800/40"
                             }`}
                           >
                             <ChildIcon
@@ -226,8 +226,8 @@ const Sidebar = () => {
       </nav>
 
       {/* System Status Footer */}
-      <div className="p-3.5 border-t border-gray-100 dark:border-gray-800">
-        <div className="bg-gray-50/80 dark:bg-gray-800/50 rounded-xl p-3 border border-gray-100 dark:border-gray-800/80">
+      <div className="p-3.5 border-t border-gray-100 dark:border-slate-800">
+        <div className="bg-gray-50/80 dark:bg-slate-800/50 rounded-xl p-3 border border-gray-100 dark:border-slate-800/80 card-3d">
           <p className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-1">
             ສະຖານະລະບົບ
           </p>
