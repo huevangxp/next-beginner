@@ -15,6 +15,7 @@ import {
 import Link from "next/link";
 import { exportToExcel } from "../utils/exportUtils";
 import Pagination from "../components/Pagination";
+import { ROLES_MOCK_DATA } from "../constants";
 
 const RolesPage = () => {
   const [mounted, setMounted] = useState(false);
@@ -27,56 +28,7 @@ const RolesPage = () => {
     setMounted(true);
   }, []);
 
-  const roles = [
-    {
-      id: 1,
-      name: "Super Admin",
-      description: "ມີສິດທິສູງສຸດໃນລະບົບ ສາມາດຈັດການທຸກຢ່າງໄດ້",
-      usersCount: 2,
-      status: "active",
-      permissions: ["ທຸກສິດທິ", "ຈັດການຜູ້ໃຊ້", "ຈັດການລະບົບ"],
-    },
-    {
-      id: 2,
-      name: "Manager",
-      description: "ຈັດການສິນຄ້າ, ຄຳສັ່ງຊື້ ແລະ ເບິ່ງລາຍງານຕ່າງໆ",
-      usersCount: 5,
-      status: "active",
-      permissions: ["ຈັດການສິນຄ້າ", "ຈັດການອໍເດີ", "ເບິ່ງລາຍງານ"],
-    },
-    {
-      id: 3,
-      name: "Editor",
-      description: "ເພີ່ມ ແລະ ແກ້ໄຂຂໍ້ມູນສິນຄ້າ, ໂປຣໂມຊັ່ນ",
-      usersCount: 8,
-      status: "active",
-      permissions: ["ຈັດການສິນຄ້າ", "ຈັດການໂປຣໂມຊັ່ນ"],
-    },
-    {
-      id: 4,
-      name: "Viewer",
-      description: "ສາມາດເບິ່ງຂໍ້ມູນຕ່າງໆໄດ້ເທົ່ານັ້ນ ບໍ່ສາມາດແກ້ໄຂໄດ້",
-      usersCount: 12,
-      status: "inactive",
-      permissions: ["ເບິ່ງຂໍ້ມູນ"],
-    },
-    {
-      id: 5,
-      name: "Inventory Staff",
-      description: "ຈັດການສະຕັອກສິນຄ້າ ແລະ ກວດນັບສິນຄ້າໃນສາງ",
-      usersCount: 4,
-      status: "active",
-      permissions: ["ຈັດການສາງສິນຄ້າ", "ເບິ່ງສິນຄ້າ"],
-    },
-    {
-      id: 6,
-      name: "Customer Support",
-      description: "ກວດສອບອໍເດີລູກຄ້າ ແລະ ຕອບການແຈ້ງເຕືອນ",
-      usersCount: 6,
-      status: "active",
-      permissions: ["ເບິ່ງອໍເດີ", "ຈັດການລູກຄ້າ"],
-    },
-  ];
+  const roles = ROLES_MOCK_DATA;
 
   const handleDownloadExcel = () => {
     const exportData = filteredRoles.map((role) => ({
