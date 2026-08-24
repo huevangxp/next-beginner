@@ -12,23 +12,18 @@ import {
   Trash2,
 } from "lucide-react";
 import Link from "next/link";
+import {
+  CREATE_ORDER_CUSTOMERS,
+  CREATE_ORDER_PRODUCTS,
+} from "../../constants";
 
 const CreateOrderPage = () => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [mounted, setMounted] = useState(false);
 
-  const customers = [
-    { id: 1, name: "ສົມພອນ ໄຊຍະວົງ", phone: "020 5555 6666" },
-    { id: 2, name: "ແກ້ວມະນີ ຈັນທະວົງ", phone: "020 7777 8888" },
-    { id: 3, name: "ບຸນມີ ພົມມະຈັນ", phone: "020 9999 0000" },
-  ];
-
-  const products = [
-    { id: 1, name: "iPhone 15 Pro", price: 15000000, stock: 10 },
-    { id: 2, name: "MacBook Air M2", price: 22000000, stock: 5 },
-    { id: 3, name: "AirPods Pro 2", price: 2500000, stock: 20 },
-  ];
+  const customers = CREATE_ORDER_CUSTOMERS;
+  const products = CREATE_ORDER_PRODUCTS;
 
   const [selectedCustomer, setSelectedCustomer] = useState("");
   const [orderItems, setOrderItems] = useState<
