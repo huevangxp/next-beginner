@@ -16,6 +16,7 @@ import {
 import Link from "next/link";
 import { exportToExcel } from "../utils/exportUtils";
 import Pagination from "../components/Pagination";
+import { ADMINS_MOCK_DATA } from "../constants";
 
 const AdminsPage = () => {
   const [mounted, setMounted] = useState(false);
@@ -28,62 +29,7 @@ const AdminsPage = () => {
     setMounted(true);
   }, []);
 
-  const admins = [
-    {
-      id: 1,
-      name: "Admin System",
-      email: "admin@example.com",
-      phone: "020 5555 6666",
-      role: "Super Admin",
-      status: "active",
-      joinedDate: "2024-01-01",
-    },
-    {
-      id: 2,
-      name: "Keo Mani",
-      email: "keo@example.com",
-      phone: "020 7777 8888",
-      role: "Manager",
-      status: "active",
-      joinedDate: "2024-02-15",
-    },
-    {
-      id: 3,
-      name: "Somsak P.",
-      email: "somsak@example.com",
-      phone: "020 9999 0000",
-      role: "Editor",
-      status: "inactive",
-      joinedDate: "2024-03-10",
-    },
-    {
-      id: 4,
-      name: "Vilayphone S.",
-      email: "vilay@example.com",
-      phone: "020 2222 3333",
-      role: "Manager",
-      status: "active",
-      joinedDate: "2024-04-05",
-    },
-    {
-      id: 5,
-      name: "Bounmy P.",
-      email: "bounmy@example.com",
-      phone: "020 1111 4444",
-      role: "Editor",
-      status: "active",
-      joinedDate: "2024-05-12",
-    },
-    {
-      id: 6,
-      name: "Khamphay L.",
-      email: "khamphay@example.com",
-      phone: "020 8888 7777",
-      role: "Super Admin",
-      status: "active",
-      joinedDate: "2024-06-20",
-    },
-  ];
+  const admins = ADMINS_MOCK_DATA;
 
   const handleDownloadExcel = () => {
     const exportData = filteredAdmins.map((admin) => ({
