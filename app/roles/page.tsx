@@ -5,19 +5,23 @@ import {
   ShieldCheck,
   Plus,
   Search,
-  Filter,
   Edit2,
   Trash2,
   Users,
+  Lock,
   Download,
   FileSpreadsheet,
 } from "lucide-react";
 import Link from "next/link";
 import { exportToExcel } from "../utils/exportUtils";
+import Pagination from "../components/Pagination";
 
 const RolesPage = () => {
   const [mounted, setMounted] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [statusFilter, setStatusFilter] = useState("all");
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5;
 
   useEffect(() => {
     setMounted(true);
@@ -27,58 +31,83 @@ const RolesPage = () => {
     {
       id: 1,
       name: "Super Admin",
-      description: "ມີສິດທິສູງສຸດໃນການຈັດການທຸກຢ່າງໃນລະບົບ",
-      userCount: 2,
+      description: "ມີສິດທິສູງສຸດໃນລະບົບ ສາມາດຈັດການທຸກຢ່າງໄດ້",
+      usersCount: 2,
       status: "active",
-      permissions: ["ທັງໝົດ"],
+      permissions: ["ທຸກສິດທິ", "ຈັດການຜູ້ໃຊ້", "ຈັດການລະບົບ"],
     },
     {
       id: 2,
       name: "Manager",
-      description: "ຈັດການສິນຄ້າ, ລາຍການສັ່ງຊື້ ແລະ ລາຍງານ",
-      userCount: 5,
+      description: "ຈັດການສິນຄ້າ, ຄຳສັ່ງຊື້ ແລະ ເບິ່ງລາຍງານຕ່າງໆ",
+      usersCount: 5,
       status: "active",
-      permissions: ["ສິນຄ້າ", "ລາຍການສັ່ງຊື້", "ລາຍງານ"],
+      permissions: ["ຈັດການສິນຄ້າ", "ຈັດການອໍເດີ", "ເບິ່ງລາຍງານ"],
     },
     {
       id: 3,
       name: "Editor",
-      description: "ເພີ່ມ ແລະ ແກ້ໄຂຂໍ້ມູນສິນຄ້າ",
-      userCount: 8,
+      description: "ເພີ່ມ ແລະ ແກ້ໄຂຂໍ້ມູນສິນຄ້າ, ໂປຣໂມຊັ່ນ",
+      usersCount: 8,
       status: "active",
-      permissions: ["ສິນຄ້າ"],
+      permissions: ["ຈັດການສິນຄ້າ", "ຈັດການໂປຣໂມຊັ່ນ"],
     },
     {
       id: 4,
       name: "Viewer",
-      description: "ເບິ່ງຂໍ້ມູນໄດ້ຢ່າງດຽວ ບໍ່ສາມາດແກ້ໄຂໄດ້",
-      userCount: 12,
+      description: "ສາມາດເບິ່ງຂໍ້ມູນຕ່າງໆໄດ້ເທົ່ານັ້ນ ບໍ່ສາມາດແກ້ໄຂໄດ້",
+      usersCount: 12,
       status: "inactive",
       permissions: ["ເບິ່ງຂໍ້ມູນ"],
+    },
+    {
+      id: 5,
+      name: "Inventory Staff",
+      description: "ຈັດການສະຕັອກສິນຄ້າ ແລະ ກວດນັບສິນຄ້າໃນສາງ",
+      usersCount: 4,
+      status: "active",
+      permissions: ["ຈັດການສາງສິນຄ້າ", "ເບິ່ງສິນຄ້າ"],
+    },
+    {
+      id: 6,
+      name: "Customer Support",
+      description: "ກວດສອບອໍເດີລູກຄ້າ ແລະ ຕອບການແຈ້ງເຕືອນ",
+      usersCount: 6,
+      status: "active",
+      permissions: ["ເບິ່ງອໍເດີ", "ຈັດການລູກຄ້າ"],
     },
   ];
 
   const handleDownloadExcel = () => {
-    const exportData = roles.map((role) => ({
+    const exportData = filteredRoles.map((role) => ({
       ID: role.id,
-      ປະເພດສິດ: role.name,
+      ຊື່ປະເພດສິດ: role.name,
       ຄຳອະທິບາຍ: role.description,
-      ຈຳນວນຜູ້ໃຊ້: role.userCount,
-      ສະຖານະ: role.status,
+      ຈຳນວນຜູ້ໃຊ້: role.usersCount,
       ສິດທິ: role.permissions.join(", "),
+      ສະຖານະ: role.status,
     }));
     exportToExcel(exportData, "Roles_Report");
   };
 
   const handleDelete = (id: number) => {
-    if (window.confirm("ທ່ານແນ່ໃຈບໍ່ວ່າຕ້ອງການລຶບສິດທິນີ້?")) {
+    if (window.confirm("ທ່ານແນ່ໃຈບໍ່ວ່າຕ້ອງການລຶບປະເພດສິດນີ້?")) {
       console.log("Deleting role:", id);
     }
   };
 
-  const filteredRoles = roles.filter((role) =>
-    role.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    role.description.toLowerCase().includes(searchQuery.toLowerCase())
+  const filteredRoles = roles.filter((role) => {
+    const matchesSearch =
+      role.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      role.description.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesStatus = statusFilter === "all" || role.status === statusFilter;
+    return matchesSearch && matchesStatus;
+  });
+
+  const totalPages = Math.ceil(filteredRoles.length / itemsPerPage);
+  const paginatedRoles = filteredRoles.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
   );
 
   if (!mounted) return null;
@@ -89,7 +118,7 @@ const RolesPage = () => {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold text-gray-900 dark:text-white tracking-tight">
-            ປະເພດສິດ (Roles)
+            ປະເພດສິດ (Roles & Permissions)
           </h1>
           <p className="text-gray-500 dark:text-gray-400 text-xs sm:text-sm mt-0.5">
             ຈັດການບົດບາດ ແລະ ກຳນົດສິດທິການເຂົ້າເຖິງລະບົບ
@@ -114,7 +143,7 @@ const RolesPage = () => {
           <Link href="/roles/create">
             <button className="flex items-center gap-1.5 bg-gradient-to-r from-teal-600 to-teal-700 hover:from-teal-700 hover:to-teal-800 text-white px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all shadow-md shadow-teal-600/20 active:scale-[0.98] cursor-pointer">
               <Plus className="w-4 h-4" />
-              <span>ເພີ່ມສິດທິໃໝ່</span>
+              <span>ເພີ່ມປະເພດສິດ</span>
             </button>
           </Link>
         </div>
@@ -128,9 +157,26 @@ const RolesPage = () => {
             type="text"
             placeholder="ຄົ້ນຫາປະເພດສິດ..."
             value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            onChange={(e) => {
+              setSearchQuery(e.target.value);
+              setCurrentPage(1);
+            }}
             className="w-full pl-9 pr-3 py-2 bg-gray-50 dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700 rounded-xl text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-600 transition-all dark:text-white placeholder:text-gray-400"
           />
+        </div>
+        <div className="flex items-center gap-2.5 w-full sm:w-auto">
+          <select
+            value={statusFilter}
+            onChange={(e) => {
+              setStatusFilter(e.target.value);
+              setCurrentPage(1);
+            }}
+            className="w-full sm:w-auto px-3 py-2 border border-gray-200 dark:border-gray-700 rounded-xl text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300 bg-gray-50 dark:bg-gray-800/60 focus:outline-none focus:ring-2 focus:ring-teal-500/20 transition-all cursor-pointer"
+          >
+            <option value="all">ທຸກສະຖານະ</option>
+            <option value="active">ເປີດໃຊ້ງານ</option>
+            <option value="inactive">ປິດໃຊ້ງານ</option>
+          </select>
         </div>
       </div>
 
@@ -150,10 +196,10 @@ const RolesPage = () => {
                   ຄຳອະທິບາຍ
                 </th>
                 <th className="px-5 py-3 text-[11px] font-bold text-gray-400 uppercase tracking-wider">
-                  ຜູ້ໃຊ້ໃນກຸ່ມ
+                  ຈຳນວນຜູ້ໃຊ້
                 </th>
                 <th className="px-5 py-3 text-[11px] font-bold text-gray-400 uppercase tracking-wider">
-                  ສິດທິການເຂົ້າເຖິງ
+                  ສິດທິ
                 </th>
                 <th className="px-5 py-3 text-[11px] font-bold text-gray-400 uppercase tracking-wider">
                   ສະຖານະ
@@ -164,7 +210,7 @@ const RolesPage = () => {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100 dark:divide-gray-800 text-xs sm:text-sm">
-              {filteredRoles.map((role) => (
+              {paginatedRoles.map((role) => (
                 <tr
                   key={role.id}
                   className="hover:bg-gray-50/70 dark:hover:bg-gray-800/30 transition-colors group"
@@ -188,18 +234,19 @@ const RolesPage = () => {
                     {role.description}
                   </td>
                   <td className="px-5 py-3.5">
-                    <div className="flex items-center gap-1.5 text-gray-700 dark:text-gray-300 font-semibold">
-                      <Users className="w-3.5 h-3.5 text-teal-600" />
-                      <span>{role.userCount} ຄົນ</span>
-                    </div>
+                    <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300">
+                      <Users className="w-3 h-3 text-teal-600" />
+                      {role.usersCount} ຄົນ
+                    </span>
                   </td>
                   <td className="px-5 py-3.5">
                     <div className="flex flex-wrap gap-1">
-                      {role.permissions.map((perm, i) => (
+                      {role.permissions.map((perm, index) => (
                         <span
-                          key={i}
-                          className="px-2 py-0.5 rounded-md text-[10px] font-semibold bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-700"
+                          key={index}
+                          className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-semibold bg-teal-50 text-teal-700 dark:bg-teal-950/40 dark:text-teal-300 border border-teal-200 dark:border-teal-900/40"
                         >
+                          <Lock className="w-2.5 h-2.5" />
                           {perm}
                         </span>
                       ))}
@@ -240,7 +287,23 @@ const RolesPage = () => {
               ))}
             </tbody>
           </table>
+
+          {filteredRoles.length === 0 && (
+            <div className="py-16 text-center text-gray-400">
+              <p className="text-sm">ບໍ່ພົບຂໍ້ມູນປະເພດສິດທີ່ຄົ້ນຫາ</p>
+            </div>
+          )}
         </div>
+
+        {/* Pagination */}
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          totalItems={filteredRoles.length}
+          itemsPerPage={itemsPerPage}
+          onPageChange={(page) => setCurrentPage(page)}
+          itemLabel="ປະເພດສິດ"
+        />
       </div>
     </div>
   );
