@@ -1,6 +1,92 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@100..900&family=Outfit:wght@300;400;500;600;700;800;900&display=swap');
 @import "tailwindcss";
- 
+
+:root {
+  --font-noto-lao: "Noto Sans Lao", sans-serif;
+  --font-outfit: "Outfit", sans-serif;
+}
+
 body {
-  font-family: var(--font-noto-lao), "Noto Sans Lao", sans-serif;
+  font-family: var(--font-noto-lao), var(--font-outfit), sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom 3D & Modern Glass Utilities */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 20px 40px -15px rgba(0, 150, 136, 0.07), 0 0 15px rgba(0, 0, 0, 0.03);
+}
+
+.dark .glass-panel {
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 150, 136, 0.1);
+}
+
+/* 3D Button Depth */
+.btn-3d {
+  position: relative;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 14px 0 rgba(13, 148, 136, 0.35);
+}
+
+.btn-3d:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px 0 rgba(13, 148, 136, 0.45);
+}
+
+.btn-3d:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 6px 0 rgba(13, 148, 136, 0.3);
+}
+
+/* 3D Floating Icon Box */
+.icon-3d {
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 8px 16px -4px rgba(13, 148, 136, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.6);
+}
+
+.icon-3d:hover {
+  transform: translateY(-2px) scale(1.04);
+  box-shadow: 0 12px 24px -4px rgba(13, 148, 136, 0.45), inset 0 1px 2px rgba(255, 255, 255, 0.8);
+}
+
+/* 3D Floating Card */
+.card-3d {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-3d:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.08), 0 0 15px -3px rgba(13, 148, 136, 0.12);
+}
+
+.dark .card-3d:hover {
+  box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.6), 0 0 20px -3px rgba(13, 148, 136, 0.2);
+}
+
+/* Smooth Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(13, 148, 136, 0.2);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(13, 148, 136, 0.4);
 }
