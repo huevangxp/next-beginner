@@ -5,7 +5,6 @@ import {
   User,
   Plus,
   Search,
-  Filter,
   Edit2,
   Trash2,
   Shield,
@@ -16,27 +15,18 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { exportToExcel } from "../utils/exportUtils";
+import Pagination from "../components/Pagination";
 
 const CustomersPage = () => {
   const [mounted, setMounted] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [roleFilter, setRoleFilter] = useState("all");
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5;
 
   useEffect(() => {
     setMounted(true);
   }, []);
-
-  const handleDownloadExcel = () => {
-    const exportData = customers.map((c) => ({
-      ID: c.id,
-      ຊື່ລູກຄ້າ: c.name,
-      ອີເມວ: c.email,
-      ເບີໂທ: c.phone,
-      ປະເພດ: c.role,
-      ສະຖານະ: c.status,
-    }));
-    exportToExcel(exportData, "Customer_Report");
-  };
 
   const customers = [
     {
@@ -71,6 +61,30 @@ const CustomersPage = () => {
       status: "Active",
       phone: "+856 20 1111 2222",
     },
+    {
+      id: 5,
+      name: "ທ້າວ ດາວວອນ ສຸວັນນະ",
+      email: "daovone@example.com",
+      role: "Regular Customer",
+      status: "Active",
+      phone: "+856 20 3333 4444",
+    },
+    {
+      id: 6,
+      name: "ນາງ ມະນີວັນ ຫຼວງລາດ",
+      email: "manivan@example.com",
+      role: "VIP Customer",
+      status: "Active",
+      phone: "+856 20 8888 1111",
+    },
+    {
+      id: 7,
+      name: "ທ້າວ ຄຳຫຼ້າ ວົງສາ",
+      email: "khamla@example.com",
+      role: "Regular Customer",
+      status: "Inactive",
+      phone: "+856 20 4444 9999",
+    },
   ];
 
   const filteredCustomers = customers.filter((c) => {
@@ -81,6 +95,24 @@ const CustomersPage = () => {
     const matchesRole = roleFilter === "all" || c.role === roleFilter;
     return matchesSearch && matchesRole;
   });
+
+  const totalPages = Math.ceil(filteredCustomers.length / itemsPerPage);
+  const paginatedCustomers = filteredCustomers.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
+
+  const handleDownloadExcel = () => {
+    const exportData = filteredCustomers.map((c) => ({
+      ID: c.id,
+      ຊື່ລູກຄ້າ: c.name,
+      ອີເມວ: c.email,
+      ເບີໂທ: c.phone,
+      ປະເພດ: c.role,
+      ສະຖານະ: c.status,
+    }));
+    exportToExcel(exportData, "Customer_Report");
+  };
 
   if (!mounted) return null;
 
@@ -129,14 +161,20 @@ const CustomersPage = () => {
             type="text"
             placeholder="ຄົ້ນຫາຊື່, ອີເມວ ຫຼື ເບີໂທ..."
             value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            onChange={(e) => {
+              setSearchQuery(e.target.value);
+              setCurrentPage(1);
+            }}
             className="w-full pl-9 pr-3 py-2 bg-gray-50 dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700 rounded-xl text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-600 transition-all dark:text-white placeholder:text-gray-400"
           />
         </div>
         <div className="flex items-center gap-2.5 w-full sm:w-auto">
           <select
             value={roleFilter}
-            onChange={(e) => setRoleFilter(e.target.value)}
+            onChange={(e) => {
+              setRoleFilter(e.target.value);
+              setCurrentPage(1);
+            }}
             className="w-full sm:w-auto px-3 py-2 border border-gray-200 dark:border-gray-700 rounded-xl text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300 bg-gray-50 dark:bg-gray-800/60 focus:outline-none focus:ring-2 focus:ring-teal-500/20 transition-all cursor-pointer"
           >
             <option value="all">ທຸກປະເພດ</option>
@@ -173,7 +211,7 @@ const CustomersPage = () => {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100 dark:divide-gray-800 text-xs sm:text-sm">
-              {filteredCustomers.map((customer) => (
+              {paginatedCustomers.map((customer) => (
                 <tr
                   key={customer.id}
                   className="hover:bg-gray-50/70 dark:hover:bg-gray-800/30 transition-colors group"
@@ -243,7 +281,23 @@ const CustomersPage = () => {
               ))}
             </tbody>
           </table>
+
+          {filteredCustomers.length === 0 && (
+            <div className="py-16 text-center text-gray-400">
+              <p className="text-sm">ບໍ່ພົບຂໍ້ມູນລູກຄ້າທີ່ຄົ້ນຫາ</p>
+            </div>
+          )}
         </div>
+
+        {/* Pagination */}
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          totalItems={filteredCustomers.length}
+          itemsPerPage={itemsPerPage}
+          onPageChange={(page) => setCurrentPage(page)}
+          itemLabel="ລູກຄ້າ"
+        />
       </div>
     </div>
   );
