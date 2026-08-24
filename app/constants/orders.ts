@@ -111,3 +111,29 @@ export const ORDERS_MOCK_DATA: OrderItem[] = [
     address: "ບ້ານ ໂພນຕ້ອງ, ເມືອງ ຈັນທະບູລີ, ນະຄອນຫຼວງວຽງຈັນ",
   },
 ];
+
+export interface OrderCustomerOption {
+  id: number;
+  name: string;
+  phone: string;
+}
+
+export interface OrderProductOption {
+  id: number;
+  name: string;
+  price: number;
+  stock: number;
+}
+
+export const CREATE_ORDER_CUSTOMERS: OrderCustomerOption[] = [
+  { id: 1, name: "ສົມພອນ ໄຊຍະວົງ", phone: "020 5555 6666" },
+  { id: 2, name: "ແກ້ວມະນີ ຈັນທະວົງ", phone: "020 7777 8888" },
+  { id: 3, name: "ບຸນມີ ພົມມະຈັນ", phone: "020 9999 0000" },
+];
+
+export const CREATE_ORDER_PRODUCTS: OrderProductOption[] = [
+  { id: 1, name: "iPhone 15 Pro", price: 15000000, stock: 10 },
+  { id: 2, name: "MacBook Air M2", price: 22000000, stock: 5 },
+  { id: 3, name: "AirPods Pro 2", price: 2500000, stock: 20 },
+];
+
