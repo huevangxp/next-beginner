@@ -16,6 +16,7 @@ import {
 import Link from "next/link";
 import { exportToExcel } from "../utils/exportUtils";
 import Pagination from "../components/Pagination";
+import { CUSTOMERS_MOCK_DATA } from "../constants";
 
 const CustomersPage = () => {
   const [mounted, setMounted] = useState(false);
@@ -28,64 +29,7 @@ const CustomersPage = () => {
     setMounted(true);
   }, []);
 
-  const customers = [
-    {
-      id: 1,
-      name: "ສົມພອນ ໄຊຍະວົງ",
-      email: "somphone@example.com",
-      role: "VIP Customer",
-      status: "Active",
-      phone: "+856 20 5555 6666",
-    },
-    {
-      id: 2,
-      name: "ນາງ ແກ້ວມະນີ ຈັນທະວົງ",
-      email: "keo@example.com",
-      role: "Regular Customer",
-      status: "Active",
-      phone: "+856 20 7777 8888",
-    },
-    {
-      id: 3,
-      name: "ທ້າວ ສົມສັກ ພົມມະຈັນ",
-      email: "somsak@example.com",
-      role: "Regular Customer",
-      status: "Inactive",
-      phone: "+856 20 9999 0000",
-    },
-    {
-      id: 4,
-      name: "ນາງ ມາລີ ສຸດທິວົງ",
-      email: "maly@example.com",
-      role: "VIP Customer",
-      status: "Active",
-      phone: "+856 20 1111 2222",
-    },
-    {
-      id: 5,
-      name: "ທ້າວ ດາວວອນ ສຸວັນນະ",
-      email: "daovone@example.com",
-      role: "Regular Customer",
-      status: "Active",
-      phone: "+856 20 3333 4444",
-    },
-    {
-      id: 6,
-      name: "ນາງ ມະນີວັນ ຫຼວງລາດ",
-      email: "manivan@example.com",
-      role: "VIP Customer",
-      status: "Active",
-      phone: "+856 20 8888 1111",
-    },
-    {
-      id: 7,
-      name: "ທ້າວ ຄຳຫຼ້າ ວົງສາ",
-      email: "khamla@example.com",
-      role: "Regular Customer",
-      status: "Inactive",
-      phone: "+856 20 4444 9999",
-    },
-  ];
+  const customers = CUSTOMERS_MOCK_DATA;
 
   const filteredCustomers = customers.filter((c) => {
     const matchesSearch =
