@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import Pagination from "../components/Pagination";
+import { PRODUCT_TYPES_MOCK_DATA } from "../constants";
 
 const ProductTypePage = () => {
   const [mounted, setMounted] = useState(false);
@@ -23,57 +24,7 @@ const ProductTypePage = () => {
     setMounted(true);
   }, []);
 
-  const productTypes = [
-    {
-      id: 1,
-      name: "ເຄື່ອງເອເລັກໂຕຣນິກ",
-      description: "ອຸປະກອນໄຟຟ້າ ແລະ ເອເລັກໂຕຣນິກທຸກຊະນິດ",
-      status: "active",
-      count: 12,
-    },
-    {
-      id: 2,
-      name: "ອຸປະກອນສວມໃສ່",
-      description: "ໂມງ, ແວ່ນຕາ ແລະ ອຸປະກອນເສີມຕ່າງໆ",
-      status: "active",
-      count: 8,
-    },
-    {
-      id: 3,
-      name: "ອຸປະກອນເສີມ",
-      description: "ອຸປະກອນເສີມຄອມພິວເຕີ ແລະ ມືຖື",
-      status: "inactive",
-      count: 25,
-    },
-    {
-      id: 4,
-      name: "ເຄື່ອງໃຊ້ໃນເຮືອນ",
-      description: "ອຸປະກອນ ແລະ ເຄື່ອງໃຊ້ພາຍໃນເຮືອນ",
-      status: "active",
-      count: 5,
-    },
-    {
-      id: 5,
-      name: "ເກມ ແລະ ບັນເທີງ",
-      description: "ເຄື່ອງຫຼິ້ນເກມ ແລະ ອຸປະກອນບັນເທີງ",
-      status: "active",
-      count: 14,
-    },
-    {
-      id: 6,
-      name: "ອຸປະກອນເຄືອຂ່າຍ (Network)",
-      description: "Router, Switch ແລະ ອຸປະກອນ Wi-Fi",
-      status: "active",
-      count: 9,
-    },
-    {
-      id: 7,
-      name: "ກ້ອງ ແລະ ອຸປະກອນຖ່າຍຮູບ",
-      description: "ກ້ອງດິຈິຕອນ, ເລນ ແລະ ຂາຕັ້ງກ້ອງ",
-      status: "inactive",
-      count: 3,
-    },
-  ];
+  const productTypes = PRODUCT_TYPES_MOCK_DATA;
 
   const filteredTypes = productTypes.filter(
     (type) =>
