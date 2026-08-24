@@ -15,6 +15,7 @@ import {
 import { exportToExcel } from "../utils/exportUtils";
 import Pagination from "../components/Pagination";
 import Link from "next/link";
+import { INVENTORY_MOCK_DATA } from "../constants";
 
 const InventoryPage = () => {
   const [mounted, setMounted] = useState(false);
@@ -27,80 +28,7 @@ const InventoryPage = () => {
     setMounted(true);
   }, []);
 
-  const inventoryItems = [
-    {
-      id: 1,
-      name: "iPhone 15 Pro Max 256GB",
-      category: "Mobile",
-      stock: 5,
-      minStock: 10,
-      status: "low",
-      lastUpdate: "2024-12-18",
-    },
-    {
-      id: 2,
-      name: "MacBook Air M2 13-inch",
-      category: "Laptop",
-      stock: 15,
-      minStock: 5,
-      status: "ok",
-      lastUpdate: "2024-12-17",
-    },
-    {
-      id: 3,
-      name: "AirPods Pro 2 USB-C",
-      category: "Audio",
-      stock: 0,
-      minStock: 20,
-      status: "out",
-      lastUpdate: "2024-12-15",
-    },
-    {
-      id: 4,
-      name: "Samsung Galaxy S23 Ultra",
-      category: "Mobile",
-      stock: 8,
-      minStock: 10,
-      status: "low",
-      lastUpdate: "2024-12-18",
-    },
-    {
-      id: 5,
-      name: "iPad Pro 11 M4 OLED",
-      category: "Tablet",
-      stock: 25,
-      minStock: 10,
-      status: "ok",
-      lastUpdate: "2024-12-16",
-    },
-    {
-      id: 6,
-      name: "Dell UltraSharp 27 4K Monitor",
-      category: "Monitor",
-      stock: 12,
-      minStock: 4,
-      status: "ok",
-      lastUpdate: "2024-12-15",
-    },
-    {
-      id: 7,
-      name: "Apple Magic Keyboard with Touch ID",
-      category: "Accessories",
-      stock: 3,
-      minStock: 8,
-      status: "low",
-      lastUpdate: "2024-12-14",
-    },
-    {
-      id: 8,
-      name: "Sony WH-1000XM5 Silver",
-      category: "Audio",
-      stock: 0,
-      minStock: 5,
-      status: "out",
-      lastUpdate: "2024-12-13",
-    },
-  ];
+  const inventoryItems = INVENTORY_MOCK_DATA;
 
   const handleDownloadExcel = () => {
     const exportData = filteredItems.map((item) => ({
