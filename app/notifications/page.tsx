@@ -4,25 +4,24 @@ import React, { useState, useEffect } from "react";
 import {
   Bell,
   ShoppingCart,
-  Package,
   AlertTriangle,
   User,
   CheckCircle2,
   Clock,
-  Search,
-  Filter,
   Trash2,
   ChevronRight,
+  Check,
 } from "lucide-react";
 
 const NotificationsPage = () => {
   const [mounted, setMounted] = useState(false);
+  const [activeFilter, setActiveFilter] = useState("all");
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  const notifications = [
+  const [notificationList, setNotificationList] = useState([
     {
       id: 1,
       type: "order",
@@ -63,108 +62,158 @@ const NotificationsPage = () => {
       icon: CheckCircle2,
       color: "emerald",
     },
-  ];
+  ]);
+
+  const markAllAsRead = () => {
+    setNotificationList((prev) => prev.map((n) => ({ ...n, read: true })));
+  };
+
+  const markAsRead = (id: number) => {
+    setNotificationList((prev) =>
+      prev.map((n) => (n.id === id ? { ...n, read: true } : n))
+    );
+  };
+
+  const clearAll = () => {
+    if (window.confirm("ທ່ານຕ້ອງການລຶບການແຈ້ງເຕືອນທັງໝົດແທ້ບໍ?")) {
+      setNotificationList([]);
+    }
+  };
+
+  const filteredNotifications = notificationList.filter((notif) => {
+    if (activeFilter === "unread") return !notif.read;
+    if (activeFilter === "order") return notif.type === "order";
+    if (activeFilter === "stock") return notif.type === "stock";
+    return true;
+  });
 
   if (!mounted) return null;
 
   return (
-    <div className="max-w-4xl mx-auto space-y-8 animate-in fade-in duration-500">
+    <div className="max-w-4xl mx-auto space-y-6 animate-in fade-in duration-500">
       {/* Page Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-gray-800 dark:text-white flex items-center gap-3">
-            <Bell className="w-8 h-8 text-teal-600" />
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white tracking-tight flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-teal-500 to-teal-700 flex items-center justify-center text-white shadow-sm">
+              <Bell className="w-4 h-4" />
+            </div>
             ການແຈ້ງເຕືອນ
           </h1>
-          <p className="text-gray-500 dark:text-gray-400 mt-1">
+          <p className="text-gray-500 dark:text-gray-400 text-xs sm:text-sm mt-0.5">
             ຕິດຕາມທຸກການເຄື່ອນໄຫວ ແລະ ການແຈ້ງເຕືອນຈາກລະບົບ
           </p>
         </div>
-        <button className="text-sm font-bold text-teal-600 hover:text-teal-700 transition-colors">
-          ໝາຍວ່າອ່ານແລ້ວທັງໝົດ
+        <button
+          onClick={markAllAsRead}
+          className="flex items-center gap-1.5 text-xs font-semibold text-teal-600 dark:text-teal-400 hover:text-teal-700 cursor-pointer bg-teal-50 dark:bg-teal-950/40 px-3 py-1.5 rounded-xl border border-teal-200 dark:border-teal-900/30 transition-all w-fit"
+        >
+          <Check className="w-3.5 h-3.5" />
+          <span>ໝາຍວ່າອ່ານແລ້ວທັງໝົດ</span>
         </button>
       </div>
 
       {/* Filters */}
-      <div className="bg-white dark:bg-gray-900 p-4 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          {["ທັງໝົດ", "ຍັງບໍ່ໄດ້ອ່ານ", "ການສັ່ງຊື້", "ສາງສິນຄ້າ"].map(
-            (tab, i) => (
-              <button
-                key={i}
-                className={`px-4 py-2 rounded-xl text-sm font-bold transition-all ${
-                  i === 0
-                    ? "bg-teal-50 text-teal-600 dark:bg-teal-900/20"
-                    : "text-gray-500 hover:bg-gray-50 dark:hover:bg-gray-800"
-                }`}
-              >
-                {tab}
-              </button>
-            )
-          )}
+      <div className="bg-white dark:bg-gray-900 p-2.5 sm:p-3 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm flex items-center justify-between">
+        <div className="flex flex-wrap items-center gap-1.5">
+          {[
+            { id: "all", label: "ທັງໝົດ" },
+            { id: "unread", label: "ຍັງບໍ່ໄດ້ອ່ານ" },
+            { id: "order", label: "ການສັ່ງຊື້" },
+            { id: "stock", label: "ສາງສິນຄ້າ" },
+          ].map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveFilter(tab.id)}
+              className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
+                activeFilter === tab.id
+                  ? "bg-teal-600 text-white shadow-sm shadow-teal-600/20"
+                  : "text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800"
+              }`}
+            >
+              {tab.label}
+            </button>
+          ))}
         </div>
-        <button className="p-2 text-gray-400 hover:text-red-600 transition-colors">
-          <Trash2 className="w-5 h-5" />
+        <button
+          onClick={clearAll}
+          className="p-1.5 text-gray-400 hover:text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-900/20 rounded-lg transition-colors cursor-pointer"
+          title="ລຶບທັງໝົດ"
+        >
+          <Trash2 className="w-4 h-4" />
         </button>
       </div>
 
       {/* Notifications List */}
-      <div className="space-y-4">
-        {notifications.map((notif) => (
+      <div className="space-y-3">
+        {filteredNotifications.map((notif) => (
           <div
             key={notif.id}
-            className={`p-6 rounded-[32px] border transition-all group flex items-start gap-6 ${
+            className={`p-4 rounded-2xl border transition-all group flex items-start gap-3.5 ${
               notif.read
-                ? "bg-white dark:bg-gray-900 border-gray-100 dark:border-gray-800 opacity-75"
-                : "bg-white dark:bg-gray-900 border-teal-100 dark:border-teal-900/30 shadow-lg shadow-teal-500/5"
+                ? "bg-white dark:bg-gray-900 border-gray-100 dark:border-gray-800 opacity-80"
+                : "bg-white dark:bg-gray-900 border-teal-200/70 dark:border-teal-900/50 shadow-sm"
             }`}
           >
             <div
-              className={`w-14 h-14 rounded-2xl shrink-0 flex items-center justify-center bg-${notif.color}-50 dark:bg-${notif.color}-900/20 text-${notif.color}-600`}
+              className={`w-10 h-10 rounded-xl shrink-0 flex items-center justify-center shadow-sm ${
+                notif.color === "blue"
+                  ? "bg-blue-50 text-blue-600 dark:bg-blue-950/40 dark:text-blue-400"
+                  : notif.color === "amber"
+                  ? "bg-amber-50 text-amber-600 dark:bg-amber-950/40 dark:text-amber-400"
+                  : notif.color === "purple"
+                  ? "bg-purple-50 text-purple-600 dark:bg-purple-950/40 dark:text-purple-400"
+                  : "bg-emerald-50 text-emerald-600 dark:bg-emerald-950/40 dark:text-emerald-400"
+              }`}
             >
-              <notif.icon className="w-7 h-7" />
+              <notif.icon className="w-5 h-5" />
             </div>
             <div className="flex-1 space-y-1">
               <div className="flex items-center justify-between">
-                <h3
-                  className={`font-bold ${
-                    notif.read
-                      ? "text-gray-700 dark:text-gray-300"
-                      : "text-gray-900 dark:text-white"
-                  }`}
-                >
-                  {notif.title}
-                </h3>
-                <span className="text-xs text-gray-400 flex items-center gap-1">
+                <div className="flex items-center gap-2">
+                  <h3
+                    className={`text-xs sm:text-sm font-bold ${
+                      notif.read
+                        ? "text-gray-700 dark:text-gray-300"
+                        : "text-gray-900 dark:text-white"
+                    }`}
+                  >
+                    {notif.title}
+                  </h3>
+                  {!notif.read && (
+                    <span className="w-2 h-2 rounded-full bg-teal-500" />
+                  )}
+                </div>
+                <span className="text-[11px] text-gray-400 flex items-center gap-1">
                   <Clock className="w-3 h-3" />
                   {notif.time}
                 </span>
               </div>
-              <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
+              <p className="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">
                 {notif.desc}
               </p>
               {!notif.read && (
-                <div className="pt-2">
-                  <button className="text-xs font-bold text-teal-600 hover:underline">
+                <div className="pt-1">
+                  <button
+                    onClick={() => markAsRead(notif.id)}
+                    className="text-[11px] font-semibold text-teal-600 dark:text-teal-400 hover:underline cursor-pointer"
+                  >
                     ໝາຍວ່າອ່ານແລ້ວ
                   </button>
                 </div>
               )}
             </div>
-            <button className="p-2 text-gray-300 hover:text-gray-600 dark:hover:text-gray-400 opacity-0 group-hover:opacity-100 transition-all">
-              <ChevronRight className="w-5 h-5" />
-            </button>
           </div>
         ))}
       </div>
 
-      {notifications.length === 0 && (
-        <div className="py-20 text-center space-y-4">
-          <div className="w-20 h-20 bg-gray-50 dark:bg-gray-800 rounded-full flex items-center justify-center mx-auto">
-            <Bell className="w-10 h-10 text-gray-300" />
+      {filteredNotifications.length === 0 && (
+        <div className="py-16 text-center space-y-3 bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800">
+          <div className="w-12 h-12 bg-gray-50 dark:bg-gray-800 rounded-xl flex items-center justify-center mx-auto text-gray-400">
+            <Bell className="w-6 h-6" />
           </div>
-          <p className="text-gray-500 font-medium">
-            ບໍ່ມີການແຈ້ງເຕືອນໃນຂະນະນີ້
+          <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 font-medium">
+            ບໍ່ມີການແຈ້ງເຕືອນໃນໝວດນີ້
           </p>
         </div>
       )}
