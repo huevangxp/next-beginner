@@ -27,6 +27,7 @@ import {
   Bar,
   Cell,
   CartesianGrid,
+} from "recharts";
 import {
   REPORTS_WEEKLY_DATA,
   REPORTS_CARDS_MOCK_DATA,
