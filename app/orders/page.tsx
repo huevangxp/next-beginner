@@ -13,6 +13,7 @@ import {
   CreditCard,
   Plus,
   CheckCircle2,
+  Edit2,
 } from "lucide-react";
 import Link from "next/link";
 import Pagination from "../components/Pagination";
@@ -335,7 +336,16 @@ const OrdersPage = () => {
                           ສຳເລັດ
                         </button>
                       )}
+                      <Link href={`/orders/${order.id}/edit`}>
+                        <button
+                          title="ແກ້ໄຂອໍເດີ"
+                          className="p-1.5 text-gray-400 hover:text-teal-600 hover:bg-teal-50 dark:hover:bg-teal-900/20 rounded-lg transition-all cursor-pointer"
+                        >
+                          <Edit2 className="w-3.5 h-3.5" />
+                        </button>
+                      </Link>
                       <button
+                        title="ເບິ່ງລາຍລະອຽດ"
                         onClick={() => openOrderDetails(order)}
                         className="p-1.5 text-gray-400 hover:text-teal-600 hover:bg-teal-50 dark:hover:bg-teal-900/20 rounded-lg transition-all cursor-pointer"
                       >
