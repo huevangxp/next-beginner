@@ -13,6 +13,7 @@ import {
   Package,
   Layers,
   ChevronRight,
+  Zap,
 } from "lucide-react";
 import Link from "next/link";
 import FinancialChart from "./components/FinancialChart";
@@ -36,9 +37,7 @@ const DashboardPage = () => {
       subtext: "ທຽບກັບເດືອນຜ່ານມາ",
       icon: DollarSign,
       gradient: "from-emerald-500 to-teal-600",
-      lightBg: "bg-emerald-50/80 dark:bg-emerald-950/30",
-      borderColor: "border-emerald-100 dark:border-emerald-900/40",
-      textColor: "text-emerald-600 dark:text-emerald-400",
+      glowColor: "rgba(16, 185, 129, 0.2)",
     },
     {
       title: "ລູກຄ້າທັງໝົດ",
@@ -48,9 +47,7 @@ const DashboardPage = () => {
       subtext: "+120 ຄົນໃນອາທິດນີ້",
       icon: Users,
       gradient: "from-blue-500 to-indigo-600",
-      lightBg: "bg-blue-50/80 dark:bg-blue-950/30",
-      borderColor: "border-blue-100 dark:border-blue-900/40",
-      textColor: "text-blue-600 dark:text-blue-400",
+      glowColor: "rgba(59, 130, 246, 0.2)",
     },
     {
       title: "ຄຳສັ່ງຊື້ໃໝ່",
@@ -60,9 +57,7 @@ const DashboardPage = () => {
       subtext: "ລໍຖ້າຈັດສົ່ງ 45 ລາຍການ",
       icon: ShoppingBag,
       gradient: "from-teal-500 to-cyan-600",
-      lightBg: "bg-teal-50/80 dark:bg-teal-950/30",
-      borderColor: "border-teal-100 dark:border-teal-900/40",
-      textColor: "text-teal-600 dark:text-teal-400",
+      glowColor: "rgba(20, 184, 166, 0.2)",
     },
     {
       title: "ອັດຕາການເຕີບໂຕ",
@@ -72,9 +67,7 @@ const DashboardPage = () => {
       subtext: "ເປົ້າໝາຍໄຕມາດ 30%",
       icon: TrendingUp,
       gradient: "from-purple-500 to-pink-600",
-      lightBg: "bg-purple-50/80 dark:bg-purple-950/30",
-      borderColor: "border-purple-100 dark:border-purple-900/40",
-      textColor: "text-purple-600 dark:text-purple-400",
+      glowColor: "rgba(168, 85, 247, 0.2)",
     },
   ];
 
@@ -153,18 +146,18 @@ const DashboardPage = () => {
   if (!mounted) return null;
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 animate-in fade-in duration-500">
       {/* Welcome & Quick Info Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white dark:bg-gray-900 p-5 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm relative overflow-hidden">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white dark:bg-gray-900 p-5 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm relative overflow-hidden card-3d">
         <div className="flex items-center gap-4 relative z-10">
-          <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-teal-600 via-teal-500 to-emerald-400 p-0.5 shadow-md shadow-teal-500/20">
+          <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-teal-600 via-teal-500 to-emerald-400 p-0.5 shadow-lg shadow-teal-500/30 icon-3d">
             <div className="w-full h-full bg-white dark:bg-gray-900 rounded-[14px] flex items-center justify-center">
               <Sparkles className="w-6 h-6 text-teal-600 dark:text-teal-400" />
             </div>
           </div>
           <div>
             <h1 className="text-xl sm:text-2xl font-black text-gray-900 dark:text-white tracking-tight flex items-center gap-2">
-              ສະບາຍດີ, ຜູ້ດູແລລະບົບ 👋
+              <span>ສະບາຍດີ, ຜູ້ດູແລລະບົບ 👋</span>
             </h1>
             <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-0.5">
               ພາບລວມການເຄື່ອນໄຫວ ແລະ ສະຖິຕິປະຈຳວັນຂອງທ່ານ
@@ -179,30 +172,36 @@ const DashboardPage = () => {
             </button>
           </Link>
           <Link href="/product/create">
-            <button className="flex items-center gap-1.5 px-3.5 py-2 bg-gradient-to-r from-teal-600 to-teal-700 hover:from-teal-700 hover:to-teal-800 text-white rounded-xl text-xs sm:text-sm font-semibold shadow-md shadow-teal-600/20 transition-all active:scale-[0.98] cursor-pointer">
+            <button className="flex items-center gap-1.5 px-3.5 py-2 bg-gradient-to-r from-teal-600 to-teal-700 hover:from-teal-700 hover:to-teal-800 text-white rounded-xl text-xs sm:text-sm font-semibold btn-3d transition-all cursor-pointer">
+              <Zap className="w-3.5 h-3.5" />
               <span>+ ເພີ່ມລາຍການໃໝ່</span>
             </button>
           </Link>
         </div>
 
-        {/* Decorative background glow */}
-        <div className="absolute right-0 top-0 w-64 h-64 bg-teal-500/5 rounded-full blur-3xl pointer-events-none"></div>
+        {/* 3D Decorative background glow */}
+        <div className="absolute right-0 top-0 w-64 h-64 bg-teal-500/10 rounded-full blur-3xl pointer-events-none"></div>
       </div>
 
-      {/* KPI Stats Grid */}
+      {/* 3D KPI Stats Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {stats.map((stat, i) => {
           const Icon = stat.icon;
           return (
             <div
               key={i}
-              className="bg-white dark:bg-gray-900 p-5 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between group"
+              className="bg-white dark:bg-gray-900 p-5 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm card-3d flex flex-col justify-between group relative overflow-hidden"
             >
+              {/* Top Accent Line */}
+              <div
+                className={`absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r ${stat.gradient} opacity-80`}
+              ></div>
+
               <div className="flex items-center justify-between mb-3">
                 <div
-                  className={`w-10 h-10 rounded-xl bg-gradient-to-br ${stat.gradient} flex items-center justify-center text-white shadow-md group-hover:scale-105 transition-transform`}
+                  className={`w-11 h-11 rounded-2xl bg-gradient-to-br ${stat.gradient} flex items-center justify-center text-white shadow-md icon-3d`}
                 >
-                  <Icon className="w-5 h-5" />
+                  <Icon className="w-5 h-5 drop-shadow-sm" />
                 </div>
                 <div
                   className={`flex items-center gap-0.5 text-xs font-bold px-2 py-0.5 rounded-lg ${
@@ -241,7 +240,7 @@ const DashboardPage = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Recent Activity Table */}
-        <div className="lg:col-span-2 bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm overflow-hidden flex flex-col justify-between">
+        <div className="lg:col-span-2 bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm overflow-hidden flex flex-col justify-between card-3d">
           <div>
             <div className="p-5 border-b border-gray-100 dark:border-gray-800 flex items-center justify-between">
               <div className="flex items-center gap-2">
@@ -345,7 +344,7 @@ const DashboardPage = () => {
 
         {/* Quick Actions & Pro Banner */}
         <div className="space-y-4">
-          <div className="bg-white dark:bg-gray-900 p-5 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm">
+          <div className="bg-white dark:bg-gray-900 p-5 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm card-3d">
             <h2 className="text-base font-bold text-gray-900 dark:text-white mb-3 flex items-center justify-between">
               <span>ຈັດການດ່ວນ</span>
               <span className="text-[10px] font-semibold text-teal-600 dark:text-teal-400 bg-teal-50 dark:bg-teal-900/30 px-2 py-0.5 rounded-md">
@@ -355,7 +354,7 @@ const DashboardPage = () => {
             <div className="grid grid-cols-2 gap-2.5">
               <Link href="/product/create" className="contents">
                 <button className="p-3 bg-gradient-to-br from-teal-50 to-emerald-50/50 dark:from-teal-950/30 dark:to-emerald-950/20 text-teal-700 dark:text-teal-300 rounded-xl hover:shadow-md hover:border-teal-200 transition-all border border-teal-100/60 dark:border-teal-900/30 flex flex-col items-center gap-1.5 w-full cursor-pointer group">
-                  <div className="w-8 h-8 rounded-lg bg-teal-600 text-white flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
+                  <div className="w-8 h-8 rounded-lg bg-teal-600 text-white flex items-center justify-center shadow-md icon-3d group-hover:scale-110 transition-transform">
                     <Package className="w-4 h-4" />
                   </div>
                   <span className="text-xs font-bold">ເພີ່ມສິນຄ້າ</span>
@@ -363,7 +362,7 @@ const DashboardPage = () => {
               </Link>
               <Link href="/customers/create" className="contents">
                 <button className="p-3 bg-gradient-to-br from-blue-50 to-indigo-50/50 dark:from-blue-950/30 dark:to-indigo-950/20 text-blue-700 dark:text-blue-300 rounded-xl hover:shadow-md hover:border-blue-200 transition-all border border-blue-100/60 dark:border-blue-900/30 flex flex-col items-center gap-1.5 w-full cursor-pointer group">
-                  <div className="w-8 h-8 rounded-lg bg-blue-600 text-white flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
+                  <div className="w-8 h-8 rounded-lg bg-blue-600 text-white flex items-center justify-center shadow-md icon-3d group-hover:scale-110 transition-transform">
                     <Users className="w-4 h-4" />
                   </div>
                   <span className="text-xs font-bold">ເພີ່ມລູກຄ້າ</span>
@@ -371,7 +370,7 @@ const DashboardPage = () => {
               </Link>
               <Link href="/orders/create" className="contents">
                 <button className="p-3 bg-gradient-to-br from-amber-50 to-orange-50/50 dark:from-amber-950/30 dark:to-orange-950/20 text-amber-700 dark:text-amber-300 rounded-xl hover:shadow-md hover:border-amber-200 transition-all border border-amber-100/60 dark:border-amber-900/30 flex flex-col items-center gap-1.5 w-full cursor-pointer group">
-                  <div className="w-8 h-8 rounded-lg bg-amber-600 text-white flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
+                  <div className="w-8 h-8 rounded-lg bg-amber-600 text-white flex items-center justify-center shadow-md icon-3d group-hover:scale-110 transition-transform">
                     <ShoppingBag className="w-4 h-4" />
                   </div>
                   <span className="text-xs font-bold">ສ້າງອໍເດີ</span>
@@ -379,7 +378,7 @@ const DashboardPage = () => {
               </Link>
               <Link href="/product-type/create" className="contents">
                 <button className="p-3 bg-gradient-to-br from-purple-50 to-pink-50/50 dark:from-purple-950/30 dark:to-pink-950/20 text-purple-700 dark:text-purple-300 rounded-xl hover:shadow-md hover:border-purple-200 transition-all border border-purple-100/60 dark:border-purple-900/30 flex flex-col items-center gap-1.5 w-full cursor-pointer group">
-                  <div className="w-8 h-8 rounded-lg bg-purple-600 text-white flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
+                  <div className="w-8 h-8 rounded-lg bg-purple-600 text-white flex items-center justify-center shadow-md icon-3d group-hover:scale-110 transition-transform">
                     <Layers className="w-4 h-4" />
                   </div>
                   <span className="text-xs font-bold">ສ້າງໝວດໝູ່</span>
@@ -388,17 +387,17 @@ const DashboardPage = () => {
             </div>
           </div>
 
-          <div className="bg-gradient-to-br from-gray-900 via-gray-800 to-teal-950 p-5 rounded-2xl text-white relative overflow-hidden shadow-xl border border-gray-800">
+          <div className="bg-gradient-to-br from-slate-900 via-slate-800 to-teal-950 p-5 rounded-2xl text-white relative overflow-hidden shadow-xl border border-slate-800 card-3d">
             <div className="relative z-10">
               <div className="inline-flex items-center gap-1.5 bg-teal-500/20 text-teal-300 text-[10px] font-bold px-2 py-0.5 rounded-full mb-2 border border-teal-500/30">
                 <Sparkles className="w-3 h-3" />
                 <span>PRO MEMBERSHIP</span>
               </div>
               <h3 className="font-bold text-base mb-1">ອັບເກຣດແຜນທຸລະກິດ</h3>
-              <p className="text-gray-400 text-xs mb-4 leading-relaxed">
+              <p className="text-slate-400 text-xs mb-4 leading-relaxed">
                 ປົດລັອກການວິເຄາະ AI ຂັ້ນສູງ ແລະ ການສົ່ງອອກຂໍ້ມູນແບບ Real-time.
               </p>
-              <button className="w-full py-2 bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 shadow-lg shadow-teal-600/30 active:scale-[0.98] cursor-pointer">
+              <button className="w-full py-2 bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white rounded-xl text-xs font-bold btn-3d transition-all flex items-center justify-center gap-1.5 cursor-pointer">
                 <span>ອັບເກຣດດຽວນີ້</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </button>
