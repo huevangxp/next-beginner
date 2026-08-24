@@ -5,26 +5,22 @@ import {
   Tag,
   Plus,
   Search,
-  Filter,
   Calendar,
-  Clock,
-  CheckCircle2,
-  XCircle,
   Edit2,
   Trash2,
-  Percent,
-  Gift,
-  Zap,
   FileSpreadsheet,
   Download,
 } from "lucide-react";
 import Link from "next/link";
 import { exportToExcel } from "../utils/exportUtils";
+import Pagination from "../components/Pagination";
 
 const PromotionsPage = () => {
   const [mounted, setMounted] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5;
 
   useEffect(() => {
     setMounted(true);
@@ -64,10 +60,43 @@ const PromotionsPage = () => {
       endDate: "2024-12-31",
       usage: "1,240/∞",
     },
+    {
+      id: 4,
+      name: "ວັນຊາດ 2 ທັນວາ",
+      code: "NATIONALDAY",
+      discount: "25%",
+      type: "Percentage",
+      status: "expired",
+      startDate: "2024-12-01",
+      endDate: "2024-12-03",
+      usage: "300/300",
+    },
+    {
+      id: 5,
+      name: "Black Friday Sale",
+      code: "BLACKFRIDAY",
+      discount: "100,000 ກີບ",
+      type: "Fixed Amount",
+      status: "expired",
+      startDate: "2024-11-25",
+      endDate: "2024-11-30",
+      usage: "250/250",
+    },
+    {
+      id: 6,
+      name: "Mid-Year Mega Sale",
+      code: "MIDYEAR24",
+      discount: "15%",
+      type: "Percentage",
+      status: "active",
+      startDate: "2024-06-01",
+      endDate: "2024-06-30",
+      usage: "80/400",
+    },
   ];
 
   const handleDownloadExcel = () => {
-    const exportData = promotions.map((promo) => ({
+    const exportData = filteredPromos.map((promo) => ({
       ID: promo.id,
       ຊື່ໂປຣໂມຊັ່ນ: promo.name,
       ລະຫັດ: promo.code,
@@ -94,6 +123,12 @@ const PromotionsPage = () => {
     const matchesStatus = statusFilter === "all" || p.status === statusFilter;
     return matchesSearch && matchesStatus;
   });
+
+  const totalPages = Math.ceil(filteredPromos.length / itemsPerPage);
+  const paginatedPromos = filteredPromos.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
 
   if (!mounted) return null;
 
@@ -142,14 +177,20 @@ const PromotionsPage = () => {
             type="text"
             placeholder="ຄົ້ນຫາໂປຣໂມຊັ່ນ ຫຼື ໂຄ້ດ..."
             value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            onChange={(e) => {
+              setSearchQuery(e.target.value);
+              setCurrentPage(1);
+            }}
             className="w-full pl-9 pr-3 py-2 bg-gray-50 dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700 rounded-xl text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-600 transition-all dark:text-white placeholder:text-gray-400"
           />
         </div>
         <div className="flex items-center gap-2.5 w-full sm:w-auto">
           <select
             value={statusFilter}
-            onChange={(e) => setStatusFilter(e.target.value)}
+            onChange={(e) => {
+              setStatusFilter(e.target.value);
+              setCurrentPage(1);
+            }}
             className="w-full sm:w-auto px-3 py-2 border border-gray-200 dark:border-gray-700 rounded-xl text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300 bg-gray-50 dark:bg-gray-800/60 focus:outline-none focus:ring-2 focus:ring-teal-500/20 transition-all cursor-pointer"
           >
             <option value="all">ທຸກສະຖານະ</option>
@@ -189,7 +230,7 @@ const PromotionsPage = () => {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100 dark:divide-gray-800 text-xs sm:text-sm">
-              {filteredPromos.map((promo) => (
+              {paginatedPromos.map((promo) => (
                 <tr
                   key={promo.id}
                   className="hover:bg-gray-50/70 dark:hover:bg-gray-800/30 transition-colors group"
@@ -264,7 +305,23 @@ const PromotionsPage = () => {
               ))}
             </tbody>
           </table>
+
+          {filteredPromos.length === 0 && (
+            <div className="py-16 text-center text-gray-400">
+              <p className="text-sm">ບໍ່ພົບຂໍ້ມູນໂປຣໂມຊັ່ນທີ່ຄົ້ນຫາ</p>
+            </div>
+          )}
         </div>
+
+        {/* Pagination */}
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          totalItems={filteredPromos.length}
+          itemsPerPage={itemsPerPage}
+          onPageChange={(page) => setCurrentPage(page)}
+          itemLabel="ໂປຣໂມຊັ່ນ"
+        />
       </div>
     </div>
   );
