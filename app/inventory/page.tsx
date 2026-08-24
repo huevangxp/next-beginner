@@ -159,10 +159,12 @@ const InventoryPage = () => {
               </button>
             </div>
           </div>
-          <button className="flex items-center gap-1.5 bg-gradient-to-r from-teal-600 to-teal-700 hover:from-teal-700 hover:to-teal-800 text-white px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all shadow-md shadow-teal-600/20 active:scale-[0.98] cursor-pointer">
-            <Plus className="w-4 h-4" />
-            <span>ເພີ່ມສະຕັອກ</span>
-          </button>
+          <Link href="/inventory/create">
+            <button className="flex items-center gap-1.5 bg-gradient-to-r from-teal-600 to-teal-700 hover:from-teal-700 hover:to-teal-800 text-white px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all shadow-md shadow-teal-600/20 active:scale-[0.98] cursor-pointer">
+              <Plus className="w-4 h-4" />
+              <span>ເພີ່ມສະຕັອກ</span>
+            </button>
+          </Link>
         </div>
       </div>
 
