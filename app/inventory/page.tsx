@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { exportToExcel } from "../utils/exportUtils";
 import Pagination from "../components/Pagination";
+import Link from "next/link";
 
 const InventoryPage = () => {
   const [mounted, setMounted] = useState(false);
