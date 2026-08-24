@@ -29,13 +29,12 @@ const OrdersPage = () => {
   const itemsPerPage = 5;
 
   const [orderList, setOrderList] = useState(ORDERS_MOCK_DATA);
-  const tabs = ORDER_TABS;
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  const handleStatusUpdate = (id: string, newStatus: string) => {
+  const handleStatusUpdate = (id: string, newStatus: any) => {
     setOrderList((prev) =>
       prev.map((order) =>
         order.id === id ? { ...order, status: newStatus } : order
