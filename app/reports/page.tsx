@@ -27,7 +27,11 @@ import {
   Bar,
   Cell,
   CartesianGrid,
-} from "recharts";
+import {
+  REPORTS_WEEKLY_DATA,
+  REPORTS_CARDS_MOCK_DATA,
+  REPORTS_RECENT_ACTIVITY,
+} from "../constants";
 
 const ReportsPage = () => {
   const [mounted, setMounted] = useState(false);
@@ -36,151 +40,9 @@ const ReportsPage = () => {
     setMounted(true);
   }, []);
 
-  const weeklyData = [
-    { day: "Mon", value: 400 },
-    { day: "Tue", value: 300 },
-    { day: "Wed", value: 600 },
-    { day: "Thu", value: 800 },
-    { day: "Fri", value: 500 },
-    { day: "Sat", value: 900 },
-    { day: "Sun", value: 700 },
-  ];
-
-  const reportCards = [
-    {
-      title: "ລາຍງານສິນຄ້າ",
-      desc: "ສະຫຼຸບຈຳນວນສິນຄ້າ ແລະ ສະຕັອກ",
-      value: "1,240",
-      unit: "ລາຍການ",
-      trend: "+12%",
-      trendUp: true,
-      icon: ShoppingBag,
-      color: "#0d9488",
-      href: "/product",
-      data: [
-        { name: "W1", val: 40 },
-        { name: "W2", val: 30 },
-        { name: "W3", val: 60 },
-        { name: "W4", val: 45 },
-      ],
-    },
-    {
-      title: "ລາຍງານການສັ່ງຊື້",
-      desc: "ຍອດຂາຍ ແລະ ລາຍການສັ່ງຊື້",
-      value: "45.2M",
-      unit: "ກີບ",
-      trend: "+8.5%",
-      trendUp: true,
-      icon: TrendingUp,
-      color: "#2563eb",
-      href: "/orders",
-      data: [
-        { name: "W1", val: 20 },
-        { name: "W2", val: 45 },
-        { name: "W3", val: 30 },
-        { name: "W4", val: 55 },
-      ],
-    },
-    {
-      title: "ລາຍງານລູກຄ້າ",
-      desc: "ຈຳນວນລູກຄ້າ ແລະ ການເຄື່ອນໄຫວ",
-      value: "850",
-      unit: "ຄົນ",
-      trend: "+5.2%",
-      trendUp: true,
-      icon: Users,
-      color: "#9333ea",
-      href: "/customers",
-      data: [
-        { name: "W1", val: 10 },
-        { name: "W2", val: 25 },
-        { name: "W3", val: 20 },
-        { name: "W4", val: 35 },
-      ],
-    },
-    {
-      title: "ປະເພດສິນຄ້າ",
-      desc: "ການແບ່ງໝວດໝູ່ສິນຄ້າ",
-      value: "24",
-      unit: "ໝວດ",
-      trend: "0%",
-      trendUp: true,
-      icon: Layers,
-      color: "#ea580c",
-      href: "/product-type",
-      data: [
-        { name: "W1", val: 5 },
-        { name: "W2", val: 5 },
-        { name: "W3", val: 8 },
-        { name: "W4", val: 8 },
-      ],
-    },
-    {
-      title: "ຜູ້ດູແລລະບົບ",
-      desc: "ການຈັດການສິດ ແລະ ຜູ້ດູແລ",
-      value: "12",
-      unit: "ຄົນ",
-      trend: "+1",
-      trendUp: true,
-      icon: ShieldCheck,
-      color: "#dc2626",
-      href: "/admins",
-      data: [
-        { name: "W1", val: 2 },
-        { name: "W2", val: 2 },
-        { name: "W3", val: 3 },
-        { name: "W4", val: 3 },
-      ],
-    },
-    {
-      title: "ປະເພດສິດ",
-      desc: "ບົດບາດ ແລະ ການກຳນົດສິດ",
-      value: "6",
-      unit: "ບົດບາດ",
-      trend: "ຄົງທີ່",
-      trendUp: true,
-      icon: ShieldCheck,
-      color: "#4f46e5",
-      href: "/roles",
-      data: [
-        { name: "W1", val: 4 },
-        { name: "W2", val: 4 },
-        { name: "W3", val: 4 },
-        { name: "W4", val: 4 },
-      ],
-    },
-  ];
-
-  const recentActivity = [
-    {
-      id: 1,
-      type: "Order",
-      title: "New Order #ORD-005",
-      time: "2 mins ago",
-      status: "pending",
-    },
-    {
-      id: 2,
-      type: "Customer",
-      title: "New Customer Registered",
-      time: "15 mins ago",
-      status: "success",
-    },
-    {
-      id: 3,
-      type: "Product",
-      title: "iPhone 15 Pro stock updated",
-      time: "1 hour ago",
-      status: "info",
-    },
-    {
-      id: 4,
-      type: "Admin",
-      title: "Admin role changed for Keo",
-      time: "3 hours ago",
-      status: "warning",
-    },
-  ];
+  const weeklyData = REPORTS_WEEKLY_DATA;
+  const reportCards = REPORTS_CARDS_MOCK_DATA;
+  const recentActivity = REPORTS_RECENT_ACTIVITY;
 
   if (!mounted) return null;
 
