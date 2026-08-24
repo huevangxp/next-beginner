@@ -2,11 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import {
-  PackageSearch,
-  Search,
-  Filter,
   AlertTriangle,
-  CheckCircle2,
   History,
   Download,
   Plus,
@@ -14,13 +10,17 @@ import {
   Box,
   XCircle,
   FileSpreadsheet,
+  Search,
 } from "lucide-react";
 import { exportToExcel } from "../utils/exportUtils";
+import Pagination from "../components/Pagination";
 
 const InventoryPage = () => {
   const [mounted, setMounted] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5;
 
   useEffect(() => {
     setMounted(true);
@@ -72,10 +72,37 @@ const InventoryPage = () => {
       status: "ok",
       lastUpdate: "2024-12-16",
     },
+    {
+      id: 6,
+      name: "Dell UltraSharp 27 4K Monitor",
+      category: "Monitor",
+      stock: 12,
+      minStock: 4,
+      status: "ok",
+      lastUpdate: "2024-12-15",
+    },
+    {
+      id: 7,
+      name: "Apple Magic Keyboard with Touch ID",
+      category: "Accessories",
+      stock: 3,
+      minStock: 8,
+      status: "low",
+      lastUpdate: "2024-12-14",
+    },
+    {
+      id: 8,
+      name: "Sony WH-1000XM5 Silver",
+      category: "Audio",
+      stock: 0,
+      minStock: 5,
+      status: "out",
+      lastUpdate: "2024-12-13",
+    },
   ];
 
   const handleDownloadExcel = () => {
-    const exportData = inventoryItems.map((item) => ({
+    const exportData = filteredItems.map((item) => ({
       ID: item.id,
       ຊື່ສິນຄ້າ: item.name,
       ໝວດໝູ່: item.category,
@@ -94,6 +121,12 @@ const InventoryPage = () => {
     const matchesStatus = statusFilter === "all" || item.status === statusFilter;
     return matchesSearch && matchesStatus;
   });
+
+  const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
+  const paginatedItems = filteredItems.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
 
   if (!mounted) return null;
 
@@ -179,14 +212,20 @@ const InventoryPage = () => {
             type="text"
             placeholder="ຄົ້ນຫາສິນຄ້າໃນສາງ..."
             value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            onChange={(e) => {
+              setSearchQuery(e.target.value);
+              setCurrentPage(1);
+            }}
             className="w-full pl-9 pr-3 py-2 bg-gray-50 dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700 rounded-xl text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-600 transition-all dark:text-white placeholder:text-gray-400"
           />
         </div>
         <div className="flex items-center gap-2.5 w-full sm:w-auto">
           <select
             value={statusFilter}
-            onChange={(e) => setStatusFilter(e.target.value)}
+            onChange={(e) => {
+              setStatusFilter(e.target.value);
+              setCurrentPage(1);
+            }}
             className="w-full sm:w-auto px-3 py-2 border border-gray-200 dark:border-gray-700 rounded-xl text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300 bg-gray-50 dark:bg-gray-800/60 focus:outline-none focus:ring-2 focus:ring-teal-500/20 transition-all cursor-pointer"
           >
             <option value="all">ທຸກສະຖານະ</option>
@@ -227,7 +266,7 @@ const InventoryPage = () => {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100 dark:divide-gray-800 text-xs sm:text-sm">
-              {filteredItems.map((item) => (
+              {paginatedItems.map((item) => (
                 <tr
                   key={item.id}
                   className="hover:bg-gray-50/70 dark:hover:bg-gray-800/30 transition-colors group"
@@ -304,7 +343,23 @@ const InventoryPage = () => {
               ))}
             </tbody>
           </table>
+
+          {filteredItems.length === 0 && (
+            <div className="py-16 text-center text-gray-400">
+              <p className="text-sm">ບໍ່ພົບຂໍ້ມູນສິນຄ້າໃນສາງທີ່ຄົ້ນຫາ</p>
+            </div>
+          )}
         </div>
+
+        {/* Pagination */}
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          totalItems={filteredItems.length}
+          itemsPerPage={itemsPerPage}
+          onPageChange={(page) => setCurrentPage(page)}
+          itemLabel="ລາຍການສິນຄ້າ"
+        />
       </div>
     </div>
   );
