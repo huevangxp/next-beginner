@@ -14,6 +14,7 @@ import {
   EyeOff,
   CheckCircle2,
   XCircle,
+  ChevronDown,
 } from "lucide-react";
 import Link from "next/link";
 
@@ -32,205 +33,190 @@ const CreateAdminPage = () => {
     e.preventDefault();
     setIsLoading(true);
 
-    // Mock saving process
     setTimeout(() => {
       setIsLoading(false);
       router.push("/admins");
-    }, 1500);
+    }, 1000);
   };
 
   if (!mounted) return null;
 
   return (
-    <div className="min-h-screen bg-[#f8fafc] dark:bg-gray-950 p-4 md:p-8 animate-in fade-in duration-500">
-      <div className="max-w-12xl mx-auto space-y-6">
-        {/* Header */}
-        <div className="flex items-start gap-4 mb-8">
-          <Link
-            href="/admins"
-            className="mt-1 p-2 hover:bg-white dark:hover:bg-gray-800 rounded-full transition-all text-gray-400 hover:text-gray-600 shadow-sm"
-          >
-            <ArrowLeft className="w-5 h-5" />
-          </Link>
-          <div>
-            <h1 className="text-2xl font-bold text-[#0f172a] dark:text-white">
-              ເພີ່ມຜູ້ດູແລລະບົບໃໝ່
-            </h1>
-            <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-              ກະລຸນາປ້ອນຂໍ້ມູນລຸ່ມນີ້ເພື່ອສ້າງບັນຊີຜູ້ດູແລລະບົບໃໝ່.
-            </p>
-          </div>
+    <div className="max-w-4xl mx-auto space-y-6 animate-in fade-in duration-500">
+      {/* Header */}
+      <div className="flex items-center gap-3">
+        <Link
+          href="/admins"
+          className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-xl transition-all text-gray-500 hover:text-gray-900 dark:hover:text-white"
+        >
+          <ArrowLeft className="w-4 h-4" />
+        </Link>
+        <div>
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white tracking-tight">
+            ເພີ່ມຜູ້ດູແລລະບົບໃໝ່
+          </h1>
+          <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-0.5">
+            ກະລຸນາປ້ອນຂໍ້ມູນລຸ່ມນີ້ເພື່ອສ້າງບັນຊີຜູ້ດູແລລະບົບໃໝ່
+          </p>
         </div>
+      </div>
 
-        {/* Main Form Card */}
-        <div className="bg-white dark:bg-gray-900 rounded-[32px] shadow-sm border border-gray-100 dark:border-gray-800 overflow-hidden">
-          <form onSubmit={handleSubmit} className="p-8 md:p-12 space-y-10">
-            {/* Icon Section */}
-            <div className="flex flex-col items-center justify-center space-y-4">
-              <div className="w-24 h-24 rounded-3xl bg-teal-50 dark:bg-teal-900/20 flex items-center justify-center text-teal-600 dark:text-teal-400 border border-teal-100 dark:border-teal-900/30 shadow-inner">
-                <ShieldCheck className="w-10 h-10" />
-              </div>
-              <div className="text-center">
-                <h3 className="font-bold text-[#0f172a] dark:text-white">
-                  ຂໍ້ມູນຜູ້ດູແລ
-                </h3>
-                <p className="text-xs text-gray-400 mt-1">
-                  ກະລຸນາລະບຸຂໍ້ມູນສ່ວນຕົວ ແລະ ສິດທິການເຂົ້າເຖິງ
-                </p>
-              </div>
+      {/* Main Form Card */}
+      <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 overflow-hidden">
+        <form onSubmit={handleSubmit} className="p-6 sm:p-8 space-y-6">
+          {/* Icon Header */}
+          <div className="flex flex-col items-center justify-center space-y-2">
+            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-teal-500 to-teal-700 flex items-center justify-center text-white shadow-md shadow-teal-600/20">
+              <ShieldCheck className="w-8 h-8" />
+            </div>
+            <div className="text-center">
+              <h3 className="text-sm font-bold text-gray-900 dark:text-white">
+                ຂໍ້ມູນຜູ້ດູແລ
+              </h3>
+              <p className="text-[11px] text-gray-400 mt-0.5">
+                ກະລຸນາລະບຸຂໍ້ມູນສ່ວນຕົວ ແລະ ສິດທິການເຂົ້າເຖິງ
+              </p>
+            </div>
+          </div>
+
+          {/* Form Fields */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {/* Full Name */}
+            <div className="space-y-1.5">
+              <label className="text-xs font-semibold text-gray-700 dark:text-gray-300 flex items-center gap-1.5">
+                <User className="w-3.5 h-3.5 text-teal-600" />
+                <span>ຊື່ ແລະ ນາມສະກຸນ</span>
+              </label>
+              <input
+                type="text"
+                placeholder="ຕົວຢ່າງ: ສົມສັກ ໄຊຍະວົງ"
+                className="w-full px-3.5 py-2 bg-gray-50 dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700 rounded-xl text-xs sm:text-sm focus:ring-2 focus:ring-teal-500/20 focus:border-teal-600 outline-none transition-all dark:text-white placeholder:text-gray-400"
+                required
+              />
             </div>
 
-            {/* Form Fields */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {/* Full Name */}
-              <div className="space-y-2">
-                <label className="text-sm font-bold text-[#0f172a] dark:text-gray-300 flex items-center gap-2">
-                  <User className="w-4 h-4 text-[#009688]" />
-                  ຊື່ ແລະ ນາມສະກຸນ
-                </label>
-                <input
-                  type="text"
-                  placeholder="ຕົວຢ່າງ: ສົມສັກ ໄຊຍະວົງ"
-                  className="w-full px-5 py-4 bg-[#f8fafc] dark:bg-gray-800 border-none rounded-2xl focus:ring-2 focus:ring-[#009688]/20 outline-none transition-all dark:text-white placeholder:text-gray-400"
-                  required
-                />
-              </div>
+            {/* Email */}
+            <div className="space-y-1.5">
+              <label className="text-xs font-semibold text-gray-700 dark:text-gray-300 flex items-center gap-1.5">
+                <Mail className="w-3.5 h-3.5 text-teal-600" />
+                <span>ອີເມວ</span>
+              </label>
+              <input
+                type="email"
+                placeholder="admin@example.com"
+                className="w-full px-3.5 py-2 bg-gray-50 dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700 rounded-xl text-xs sm:text-sm focus:ring-2 focus:ring-teal-500/20 focus:border-teal-600 outline-none transition-all dark:text-white placeholder:text-gray-400"
+                required
+              />
+            </div>
 
-              {/* Email */}
-              <div className="space-y-2">
-                <label className="text-sm font-bold text-[#0f172a] dark:text-gray-300 flex items-center gap-2">
-                  <Mail className="w-4 h-4 text-[#009688]" />
-                  ອີເມວ
-                </label>
-                <input
-                  type="email"
-                  placeholder="admin@example.com"
-                  className="w-full px-5 py-4 bg-[#f8fafc] dark:bg-gray-800 border-none rounded-2xl focus:ring-2 focus:ring-[#009688]/20 outline-none transition-all dark:text-white placeholder:text-gray-400"
-                  required
-                />
-              </div>
+            {/* Phone */}
+            <div className="space-y-1.5">
+              <label className="text-xs font-semibold text-gray-700 dark:text-gray-300 flex items-center gap-1.5">
+                <Phone className="w-3.5 h-3.5 text-teal-600" />
+                <span>ເບີໂທລະສັບ</span>
+              </label>
+              <input
+                type="tel"
+                placeholder="020 5555 6666"
+                className="w-full px-3.5 py-2 bg-gray-50 dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700 rounded-xl text-xs sm:text-sm focus:ring-2 focus:ring-teal-500/20 focus:border-teal-600 outline-none transition-all dark:text-white placeholder:text-gray-400"
+                required
+              />
+            </div>
 
-              {/* Phone */}
-              <div className="space-y-2">
-                <label className="text-sm font-bold text-[#0f172a] dark:text-gray-300 flex items-center gap-2">
-                  <Phone className="w-4 h-4 text-[#009688]" />
-                  ເບີໂທລະສັບ
-                </label>
-                <input
-                  type="tel"
-                  placeholder="020 5555 6666"
-                  className="w-full px-5 py-4 bg-[#f8fafc] dark:bg-gray-800 border-none rounded-2xl focus:ring-2 focus:ring-[#009688]/20 outline-none transition-all dark:text-white placeholder:text-gray-400"
-                  required
-                />
-              </div>
-
-              {/* Role Selection */}
-              <div className="space-y-2">
-                <label className="text-sm font-bold text-[#0f172a] dark:text-gray-300 flex items-center gap-2">
-                  <ShieldCheck className="w-4 h-4 text-[#009688]" />
-                  ບົດບາດ (Role)
-                </label>
-                <select className="w-full px-5 py-4 bg-[#f8fafc] dark:bg-gray-800 border-none rounded-2xl focus:ring-2 focus:ring-[#009688]/20 outline-none transition-all dark:text-white appearance-none cursor-pointer">
+            {/* Role Selection */}
+            <div className="space-y-1.5">
+              <label className="text-xs font-semibold text-gray-700 dark:text-gray-300 flex items-center gap-1.5">
+                <ShieldCheck className="w-3.5 h-3.5 text-teal-600" />
+                <span>ບົດບາດ (Role)</span>
+              </label>
+              <div className="relative">
+                <select className="w-full px-3.5 py-2 bg-gray-50 dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700 rounded-xl text-xs sm:text-sm focus:ring-2 focus:ring-teal-500/20 focus:border-teal-600 outline-none transition-all dark:text-white appearance-none cursor-pointer">
                   <option value="super_admin">Super Admin</option>
                   <option value="manager">Manager</option>
                   <option value="editor">Editor</option>
                 </select>
+                <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
               </div>
+            </div>
 
-              {/* Password */}
-              <div className="space-y-2">
-                <label className="text-sm font-bold text-[#0f172a] dark:text-gray-300 flex items-center gap-2">
-                  <Lock className="w-4 h-4 text-[#009688]" />
-                  ລະຫັດຜ່ານ
-                </label>
-                <div className="relative">
-                  <input
-                    type={showPassword ? "text" : "password"}
-                    placeholder="••••••••"
-                    className="w-full px-5 py-4 bg-[#f8fafc] dark:bg-gray-800 border-none rounded-2xl focus:ring-2 focus:ring-[#009688]/20 outline-none transition-all dark:text-white placeholder:text-gray-400"
-                    required
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
-                  >
-                    {showPassword ? (
-                      <EyeOff className="w-5 h-5" />
-                    ) : (
-                      <Eye className="w-5 h-5" />
-                    )}
-                  </button>
-                </div>
+            {/* Password */}
+            <div className="space-y-1.5">
+              <label className="text-xs font-semibold text-gray-700 dark:text-gray-300 flex items-center gap-1.5">
+                <Lock className="w-3.5 h-3.5 text-teal-600" />
+                <span>ລະຫັດຜ່ານ</span>
+              </label>
+              <div className="relative">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  placeholder="••••••••"
+                  className="w-full pl-3.5 pr-9 py-2 bg-gray-50 dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700 rounded-xl text-xs sm:text-sm focus:ring-2 focus:ring-teal-500/20 focus:border-teal-600 outline-none transition-all dark:text-white placeholder:text-gray-400"
+                  required
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                >
+                  {showPassword ? (
+                    <EyeOff className="w-4 h-4" />
+                  ) : (
+                    <Eye className="w-4 h-4" />
+                  )}
+                </button>
               </div>
+            </div>
 
-              {/* Status Toggle */}
-              <div className="space-y-2">
-                <label className="text-sm font-bold text-[#0f172a] dark:text-gray-300 flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-[#009688]" />
-                  ສະຖານະການໃຊ້ງານ
-                </label>
-                <div className="bg-[#f8fafc] dark:bg-gray-800/50 p-4 rounded-2xl flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <div
-                      className={`w-8 h-8 rounded-lg flex items-center justify-center ${
-                        isActive
-                          ? "bg-emerald-100 dark:bg-emerald-900/30"
-                          : "bg-red-100 dark:bg-red-900/30"
-                      }`}
-                    >
-                      {isActive ? (
-                        <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-                      ) : (
-                        <XCircle className="w-4 h-4 text-red-600" />
-                      )}
-                    </div>
-                    <span className="text-sm font-medium text-gray-600 dark:text-gray-300">
-                      {isActive ? "ເປີດໃຊ້ງານ" : "ປິດໃຊ້ງານ"}
-                    </span>
-                  </div>
-                  <button
-                    type="button"
-                    onClick={() => setIsActive(!isActive)}
-                    className={`w-12 h-6 rounded-full transition-all relative ${
-                      isActive ? "bg-[#009688]" : "bg-gray-300"
+            {/* Status Toggle */}
+            <div className="space-y-1.5">
+              <label className="text-xs font-semibold text-gray-700 dark:text-gray-300 flex items-center gap-1.5">
+                <CheckCircle2 className="w-3.5 h-3.5 text-teal-600" />
+                <span>ສະຖານະການໃຊ້ງານ</span>
+              </label>
+              <div className="bg-gray-50 dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700 px-3.5 py-2 rounded-xl flex items-center justify-between h-[42px]">
+                <span className="text-xs font-medium text-gray-700 dark:text-gray-300">
+                  {isActive ? "ເປີດໃຊ້ງານ" : "ປິດໃຊ້ງານ"}
+                </span>
+                <button
+                  type="button"
+                  onClick={() => setIsActive(!isActive)}
+                  className={`w-9 h-5 rounded-full transition-all relative cursor-pointer ${
+                    isActive ? "bg-teal-600" : "bg-gray-300 dark:bg-gray-700"
+                  }`}
+                >
+                  <div
+                    className={`absolute top-0.5 w-4 h-4 bg-white rounded-full transition-all ${
+                      isActive ? "right-0.5" : "left-0.5"
                     }`}
-                  >
-                    <div
-                      className={`absolute top-1 w-4 h-4 bg-white rounded-full transition-all ${
-                        isActive ? "right-1" : "left-1"
-                      }`}
-                    />
-                  </button>
-                </div>
+                  />
+                </button>
               </div>
             </div>
+          </div>
 
-            {/* Form Actions */}
-            <div className="flex flex-col sm:flex-row gap-4 pt-4">
-              <Link
-                href="/admins"
-                className="flex-1 py-4 bg-[#f8fafc] dark:bg-gray-800 text-gray-600 dark:text-gray-300 rounded-2xl font-bold text-center hover:bg-gray-100 dark:hover:bg-gray-700 transition-all"
-              >
-                ຍົກເລີກ
-              </Link>
-              <button
-                type="submit"
-                disabled={isLoading}
-                className="flex-1 py-4 bg-[#009688] hover:bg-[#00796b] text-white rounded-2xl font-bold text-lg shadow-lg shadow-[#009688]/20 transition-all active:scale-[0.98] flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
-              >
-                {isLoading ? (
-                  <div className="w-6 h-6 border-3 border-white/30 border-t-white rounded-full animate-spin"></div>
-                ) : (
-                  <>
-                    <Save className="w-5 h-5" />
-                    <span>ບັນທຶກຜູ້ດູແລ</span>
-                  </>
-                )}
-              </button>
-            </div>
-          </form>
-        </div>
+          {/* Form Actions */}
+          <div className="flex items-center gap-3 pt-2">
+            <Link
+              href="/admins"
+              className="flex-1 py-2 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-xl text-xs sm:text-sm font-semibold text-center hover:bg-gray-200 dark:hover:bg-gray-700 transition-all cursor-pointer"
+            >
+              ຍົກເລີກ
+            </Link>
+            <button
+              type="submit"
+              disabled={isLoading}
+              className="flex-1 py-2 bg-gradient-to-r from-teal-600 to-teal-700 hover:from-teal-700 hover:to-teal-800 text-white rounded-xl text-xs sm:text-sm font-semibold shadow-md shadow-teal-600/20 transition-all active:scale-[0.98] flex items-center justify-center gap-1.5 disabled:opacity-70 disabled:cursor-not-allowed cursor-pointer"
+            >
+              {isLoading ? (
+                <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+              ) : (
+                <>
+                  <Save className="w-4 h-4" />
+                  <span>ບັນທຶກຜູ້ດູແລ</span>
+                </>
+              )}
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   );
