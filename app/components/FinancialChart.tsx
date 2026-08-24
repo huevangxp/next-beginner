@@ -30,32 +30,32 @@ const FinancialChart = () => {
 
   if (!mounted) {
     return (
-      <div className="bg-white dark:bg-gray-900 p-6 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm h-[400px] flex items-center justify-center">
-        <div className="w-8 h-8 border-4 border-teal-500/30 border-t-teal-500 rounded-full animate-spin"></div>
+      <div className="bg-white dark:bg-gray-900 p-5 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm h-[340px] flex items-center justify-center">
+        <div className="w-6 h-6 border-2 border-teal-500/30 border-t-teal-500 rounded-full animate-spin"></div>
       </div>
     );
   }
 
   return (
-    <div className="bg-white dark:bg-gray-900 p-6 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm">
-      <div className="flex items-center justify-between mb-8">
+    <div className="bg-white dark:bg-gray-900 p-5 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6">
         <div>
-          <h2 className="text-lg font-bold text-gray-800 dark:text-white">
+          <h2 className="text-base font-bold text-gray-800 dark:text-white">
             ຜົນການດຳເນີນງານທາງການເງິນ
           </h2>
-          <p className="text-sm text-gray-500 dark:text-gray-400">
+          <p className="text-xs text-gray-500 dark:text-gray-400">
             ລາຍຮັບ ທຽບກັບ ລາຍຈ່າຍ (ລາຍເດືອນ)
           </p>
         </div>
-        <div className="flex items-center gap-4">
-          <div className="flex items-center gap-2">
-            <div className="w-3 h-3 rounded-full bg-teal-500"></div>
+        <div className="flex items-center gap-3">
+          <div className="flex items-center gap-1.5">
+            <div className="w-2.5 h-2.5 rounded-full bg-teal-500"></div>
             <span className="text-xs font-medium text-gray-600 dark:text-gray-400">
               ລາຍຮັບ
             </span>
           </div>
-          <div className="flex items-center gap-2">
-            <div className="w-3 h-3 rounded-full bg-red-400"></div>
+          <div className="flex items-center gap-1.5">
+            <div className="w-2.5 h-2.5 rounded-full bg-red-400"></div>
             <span className="text-xs font-medium text-gray-600 dark:text-gray-400">
               ລາຍຈ່າຍ
             </span>
@@ -63,24 +63,24 @@ const FinancialChart = () => {
         </div>
       </div>
 
-      <div className="h-[300px] w-full">
+      <div className="h-[260px] w-full">
         <ResponsiveContainer width="100%" height="100%">
           <AreaChart
             data={data}
             margin={{
-              top: 10,
-              right: 30,
-              left: 0,
+              top: 5,
+              right: 15,
+              left: -15,
               bottom: 0,
             }}
           >
             <defs>
               <linearGradient id="colorRevenue" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="#14b8a6" stopOpacity={0.1} />
+                <stop offset="5%" stopColor="#14b8a6" stopOpacity={0.15} />
                 <stop offset="95%" stopColor="#14b8a6" stopOpacity={0} />
               </linearGradient>
               <linearGradient id="colorExpenses" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="#f87171" stopOpacity={0.1} />
+                <stop offset="5%" stopColor="#f87171" stopOpacity={0.15} />
                 <stop offset="95%" stopColor="#f87171" stopOpacity={0} />
               </linearGradient>
             </defs>
@@ -94,28 +94,29 @@ const FinancialChart = () => {
               dataKey="name"
               axisLine={false}
               tickLine={false}
-              tick={{ fill: "#94a3b8", fontSize: 12 }}
-              dy={10}
+              tick={{ fill: "#94a3b8", fontSize: 11 }}
+              dy={8}
             />
             <YAxis
               axisLine={false}
               tickLine={false}
-              tick={{ fill: "#94a3b8", fontSize: 12 }}
+              tick={{ fill: "#94a3b8", fontSize: 11 }}
               tickFormatter={(value) => `$${value}`}
             />
             <Tooltip
               contentStyle={{
-                borderRadius: "12px",
+                borderRadius: "10px",
                 border: "none",
-                boxShadow: "0 10px 15px -3px rgb(0 0 0 / 0.1)",
-                padding: "12px",
+                fontSize: "12px",
+                boxShadow: "0 4px 6px -1px rgb(0 0 0 / 0.1)",
+                padding: "8px 12px",
               }}
             />
             <Area
               type="monotone"
               dataKey="revenue"
               stroke="#14b8a6"
-              strokeWidth={3}
+              strokeWidth={2.5}
               fillOpacity={1}
               fill="url(#colorRevenue)"
             />
@@ -123,7 +124,7 @@ const FinancialChart = () => {
               type="monotone"
               dataKey="expenses"
               stroke="#f87171"
-              strokeWidth={3}
+              strokeWidth={2.5}
               fillOpacity={1}
               fill="url(#colorExpenses)"
             />
