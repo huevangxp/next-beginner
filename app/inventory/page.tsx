@@ -337,9 +337,11 @@ const InventoryPage = () => {
                       <button className="p-1.5 text-gray-400 hover:text-teal-600 hover:bg-teal-50 dark:hover:bg-teal-900/20 rounded-lg transition-all cursor-pointer">
                         <History className="w-3.5 h-3.5" />
                       </button>
-                      <button className="p-1.5 text-gray-400 hover:text-teal-600 hover:bg-teal-50 dark:hover:bg-teal-900/20 rounded-lg transition-all cursor-pointer">
-                        <Edit2 className="w-3.5 h-3.5" />
-                      </button>
+                      <Link href={`/inventory/${item.id}/edit`}>
+                        <button className="p-1.5 text-gray-400 hover:text-teal-600 hover:bg-teal-50 dark:hover:bg-teal-900/20 rounded-lg transition-all cursor-pointer" title="ແກ້ໄຂ">
+                          <Edit2 className="w-3.5 h-3.5" />
+                        </button>
+                      </Link>
                     </div>
                   </td>
                 </tr>
