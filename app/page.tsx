@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import {
   TrendingUp,
   Users,
@@ -8,27 +8,24 @@ import {
   DollarSign,
   ArrowUpRight,
   ArrowDownRight,
-  Clock,
-  Plus,
   ArrowRight,
   Sparkles,
-  CheckCircle2,
   Package,
   Layers,
   ChevronRight,
 } from "lucide-react";
 import Link from "next/link";
-
 import FinancialChart from "./components/FinancialChart";
+import Pagination from "./components/Pagination";
 
 const DashboardPage = () => {
   const [mounted, setMounted] = React.useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 4;
 
   React.useEffect(() => {
     setMounted(true);
   }, []);
-
-  if (!mounted) return null;
 
   const stats = [
     {
@@ -127,7 +124,33 @@ const DashboardPage = () => {
       status: "pending",
       statusText: "ລໍຖ້າ",
     },
+    {
+      id: 6,
+      user: "Keomany Chanthavong",
+      action: "ສັ່ງຊື້ລຳໂພງ Bluetooth JBL Flip 6",
+      time: "6 ຊົ່ວໂມງກ່ອນ",
+      amount: "$39.99",
+      status: "completed",
+      statusText: "ສຳເລັດ",
+    },
+    {
+      id: 7,
+      user: "Bounmy Phommachan",
+      action: "ສັ່ງຊື້ເມົາສ໌ເກມມິ່ງ Logitech G Pro X",
+      time: "8 ຊົ່ວໂມງກ່ອນ",
+      amount: "$24.99",
+      status: "completed",
+      statusText: "ສຳເລັດ",
+    },
   ];
+
+  const totalPages = Math.ceil(recentActivity.length / itemsPerPage);
+  const paginatedActivity = recentActivity.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
+
+  if (!mounted) return null;
 
   return (
     <div className="space-y-6">
@@ -140,39 +163,44 @@ const DashboardPage = () => {
             </div>
           </div>
           <div>
-            <h1 className="text-xl sm:text-2xl font-black text-gray-900 dark:text-white tracking-tight">
-              ພາບລວມລະບົບ
+            <h1 className="text-xl sm:text-2xl font-black text-gray-900 dark:text-white tracking-tight flex items-center gap-2">
+              ສະບາຍດີ, ຜູ້ດູແລລະບົບ 👋
             </h1>
-            <p className="text-gray-500 dark:text-gray-400 text-xs sm:text-sm mt-0.5">
-              ຍິນດີຕ້ອນຮັບ, ຜູ້ດູແລລະບົບ! ຂໍ້ມູນ ແລະ ພາບລວມທຸລະກິດປະຈຳວັນ.
+            <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-0.5">
+              ພາບລວມການເຄື່ອນໄຫວ ແລະ ສະຖິຕິປະຈຳວັນຂອງທ່ານ
             </p>
           </div>
         </div>
 
-        <div className="flex items-center gap-2.5 relative z-10">
-          <div className="flex items-center gap-1.5 px-3 py-1.5 bg-gray-50 dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-xl text-xs font-medium text-gray-600 dark:text-gray-300">
-            <Clock className="w-3.5 h-3.5 text-teal-600" />
-            <span>ອັບເດດ: 5 ນາທີກ່ອນ</span>
-          </div>
-          <button className="px-3.5 py-1.5 bg-gradient-to-r from-teal-600 to-teal-700 hover:from-teal-700 hover:to-teal-800 text-white rounded-xl text-xs font-semibold shadow-md shadow-teal-600/20 transition-all active:scale-[0.98] cursor-pointer flex items-center gap-1.5">
-            <span>ດາວໂຫຼດລາຍງານ</span>
-            <ArrowRight className="w-3.5 h-3.5" />
-          </button>
+        <div className="flex items-center gap-3 relative z-10">
+          <Link href="/reports">
+            <button className="flex items-center gap-1.5 px-3.5 py-2 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-xl text-xs sm:text-sm font-semibold hover:bg-gray-200 dark:hover:bg-gray-700 transition-all cursor-pointer">
+              <span>ລາຍງານສະຫຼຸບ</span>
+            </button>
+          </Link>
+          <Link href="/product/create">
+            <button className="flex items-center gap-1.5 px-3.5 py-2 bg-gradient-to-r from-teal-600 to-teal-700 hover:from-teal-700 hover:to-teal-800 text-white rounded-xl text-xs sm:text-sm font-semibold shadow-md shadow-teal-600/20 transition-all active:scale-[0.98] cursor-pointer">
+              <span>+ ເພີ່ມລາຍການໃໝ່</span>
+            </button>
+          </Link>
         </div>
+
+        {/* Decorative background glow */}
+        <div className="absolute right-0 top-0 w-64 h-64 bg-teal-500/5 rounded-full blur-3xl pointer-events-none"></div>
       </div>
 
-      {/* Modern Stats Grid */}
+      {/* KPI Stats Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        {stats.map((stat) => {
+        {stats.map((stat, i) => {
           const Icon = stat.icon;
           return (
             <div
-              key={stat.title}
-              className="bg-white dark:bg-gray-900 p-5 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-lg hover:border-teal-200 dark:hover:border-teal-900/50 transition-all duration-300 group relative overflow-hidden"
+              key={i}
+              className="bg-white dark:bg-gray-900 p-5 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between group"
             >
               <div className="flex items-center justify-between mb-3">
                 <div
-                  className={`w-11 h-11 rounded-xl bg-gradient-to-br ${stat.gradient} flex items-center justify-center text-white shadow-md shadow-teal-900/10 group-hover:scale-105 transition-transform duration-300`}
+                  className={`w-10 h-10 rounded-xl bg-gradient-to-br ${stat.gradient} flex items-center justify-center text-white shadow-md group-hover:scale-105 transition-transform`}
                 >
                   <Icon className="w-5 h-5" />
                 </div>
@@ -249,7 +277,7 @@ const DashboardPage = () => {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-100 dark:divide-gray-800 text-xs sm:text-sm">
-                  {recentActivity.map((activity) => (
+                  {paginatedActivity.map((activity) => (
                     <tr
                       key={activity.id}
                       className="hover:bg-gray-50/70 dark:hover:bg-gray-800/30 transition-colors"
@@ -303,6 +331,16 @@ const DashboardPage = () => {
               </table>
             </div>
           </div>
+
+          {/* Pagination */}
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            totalItems={recentActivity.length}
+            itemsPerPage={itemsPerPage}
+            onPageChange={(page) => setCurrentPage(page)}
+            itemLabel="ກິດຈະກຳ"
+          />
         </div>
 
         {/* Quick Actions & Pro Banner */}
