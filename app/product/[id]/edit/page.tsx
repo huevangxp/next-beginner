@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useRouter, useParams } from "next/navigation";
 import {
   ArrowLeft,
@@ -11,6 +11,8 @@ import {
   Layers,
   FileText,
   Camera,
+  X,
+  Upload,
   Tag,
 } from "lucide-react";
 import Link from "next/link";
@@ -21,6 +23,9 @@ const EditProductPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [isInStock, setIsInStock] = useState(true);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [imageName, setImageName] = useState<string>("");
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const [formData, setFormData] = useState({
     name: "ຫູຟັງໄຮ້ສາຍ Sony WH-1000XM5",
@@ -45,10 +50,30 @@ const EditProductPage = () => {
     }, 1000);
   };
 
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setImageName(file.name);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleRemoveImage = () => {
+    setImagePreview(null);
+    setImageName("");
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+  };
+
   if (!mounted) return null;
 
   return (
-    <div className="max-w-4xl mx-auto space-y-6 animate-in fade-in duration-500">
+    <div className="space-y-6 animate-in fade-in duration-500 pb-8">
       {/* Header */}
       <div className="flex items-center gap-3">
         <Link
@@ -59,10 +84,10 @@ const EditProductPage = () => {
         </Link>
         <div>
           <h1 className="text-2xl font-bold text-gray-900 dark:text-white tracking-tight">
-            ແກ້ໄຂຂໍ້ມູນສິນຄ້າ #{params.id}
+            ແກ້ໄຂຂໍ້ມູນສິນຄ້າ #{params.id} (Edit Product)
           </h1>
           <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-0.5">
-            ອັບເດດລາຍລະອຽດ, ລາຄາ ແລະ ຈຳນວນສະຕັອກສິນຄ້າ
+            ອັບເດດລາຍລະອຽດ, ຮູບພາບ, ລາຄາ ແລະ ຈຳນວນສະຕັອກສິນຄ້າ
           </p>
         </div>
       </div>
@@ -70,27 +95,61 @@ const EditProductPage = () => {
       {/* Main Form Card */}
       <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-gray-100 dark:border-slate-800 overflow-hidden card-3d">
         <form onSubmit={handleSubmit} className="p-6 sm:p-8 space-y-6">
-          {/* Image Section */}
-          <div className="flex flex-col items-center justify-center space-y-3 pb-2">
-            <div className="relative group">
-              <div className="w-24 h-24 rounded-2xl bg-gradient-to-br from-teal-500 to-teal-700 flex items-center justify-center text-white shadow-lg shadow-teal-500/20 icon-3d">
-                <ShoppingBag className="w-10 h-10" />
+          {/* Product Image Upload Section with Local File Selection */}
+          <div className="p-5 bg-gray-50/60 dark:bg-slate-800/40 rounded-2xl border border-dashed border-gray-200 dark:border-slate-700 flex flex-col items-center justify-center space-y-3">
+            <input
+              ref={fileInputRef}
+              type="file"
+              id="product-image-edit-upload"
+              className="hidden"
+              onChange={handleImageChange}
+              accept="image/*"
+            />
+
+            {imagePreview ? (
+              <div className="relative group flex flex-col items-center">
+                <div className="w-36 h-36 rounded-2xl border-2 border-teal-500 shadow-xl overflow-hidden bg-slate-900">
+                  <img
+                    src={imagePreview}
+                    alt="Preview"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
+                <button
+                  type="button"
+                  onClick={handleRemoveImage}
+                  className="absolute -top-2 -right-2 p-1.5 bg-rose-500 hover:bg-rose-600 text-white rounded-full shadow-lg transition-all cursor-pointer"
+                  title="ລຶບຮູບ"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+                <span className="text-xs font-semibold text-teal-600 dark:text-teal-400 mt-2 truncate max-w-xs">
+                  {imageName || "ຮູບພາບໃໝ່ທີ່ເລືອກ"}
+                </span>
+                <button
+                  type="button"
+                  onClick={() => fileInputRef.current?.click()}
+                  className="text-[11px] text-gray-500 hover:text-teal-600 underline mt-1 cursor-pointer"
+                >
+                  ປ່ຽນຮູບພາບອື່ນ
+                </button>
               </div>
-              <button
-                type="button"
-                className="absolute bottom-0 right-0 p-1.5 bg-white dark:bg-slate-800 rounded-lg shadow-md border border-gray-200 dark:border-slate-700 text-teal-600 hover:scale-110 transition-transform cursor-pointer"
+            ) : (
+              <div
+                onClick={() => fileInputRef.current?.click()}
+                className="flex flex-col items-center justify-center p-4 text-center cursor-pointer hover:bg-teal-50/50 dark:hover:bg-teal-950/20 rounded-xl transition-all w-full max-w-md"
               >
-                <Camera className="w-3.5 h-3.5" />
-              </button>
-            </div>
-            <div className="text-center">
-              <p className="text-xs font-semibold text-gray-700 dark:text-gray-300">
-                ຮູບພາບສິນຄ້າ
-              </p>
-              <p className="text-[11px] text-gray-400">
-                ຄລິກທີ່ໄອຄອນກ້ອງເພື່ອອັບໂຫຼດຮູບໃໝ່
-              </p>
-            </div>
+                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-teal-500 to-teal-700 flex items-center justify-center text-white shadow-lg shadow-teal-600/30 icon-3d mb-2">
+                  <ShoppingBag className="w-8 h-8" />
+                </div>
+                <p className="text-xs sm:text-sm font-bold text-gray-900 dark:text-white">
+                  ຄລິກເພື່ອປ່ຽນຮູບພາບສິນຄ້າຈາກເຄື່ອງ (Local Files)
+                </p>
+                <p className="text-[11px] text-gray-400 mt-1">
+                  ຮອງຮັບ PNG, JPG, JPEG ຫຼື WebP (ຂະໜາດແນະນຳ 800×800px)
+                </p>
+              </div>
+            )}
           </div>
 
           {/* Form Fields */}
@@ -233,14 +292,14 @@ const EditProductPage = () => {
           <div className="flex items-center gap-3 pt-2">
             <Link
               href="/product"
-              className="flex-1 py-2 bg-gray-100 dark:bg-slate-800 text-gray-700 dark:text-gray-300 rounded-xl text-xs sm:text-sm font-semibold text-center hover:bg-gray-200 dark:hover:bg-slate-700 transition-all cursor-pointer"
+              className="flex-1 py-2.5 bg-gray-100 dark:bg-slate-800 text-gray-700 dark:text-gray-300 rounded-xl text-xs sm:text-sm font-semibold text-center hover:bg-gray-200 dark:hover:bg-slate-700 transition-all cursor-pointer"
             >
               ຍົກເລີກ
             </Link>
             <button
               type="submit"
               disabled={isLoading}
-              className="flex-1 py-2 bg-gradient-to-r from-teal-600 to-teal-700 hover:from-teal-700 hover:to-teal-800 text-white rounded-xl text-xs sm:text-sm font-semibold shadow-md shadow-teal-600/20 btn-3d transition-all flex items-center justify-center gap-1.5 disabled:opacity-70 cursor-pointer"
+              className="flex-1 py-2.5 bg-gradient-to-r from-teal-600 to-teal-700 hover:from-teal-700 hover:to-teal-800 text-white rounded-xl text-xs sm:text-sm font-semibold shadow-md shadow-teal-600/20 btn-3d transition-all flex items-center justify-center gap-1.5 disabled:opacity-70 cursor-pointer"
             >
               {isLoading ? (
                 <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
