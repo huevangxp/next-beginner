@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import Pagination from "../components/Pagination";
+import { ORDERS_MOCK_DATA, ORDER_TABS } from "../constants";
 
 const OrdersPage = () => {
   const [mounted, setMounted] = useState(false);
@@ -27,81 +28,8 @@ const OrdersPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
 
-  const [orderList, setOrderList] = useState([
-    {
-      id: "ORD-001",
-      customer: "ສົມພອນ ໄຊຍະວົງ",
-      phone: "020 5555 6666",
-      address: "ບ້ານ ໂພນສະຫວ່າງ, ເມືອງ ຈັນທະບູລີ, ນະຄອນຫຼວງວຽງຈັນ",
-      date: "2024-12-18",
-      total: 2500000,
-      status: "completed",
-      items: [
-        { name: "iPhone 15 Pro", quantity: 1, price: 15000000 },
-        { name: "AirPods Pro 2", quantity: 1, price: 2500000 },
-      ],
-    },
-    {
-      id: "ORD-002",
-      customer: "ແກ້ວມະນີ ຈັນທະວົງ",
-      phone: "020 7777 8888",
-      address: "ບ້ານ ສີຫອມ, ເມືອງ ສີໂຄດຕະບອງ, ນະຄອນຫຼວງວຽງຈັນ",
-      date: "2024-12-18",
-      total: 1200000,
-      status: "pending",
-      items: [{ name: "Samsung Galaxy S23", quantity: 1, price: 12000000 }],
-    },
-    {
-      id: "ORD-003",
-      customer: "ບຸນມີ ພົມມະຈັນ",
-      phone: "020 9999 0000",
-      address: "ບ້ານ ທາດຫຼວງ, ເມືອງ ໄຊເສດຖາ, ນະຄອນຫຼວງວຽງຈັນ",
-      date: "2024-12-17",
-      total: 450000,
-      status: "processing",
-      items: [{ name: "Case iPhone 15", quantity: 2, price: 225000 }],
-    },
-    {
-      id: "ORD-004",
-      customer: "ວິໄລພອນ ສຸດທິວົງ",
-      phone: "020 2222 3333",
-      address: "ບ້ານ ໜອງບອນ, ເມືອງ ໄຊເສດຖາ, ນະຄອນຫຼວງວຽງຈັນ",
-      date: "2024-12-17",
-      total: 890000,
-      status: "cancelled",
-      items: [{ name: "Power Bank 20000mAh", quantity: 1, price: 890000 }],
-    },
-    {
-      id: "ORD-005",
-      customer: "ດາວວອນ ສຸວັນນະ",
-      phone: "020 3333 4444",
-      address: "ບ້ານ ດົງໂດກ, ເມືອງ ໄຊທານີ, ນະຄອນຫຼວງວຽງຈັນ",
-      date: "2024-12-16",
-      total: 3200000,
-      status: "completed",
-      items: [{ name: "iPad 10th Gen", quantity: 1, price: 3200000 }],
-    },
-    {
-      id: "ORD-006",
-      customer: "ມະນີວັນ ຫຼວງລາດ",
-      phone: "020 8888 1111",
-      address: "ບ້ານ ທ່າເດື່ອ, ເມືອງ ຫາດຊາຍຟອງ, ນະຄອນຫຼວງວຽງຈັນ",
-      date: "2024-12-16",
-      total: 750000,
-      status: "pending",
-      items: [{ name: "Logitech MX Master 3S", quantity: 1, price: 750000 }],
-    },
-    {
-      id: "ORD-007",
-      customer: "ຄຳຫຼ້າ ວົງສາ",
-      phone: "020 4444 9999",
-      address: "ບ້ານ ໂພນທັນ, ເມືອງ ໄຊເສດຖາ, ນະຄອນຫຼວງວຽງຈັນ",
-      date: "2024-12-15",
-      total: 1850000,
-      status: "completed",
-      items: [{ name: "Apple Watch SE", quantity: 1, price: 1850000 }],
-    },
-  ]);
+  const [orderList, setOrderList] = useState(ORDERS_MOCK_DATA);
+  const tabs = ORDER_TABS;
 
   useEffect(() => {
     setMounted(true);
