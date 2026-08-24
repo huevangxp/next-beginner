@@ -11,10 +11,18 @@ import {
   Bell,
   Save,
   Lock,
+  CheckCircle2,
 } from "lucide-react";
 
 const ProfilePage = () => {
   const [activeTab, setActiveTab] = useState("personal");
+  const [saved, setSaved] = useState(false);
+
+  const handleSave = (e: React.FormEvent) => {
+    e.preventDefault();
+    setSaved(true);
+    setTimeout(() => setSaved(false), 2500);
+  };
 
   const tabs = [
     { id: "personal", name: "ຂໍ້ມູນສ່ວນຕົວ", icon: User },
@@ -23,33 +31,33 @@ const ProfilePage = () => {
   ];
 
   return (
-    <div className="max-w-10xl mx-auto space-y-8">
+    <div className="max-w-6xl mx-auto space-y-6 animate-in fade-in duration-500">
       {/* Header */}
       <div>
-        <h1 className="text-3xl font-bold text-gray-800 dark:text-white">
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-white tracking-tight">
           ຈັດການຂໍ້ມູນສ່ວນຕົວ
         </h1>
-        <p className="text-gray-500 dark:text-gray-400 mt-1">
-          ການຈັດການຂໍ້ມູນສ່ວນຕົວຂໍ້ມູນຂອງທ່ານ
+        <p className="text-gray-500 dark:text-gray-400 text-xs sm:text-sm mt-0.5">
+          ປັບປຸງຂໍ້ມູນສ່ວນຕົວ, ອັບເດດຮູບໂປຣໄຟລ໌ ແລະ ຄວາມປອດໄພຂອງບັນຊີ
         </p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 sm:gap-6">
         {/* Sidebar Tabs */}
-        <div className="lg:col-span-1 space-y-2">
+        <div className="lg:col-span-1 space-y-1.5">
           {tabs.map((tab) => {
             const Icon = tab.icon;
             return (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all ${
+                className={`w-full flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
                   activeTab === tab.id
-                    ? "bg-teal-600 text-white shadow-lg shadow-teal-100"
-                    : "text-gray-600 hover:bg-white hover:shadow-sm"
+                    ? "bg-teal-600 text-white shadow-md shadow-teal-600/20"
+                    : "text-gray-600 dark:text-gray-400 hover:bg-white dark:hover:bg-gray-800 bg-gray-50/50 dark:bg-gray-900/50 border border-gray-100 dark:border-gray-800"
                 }`}
               >
-                <Icon className="w-5 h-5" />
+                <Icon className="w-4 h-4" />
                 <span>{tab.name}</span>
               </button>
             );
@@ -57,219 +65,185 @@ const ProfilePage = () => {
         </div>
 
         {/* Main Content Area */}
-        <div className="lg:col-span-3 space-y-6">
+        <div className="lg:col-span-3">
           {activeTab === "personal" && (
-            <div className="bg-white dark:bg-gray-900 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm overflow-hidden animate-in fade-in slide-in-from-right-4 duration-300">
+            <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm overflow-hidden animate-in fade-in duration-300">
               {/* Profile Cover & Avatar */}
-              <div className="h-32 bg-gradient-to-r from-teal-500 to-teal-700 relative">
-                <div className="absolute -bottom-12 left-8">
+              <div className="h-28 bg-gradient-to-r from-teal-700 via-teal-600 to-teal-800 relative">
+                <div className="absolute -bottom-10 left-6">
                   <div className="relative group">
-                    <div className="w-24 h-24 rounded-2xl bg-white dark:bg-gray-800 p-1 shadow-xl">
-                      <div className="w-full h-full rounded-xl bg-gray-100 dark:bg-gray-700 flex items-center justify-center overflow-hidden border border-gray-100 dark:border-gray-700">
-                        <User className="w-12 h-12 text-gray-400 dark:text-gray-500" />
+                    <div className="w-20 h-20 rounded-2xl bg-white dark:bg-gray-800 p-1 shadow-lg">
+                      <div className="w-full h-full rounded-xl bg-gradient-to-br from-teal-500 to-teal-700 flex items-center justify-center overflow-hidden text-white font-bold text-2xl">
+                        A
                       </div>
                     </div>
-                    <button className="absolute bottom-0 right-0 bg-white dark:bg-gray-800 p-2 rounded-lg shadow-lg border border-gray-100 dark:border-gray-700 text-teal-600 hover:scale-110 transition-transform">
-                      <Camera className="w-4 h-4" />
+                    <button className="absolute bottom-0 right-0 bg-white dark:bg-gray-800 p-1.5 rounded-lg shadow-md border border-gray-200 dark:border-gray-700 text-teal-600 hover:scale-110 transition-transform cursor-pointer">
+                      <Camera className="w-3.5 h-3.5" />
                     </button>
                   </div>
                 </div>
               </div>
 
-              <div className="pt-16 p-8 space-y-8">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <label className="text-sm font-bold text-gray-700 dark:text-gray-300 ml-1">
+              <form onSubmit={handleSave} className="pt-14 p-6 space-y-5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="space-y-1.5">
+                    <label className="text-xs font-semibold text-gray-700 dark:text-gray-300">
                       ຊື່ເຕັມ
                     </label>
                     <div className="relative">
-                      <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                      <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
                       <input
                         type="text"
                         defaultValue="Admin User"
-                        className="w-full pl-11 pr-4 py-3 bg-gray-50 dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 outline-none transition-all dark:text-white"
+                        className="w-full pl-9 pr-3 py-2 bg-gray-50 dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700 rounded-xl text-xs sm:text-sm focus:ring-2 focus:ring-teal-500/20 focus:border-teal-600 outline-none transition-all dark:text-white"
                       />
                     </div>
                   </div>
-                  <div className="space-y-2">
-                    <label className="text-sm font-bold text-gray-700 dark:text-gray-300 ml-1">
+                  <div className="space-y-1.5">
+                    <label className="text-xs font-semibold text-gray-700 dark:text-gray-300">
                       ທີ່ຢູ່ອີເມວ
                     </label>
                     <div className="relative">
-                      <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                      <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
                       <input
                         type="email"
                         defaultValue="admin@example.com"
-                        className="w-full pl-11 pr-4 py-3 bg-gray-50 dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 outline-none transition-all dark:text-white"
+                        className="w-full pl-9 pr-3 py-2 bg-gray-50 dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700 rounded-xl text-xs sm:text-sm focus:ring-2 focus:ring-teal-500/20 focus:border-teal-600 outline-none transition-all dark:text-white"
                       />
                     </div>
                   </div>
-                  <div className="space-y-2">
-                    <label className="text-sm font-bold text-gray-700 dark:text-gray-300 ml-1">
+                  <div className="space-y-1.5">
+                    <label className="text-xs font-semibold text-gray-700 dark:text-gray-300">
                       ເບີໂທລະສັບ
                     </label>
                     <div className="relative">
-                      <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                      <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
                       <input
                         type="tel"
-                        defaultValue="+856 20 000-0000"
-                        className="w-full pl-11 pr-4 py-3 bg-gray-50 dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 outline-none transition-all dark:text-white"
+                        defaultValue="+856 20 5555 6666"
+                        className="w-full pl-9 pr-3 py-2 bg-gray-50 dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700 rounded-xl text-xs sm:text-sm focus:ring-2 focus:ring-teal-500/20 focus:border-teal-600 outline-none transition-all dark:text-white"
                       />
                     </div>
                   </div>
-                  <div className="space-y-2">
-                    <label className="text-sm font-bold text-gray-700 dark:text-gray-300 ml-1">
+                  <div className="space-y-1.5">
+                    <label className="text-xs font-semibold text-gray-700 dark:text-gray-300">
                       ທີ່ຢູ່
                     </label>
                     <div className="relative">
-                      <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                      <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
                       <input
                         type="text"
-                        defaultValue="ນະຄອນຫຼວງວຽງຈັນ, ລາວ"
-                        className="w-full pl-11 pr-4 py-3 bg-gray-50 dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 outline-none transition-all dark:text-white"
+                        defaultValue="ນະຄອນຫຼວງວຽງຈັນ, ສປປ ລາວ"
+                        className="w-full pl-9 pr-3 py-2 bg-gray-50 dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700 rounded-xl text-xs sm:text-sm focus:ring-2 focus:ring-teal-500/20 focus:border-teal-600 outline-none transition-all dark:text-white"
                       />
                     </div>
                   </div>
                 </div>
 
-                <div className="space-y-2">
-                  <label className="text-sm font-bold text-gray-700 dark:text-gray-300 ml-1">
-                    ກ່ຽວກັບຂ້ອຍ
-                  </label>
-                  <textarea
-                    rows={4}
-                    defaultValue="ມີຄວາມມັກໃນການສ້າງເວັບໄຊທ໌ທີ່ທັນສະໄໝດ້ວຍ Next.js ແລະ Tailwind CSS."
-                    className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 outline-none transition-all resize-none dark:text-white"
-                  />
-                </div>
-
-                <div className="flex justify-end pt-4">
-                  <button className="flex items-center gap-2 bg-teal-600 text-white px-8 py-3 rounded-xl font-bold hover:bg-teal-700 transition-all shadow-lg shadow-teal-100">
-                    <Save className="w-5 h-5" />
-                    <span>ບັນທຶກການປ່ຽນແປງ</span>
+                <div className="flex items-center gap-3 pt-2">
+                  <button
+                    type="submit"
+                    className="flex items-center gap-1.5 bg-gradient-to-r from-teal-600 to-teal-700 hover:from-teal-700 hover:to-teal-800 text-white px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold shadow-md shadow-teal-600/20 active:scale-[0.98] transition-all cursor-pointer"
+                  >
+                    <Save className="w-4 h-4" />
+                    <span>ບັນທຶກຂໍ້ມູນ</span>
                   </button>
+                  {saved && (
+                    <span className="inline-flex items-center gap-1 text-xs font-semibold text-emerald-600 animate-in fade-in">
+                      <CheckCircle2 className="w-4 h-4" />
+                      ບັນທຶກສຳເລັດແລ້ວ!
+                    </span>
+                  )}
                 </div>
-              </div>
+              </form>
             </div>
           )}
 
           {activeTab === "security" && (
-            <div className="bg-white dark:bg-gray-900 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm p-8 space-y-8 animate-in fade-in slide-in-from-right-4 duration-300">
-              <div>
-                <h3 className="text-xl font-bold text-gray-800 dark:text-white">
-                  ລະຫັດຜ່ານ ແລະ ຄວາມປອດໄພ
-                </h3>
-                <p className="text-gray-500 dark:text-gray-400 text-sm">
-                  ອັບເດດລະຫັດຜ່ານ ແລະ ປົກປ້ອງບັນຊີຂອງທ່ານ.
-                </p>
-              </div>
-
-              <div className="space-y-6 max-w-md">
-                <div className="space-y-2">
-                  <label className="text-sm font-bold text-gray-700 dark:text-gray-300 ml-1">
+            <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm p-6 space-y-4 animate-in fade-in duration-300">
+              <h3 className="text-sm font-bold text-gray-900 dark:text-white">
+                ປ່ຽນລະຫັດຜ່ານ
+              </h3>
+              <div className="space-y-3 max-w-md">
+                <div className="space-y-1.5">
+                  <label className="text-xs font-semibold text-gray-700 dark:text-gray-300">
                     ລະຫັດຜ່ານປັດຈຸບັນ
                   </label>
-                  <div className="relative">
-                    <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-                    <input
-                      type="password"
-                      placeholder="••••••••"
-                      className="w-full pl-11 pr-4 py-3 bg-gray-50 dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 outline-none transition-all dark:text-white"
-                    />
-                  </div>
+                  <input
+                    type="password"
+                    placeholder="••••••••"
+                    className="w-full px-3 py-2 bg-gray-50 dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700 rounded-xl text-xs sm:text-sm focus:ring-2 focus:ring-teal-500/20 focus:border-teal-600 outline-none transition-all dark:text-white"
+                  />
                 </div>
-                <div className="space-y-2">
-                  <label className="text-sm font-bold text-gray-700 dark:text-gray-300 ml-1">
+                <div className="space-y-1.5">
+                  <label className="text-xs font-semibold text-gray-700 dark:text-gray-300">
                     ລະຫັດຜ່ານໃໝ່
                   </label>
-                  <div className="relative">
-                    <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-                    <input
-                      type="password"
-                      placeholder="••••••••"
-                      className="w-full pl-11 pr-4 py-3 bg-gray-50 dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 outline-none transition-all dark:text-white"
-                    />
-                  </div>
+                  <input
+                    type="password"
+                    placeholder="••••••••"
+                    className="w-full px-3 py-2 bg-gray-50 dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700 rounded-xl text-xs sm:text-sm focus:ring-2 focus:ring-teal-500/20 focus:border-teal-600 outline-none transition-all dark:text-white"
+                  />
                 </div>
-                <div className="space-y-2">
-                  <label className="text-sm font-bold text-gray-700 dark:text-gray-300 ml-1">
+                <div className="space-y-1.5">
+                  <label className="text-xs font-semibold text-gray-700 dark:text-gray-300">
                     ຢືນຢັນລະຫັດຜ່ານໃໝ່
                   </label>
-                  <div className="relative">
-                    <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-                    <input
-                      type="password"
-                      placeholder="••••••••"
-                      className="w-full pl-11 pr-4 py-3 bg-gray-50 dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 outline-none transition-all dark:text-white"
-                    />
-                  </div>
+                  <input
+                    type="password"
+                    placeholder="••••••••"
+                    className="w-full px-3 py-2 bg-gray-50 dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700 rounded-xl text-xs sm:text-sm focus:ring-2 focus:ring-teal-500/20 focus:border-teal-600 outline-none transition-all dark:text-white"
+                  />
                 </div>
-                <button className="w-full py-3 bg-gray-900 dark:bg-teal-600 text-white rounded-xl font-bold hover:bg-black dark:hover:bg-teal-700 transition-all">
+                <button
+                  type="button"
+                  className="bg-gradient-to-r from-teal-600 to-teal-700 hover:from-teal-700 hover:to-teal-800 text-white px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold shadow-md shadow-teal-600/20 active:scale-[0.98] transition-all cursor-pointer mt-2"
+                >
                   ອັບເດດລະຫັດຜ່ານ
                 </button>
-              </div>
-
-              <div className="pt-8 border-t border-gray-50 dark:border-gray-800">
-                <div className="flex items-center justify-between p-4 bg-red-50 dark:bg-red-900/10 rounded-2xl border border-red-100 dark:border-red-900/30">
-                  <div>
-                    <h4 className="font-bold text-red-800 dark:text-red-400">
-                      ລຶບບັນຊີ
-                    </h4>
-                    <p className="text-red-600 dark:text-red-500 text-sm">
-                      ເມື່ອທ່ານລຶບບັນຊີແລ້ວ, ຈະບໍ່ສາມາດກູ້ຄືນໄດ້.
-                    </p>
-                  </div>
-                  <button className="px-4 py-2 bg-red-600 text-white rounded-xl text-sm font-bold hover:bg-red-700 transition-all">
-                    ລຶບ
-                  </button>
-                </div>
               </div>
             </div>
           )}
 
           {activeTab === "notifications" && (
-            <div className="bg-white dark:bg-gray-900 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm p-8 animate-in fade-in slide-in-from-right-4 duration-300">
-              <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-6">
+            <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm p-6 space-y-4 animate-in fade-in duration-300">
+              <h3 className="text-sm font-bold text-gray-900 dark:text-white">
                 ການຕັ້ງຄ່າການແຈ້ງເຕືອນ
               </h3>
-              <div className="space-y-4">
+              <div className="space-y-3">
                 {[
                   {
-                    title: "ການແຈ້ງເຕືອນຜ່ານອີເມວ",
-                    desc: "ຮັບລາຍງານປະຈຳອາທິດ ແລະ ການອັບເດດຜ່ານອີເມວ.",
+                    title: "ແຈ້ງເຕືອນເມື່ອມີອໍເດີໃໝ່",
+                    desc: "ສົ່ງການແຈ້ງເຕືອນທັນທີເມື່ອລູກຄ້າສັ່ງຊື້ສິນຄ້າ",
                   },
                   {
-                    title: "ການແຈ້ງເຕືອນແບບ Push",
-                    desc: "ຮັບການແຈ້ງເຕືອນທັນທີໃນຄອມພິວເຕີ ຫຼື ມືຖື.",
+                    title: "ແຈ້ງເຕືອນສິນຄ້າໃກ້ໝົດສະຕັອກ",
+                    desc: "ແຈ້ງເຕືອນເມື່ອສິນຄ້າເຫຼືອຕ່ຳກວ່າລະດັບຂັ້ນຕ່ຳ",
                   },
                   {
-                    title: "ການອັບເດດສິນຄ້າ",
-                    desc: "ຂ່າວສານກ່ຽວກັບຄຸນສົມບັດໃໝ່ ແລະ ການປັບປຸງ.",
-                  },
-                  {
-                    title: "ການແຈ້ງເຕືອນຄວາມປອດໄພ",
-                    desc: "ການແຈ້ງເຕືອນທີ່ສຳຄັນກ່ຽວກັບຄວາມປອດໄພຂອງບັນຊີ.",
+                    title: "ລາຍງານສະຫຼຸບຍອດຂາຍປະຈຳວັນ",
+                    desc: "ສົ່ງອີເມວສະຫຼຸບຍອດຂາຍໃນເວລາ 20:00 ໂມງທຸກໆວັນ",
                   },
                 ].map((item, i) => (
                   <div
                     key={i}
-                    className="flex items-center justify-between p-4 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-2xl transition-colors group"
+                    className="flex items-center justify-between p-3.5 rounded-xl bg-gray-50/60 dark:bg-gray-800/40 border border-gray-100 dark:border-gray-800"
                   >
                     <div>
-                      <h4 className="font-bold text-gray-700 dark:text-gray-300">
+                      <p className="text-xs sm:text-sm font-bold text-gray-900 dark:text-white">
                         {item.title}
-                      </h4>
-                      <p className="text-gray-500 dark:text-gray-400 text-sm">
+                      </p>
+                      <p className="text-[11px] text-gray-500 dark:text-gray-400">
                         {item.desc}
                       </p>
                     </div>
                     <label className="relative inline-flex items-center cursor-pointer">
                       <input
                         type="checkbox"
+                        defaultChecked={i !== 2}
                         className="sr-only peer"
-                        defaultChecked={i % 2 === 0}
                       />
-                      <div className="w-11 h-6 bg-gray-200 dark:bg-gray-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-teal-600"></div>
+                      <div className="w-9 h-5 bg-gray-300 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-teal-600"></div>
                     </label>
                   </div>
                 ))}
