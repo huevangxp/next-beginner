@@ -4,21 +4,18 @@ import React, { useState, useEffect } from "react";
 import {
   ShoppingCart,
   Search,
-  Filter,
-  User,
   Calendar,
-  Package,
-  CheckCircle2,
-  Clock,
-  XCircle,
   ChevronRight,
   X,
+  User,
   Phone,
   MapPin,
   CreditCard,
   Plus,
+  CheckCircle2,
 } from "lucide-react";
 import Link from "next/link";
+import Pagination from "../components/Pagination";
 
 const OrdersPage = () => {
   const [mounted, setMounted] = useState(false);
@@ -26,6 +23,8 @@ const OrdersPage = () => {
   const [selectedOrder, setSelectedOrder] = useState<any>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5;
 
   const [orderList, setOrderList] = useState([
     {
@@ -71,6 +70,36 @@ const OrdersPage = () => {
       status: "cancelled",
       items: [{ name: "Power Bank 20000mAh", quantity: 1, price: 890000 }],
     },
+    {
+      id: "ORD-005",
+      customer: "ດາວວອນ ສຸວັນນະ",
+      phone: "020 3333 4444",
+      address: "ບ້ານ ດົງໂດກ, ເມືອງ ໄຊທານີ, ນະຄອນຫຼວງວຽງຈັນ",
+      date: "2024-12-16",
+      total: 3200000,
+      status: "completed",
+      items: [{ name: "iPad 10th Gen", quantity: 1, price: 3200000 }],
+    },
+    {
+      id: "ORD-006",
+      customer: "ມະນີວັນ ຫຼວງລາດ",
+      phone: "020 8888 1111",
+      address: "ບ້ານ ທ່າເດື່ອ, ເມືອງ ຫາດຊາຍຟອງ, ນະຄອນຫຼວງວຽງຈັນ",
+      date: "2024-12-16",
+      total: 750000,
+      status: "pending",
+      items: [{ name: "Logitech MX Master 3S", quantity: 1, price: 750000 }],
+    },
+    {
+      id: "ORD-007",
+      customer: "ຄຳຫຼ້າ ວົງສາ",
+      phone: "020 4444 9999",
+      address: "ບ້ານ ໂພນທັນ, ເມືອງ ໄຊເສດຖາ, ນະຄອນຫຼວງວຽງຈັນ",
+      date: "2024-12-15",
+      total: 1850000,
+      status: "completed",
+      items: [{ name: "Apple Watch SE", quantity: 1, price: 1850000 }],
+    },
   ]);
 
   useEffect(() => {
@@ -98,6 +127,12 @@ const OrdersPage = () => {
       order.id.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesTab && matchesSearch;
   });
+
+  const totalPages = Math.ceil(filteredOrders.length / itemsPerPage);
+  const paginatedOrders = filteredOrders.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
 
   const tabs = [
     { id: "all", name: "ທັງໝົດ", count: orderList.length },
@@ -152,7 +187,10 @@ const OrdersPage = () => {
           {tabs.map((tab) => (
             <button
               key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
+              onClick={() => {
+                setActiveTab(tab.id);
+                setCurrentPage(1);
+              }}
               className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all flex items-center gap-1.5 cursor-pointer ${
                 activeTab === tab.id
                   ? "bg-white dark:bg-gray-900 text-teal-600 dark:text-teal-400 shadow-sm"
@@ -180,7 +218,10 @@ const OrdersPage = () => {
             type="text"
             placeholder="ຄົ້ນຫາເລກທີ ຫຼື ຊື່ລູກຄ້າ..."
             value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            onChange={(e) => {
+              setSearchQuery(e.target.value);
+              setCurrentPage(1);
+            }}
             className="w-full pl-9 pr-3 py-1.5 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-600 transition-all dark:text-white placeholder:text-gray-400 shadow-sm"
           />
         </div>
@@ -213,7 +254,7 @@ const OrdersPage = () => {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100 dark:divide-gray-800 text-xs sm:text-sm">
-              {filteredOrders.map((order) => (
+              {paginatedOrders.map((order) => (
                 <tr
                   key={order.id}
                   className="hover:bg-gray-50/70 dark:hover:bg-gray-800/30 transition-colors group"
@@ -318,6 +359,16 @@ const OrdersPage = () => {
             </div>
           )}
         </div>
+
+        {/* Pagination */}
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          totalItems={filteredOrders.length}
+          itemsPerPage={itemsPerPage}
+          onPageChange={(page) => setCurrentPage(page)}
+          itemLabel="ລາຍການສັ່ງຊື້"
+        />
       </div>
 
       {/* Order Details Modal */}
